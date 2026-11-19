@@ -1,0 +1,10 @@
+name: lumin_pets
+output:
+  dir: ../app/assets/pets
+logs:
+  file: build/rive.log
+  problems: build/problems.log
+main: "Artboard 1"
+push:
+  projectId: 2060050
+  fileId: 2734785

@@ -1,0 +1,239 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:lumin_app/app/app.dart';
+import 'package:lumin_app/core/clock/clock.dart';
+import 'package:lumin_app/core/providers/core_providers.dart';
+import 'package:lumin_app/features/avatar/domain/avatar_dna.dart';
+import 'package:lumin_app/features/avatar/domain/avatar_mood.dart';
+import 'package:lumin_app/features/avatar/domain/mood_resolver.dart';
+import 'package:lumin_app/features/avatar/presentation/avatar_view.dart';
+import 'package:lumin_app/features/care/domain/care_slot.dart';
+import 'package:lumin_app/features/onboarding/domain/onboarding_draft.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main() {
+  group('Domínio: MoodResolver & AvatarDna (🐛 QA + ⚖️ Tech Lead)', () {
+    test('Respeita a ordem estrita de prioridade de humor do Avatar', () {
+      final now = DateTime(2026, 11, 16, 10, 0);
+
+      // 1. Celebrating nos primeiros 5 segundos sobrepõe qualquer atraso
+      expect(
+        MoodResolver.resolve(
+          now: now,
+          lastCareLoggedAt: now.subtract(const Duration(seconds: 3)),
+          todayFeedSlots: const [(hour: 8, minute: 0, isDone: false)],
+          todayWalkSlots: const [],
+          hasOverdueIntervalTask: true,
+        ),
+        AvatarMood.celebrating,
+      );
+
+      // 2. Hungry quando refeição atrasa > 30 min
+      expect(
+        MoodResolver.resolve(
+          now: now,
+          todayFeedSlots: const [(hour: 8, minute: 0, isDone: false)],
+          todayWalkSlots: const [],
+          hasOverdueIntervalTask: true,
+        ),
+        AvatarMood.hungry,
+      );
+
+      // 3. Worried quando tarefa de intervalo vence hoje
+      expect(
+        MoodResolver.resolve(
+          now: now,
+          todayFeedSlots: const [(hour: 8, minute: 0, isDone: true)],
+          todayWalkSlots: const [],
+          hasOverdueIntervalTask: true,
+        ),
+        AvatarMood.worried,
+      );
+
+      // 4. Bored quando passeio atrasa > 60 min
+      expect(
+        MoodResolver.resolve(
+          now: now,
+          todayFeedSlots: const [(hour: 8, minute: 0, isDone: true)],
+          todayWalkSlots: const [(hour: 8, minute: 30, isDone: false)],
+          hasOverdueIntervalTask: false,
+        ),
+        AvatarMood.bored,
+      );
+
+      // 5. Sleepy entre 22h e 06h sem pendências
+      expect(
+        MoodResolver.resolve(
+          now: DateTime(2026, 11, 16, 23, 15),
+          todayFeedSlots: const [(hour: 8, minute: 0, isDone: true)],
+          todayWalkSlots: const [],
+          hasOverdueIntervalTask: false,
+        ),
+        AvatarMood.sleepy,
+      );
+
+      // 6. Happy por padrão
+      expect(
+        MoodResolver.resolve(
+          now: now,
+          todayFeedSlots: const [(hour: 8, minute: 0, isDone: true)],
+          todayWalkSlots: const [],
+          hasOverdueIntervalTask: false,
+        ),
+        AvatarMood.happy,
+      );
+    });
+
+    test('AvatarDna inclui chave "v" obrigatória para o schema PostgreSQL', () {
+      final dna = AvatarDna.initial(species: PetSpecies.cat);
+      final json = dna.toJson();
+      expect(json.containsKey('v'), isTrue);
+      expect(json['v'], 1);
+      expect(AvatarDna.fromJson(json), equals(dna));
+    });
+
+    test(
+      'OnboardingDraft agenda cuidado esquecível para hoje quando "Não lembro"',
+      () {
+        final now = DateTime(2026, 11, 16, 14, 0);
+        final draft = OnboardingDraft.initial().copyWith(
+          petName: 'Paçoca',
+          forgettableCare: const {
+            ForgettableCareType.fleaTick: LastDoneRecency.dontRemember,
+          },
+        );
+        final payload = draft.toRpcPayload(now: now);
+        final tasks = payload['tasks'] as List<Map<String, Object?>>;
+        final fleaTask = tasks.firstWhere((t) => t['type'] == 'flea_tick');
+        expect(fleaTask['next_due_date'], '2026-11-16');
+      },
+    );
+
+    test('NextSlotResolver retorna o primeiro slot pendente', () {
+      const slots = [
+        CareSlotItem(
+          id: '1',
+          taskId: 't1',
+          slotIndex: 0,
+          kind: CareSlotKind.dailyFeed,
+          title: 'Café',
+          subtitle: '1/2',
+          emoji: '🍖',
+          isDone: true,
+        ),
+        CareSlotItem(
+          id: '2',
+          taskId: 't1',
+          slotIndex: 1,
+          kind: CareSlotKind.dailyFeed,
+          title: 'Jantar',
+          subtitle: '2/2',
+          emoji: '🍖',
+          isDone: false,
+        ),
+      ];
+      expect(NextSlotResolver.resolveNextPending(slots)?.id, '2');
+    });
+  });
+
+  testWidgets('Fluxo completo do Onboarding (Passos 0..6) até a Home', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    final fixedClock = FixedClock(DateTime(2026, 11, 16, 9, 0));
+
+    // Reduz movimento: desliga a respiração em loop do avatar (senão o
+    // pumpAndSettle nunca termina). Também valida o respeito à acessibilidade.
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+          clockProvider.overrideWithValue(fixedClock),
+        ],
+        child: const LuminApp(),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Passo 0: Boas-vindas
+    expect(
+      find.text('Todo pet merece uma família organizada 🐾'),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Começar agora'));
+    await tester.pumpAndSettle();
+
+    // Passo 1: Espécie + Nome do Pet
+    expect(find.text('Quem é o dono do seu coração?'), findsOneWidget);
+    await tester.enterText(find.byType(TextField), 'Paçoca');
+    await tester.pump();
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+
+    // Passo 2: Montador de Avatar
+    expect(find.text('Vamos desenhar o Paçoca!'), findsOneWidget);
+    await tester.tap(find.text('É o Paçoca!'));
+    await tester.pumpAndSettle();
+
+    // Passo 3: Rotina diária
+    expect(find.text('Qual a rotina do Paçoca?'), findsOneWidget);
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+
+    // Passo 4: Cuidados esquecíveis
+    expect(find.text('Os cuidados que todo mundo esquece 😅'), findsOneWidget);
+    await tester.tap(find.text('Salvar e continuar'));
+    await tester.pumpAndSettle();
+
+    // Passo 5: Convite da família
+    expect(find.text('Quem mais cuida do Paçoca?'), findsOneWidget);
+    await tester.tap(find.text('Cuido sozinho(a) por enquanto'));
+    await tester.pumpAndSettle();
+
+    // Passo 6: Pre-prompt de notificações
+    expect(
+      find.text('Quer que eu te avise se o Paçoca ficar com fome?'),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Sim, me avise!'));
+    await tester.pumpAndSettle();
+
+    // Home carregada com as opções no lado esquerdo em ordem sequencial (07:30 -> 08:00 -> 18:30 -> 19:00)
+    expect(find.text('07:30'), findsWidgets);
+    expect(find.text('08:00'), findsOneWidget);
+    expect(find.text('18:30'), findsOneWidget);
+    expect(find.text('19:00'), findsOneWidget);
+    expect(find.textContaining('07:30 • Passear'), findsOneWidget);
+  });
+
+  testWidgets('AvatarView 3D sentado reage ao toque com latido/miado', (
+    WidgetTester tester,
+  ) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: AvatarView(
+            dna: AvatarDna.initial(species: PetSpecies.dog),
+            mood: AvatarMood.happy,
+            size: 180,
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.byType(AvatarView));
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('AU AU! 🐾'), findsOneWidget);
+    await tester.pumpAndSettle();
+  });
+}

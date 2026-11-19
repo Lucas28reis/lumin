@@ -1,0 +1,72 @@
+[18:33:45.864] rive  built (6375 bytes, 58ms, 0 errors, 0 warnings)
+[18:33:45.877] rive  wrote 182 ids into scene.rml
+[18:34:37.679] rive  built (6375 bytes, 50ms, 0 errors, 0 warnings)
+[08:02:15.935] error   scene.rml:512:1  [rml] duplicate id "5:182", first used on line 481; every authored id must be unique
+[08:02:15.935] error   scene.rml:570:1  [rml] duplicate id "5:188", first used on line 484; every authored id must be unique
+[08:02:15.935] error   scene.rml:577:1  [rml] duplicate id "5:190", first used on line 486; every authored id must be unique
+[08:02:15.935] error   scene.rml:628:1  [rml] duplicate id "5:148", first used on line 469; every authored id must be unique
+[08:02:15.935] error   scene.rml:629:1  [rml] duplicate id "5:149", first used on line 470; every authored id must be unique
+[08:02:15.935] error   scene.rml:630:1  [rml] duplicate id "5:150", first used on line 471; every authored id must be unique
+[08:02:15.935] error   scene.rml:786:1  [rml] duplicate id "5:90", first used on line 590; every authored id must be unique
+[08:02:15.935] error   scene.rml:787:1  [rml] duplicate id "5:91", first used on line 591; every authored id must be unique
+[08:02:15.935] rive  build failed (0 bytes, 93ms, 8 errors, 0 warnings)
+[08:03:24.763] rive  verified (0 bytes, 99ms, 0 errors, 0 warnings)
+[08:03:46.971] rive  built (10383 bytes, 100ms, 0 errors, 0 warnings)
+[08:03:46.975] rive  showing CatArtboard [1/2]
+[08:03:46.976] rive  viewport 500x500 @1x
+[08:03:47.343] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_preview.png
+[08:07:11.503] rive  built (10378 bytes, 102ms, 0 errors, 0 warnings)
+[08:07:11.506] rive  showing CatArtboard [1/2]
+[08:07:11.506] rive  viewport 500x500 @1x
+[08:07:11.870] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_preview2.png
+[08:08:57.193] rive  built (10383 bytes, 101ms, 0 errors, 0 warnings)
+[08:08:57.196] rive  showing CatArtboard [1/2]
+[08:08:57.197] rive  viewport 500x500 @1x
+[08:08:57.563] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_preview3.png
+[08:09:54.116] rive  built (10373 bytes, 98ms, 0 errors, 0 warnings)
+[08:09:54.119] rive  showing CatArtboard [1/2]
+[08:09:54.119] rive  viewport 500x500 @1x
+[08:09:54.492] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_preview4.png
+[08:10:42.534] rive  built (10229 bytes, 90ms, 0 errors, 0 warnings)
+[08:10:42.536] rive  showing CatArtboard [1/2]
+[08:10:42.537] rive  viewport 500x500 @1x
+[08:10:42.895] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_preview5.png
+[08:11:49.110] rive  built (10229 bytes, 94ms, 0 errors, 0 warnings)
+[08:11:49.113] rive  showing CatArtboard [1/2]
+[08:11:49.114] rive  viewport 500x500 @1x
+[08:11:49.468] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_preview6.png
+[08:12:32.574] rive  built (10211 bytes, 98ms, 0 errors, 0 warnings)
+[08:12:32.577] rive  showing CatArtboard [1/2]
+[08:12:32.577] rive  viewport 500x500 @1x
+[08:12:32.953] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_preview7.png
+[08:13:23.096] rive  signing 1 scripts…
+[08:13:24.767] rive  signed 1 scripts
+[08:13:24.844] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[08:13:24.852] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pet.riv (24111 bytes, 2580ms, 0 errors, 0 warnings)
+[08:14:02.096] rive  built (10211 bytes, 88ms, 0 errors, 0 warnings)
+[09:20:55.943] rive  built (14475 bytes, 129ms, 0 errors, 0 warnings)
+[09:20:55.946] rive  showing CatArtboard [1/2]
+[09:20:55.947] rive  viewport 500x500 @1x
+[09:20:56.310] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_ref_v1.png
+[09:25:37.202] rive  built (14470 bytes, 138ms, 0 errors, 0 warnings)
+[09:25:37.204] rive  showing CatArtboard [1/2]
+[09:25:37.204] rive  viewport 500x500 @1x
+[09:25:37.448] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_ref_v2.png
+[09:28:07.981] rive  built (14470 bytes, 131ms, 0 errors, 0 warnings)
+[09:28:07.984] rive  showing CatArtboard [1/2]
+[09:28:07.984] rive  viewport 500x500 @1x
+[09:28:08.224] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\39350437-66ec-43d1-b83e-327606c9a923\scratch\cat_ref_v3.png
+[09:29:14.047] rive  built (14470 bytes, 136ms, 0 errors, 0 warnings)
+[09:29:24.471] rive  signing 1 scripts…
+[09:29:26.172] rive  signed 1 scripts
+[09:29:26.271] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[09:29:26.278] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pet.riv (28370 bytes, 2738ms, 0 errors, 0 warnings)
+[10:08:14.047] rive  signing 1 scripts…
+[10:08:15.673] rive  signed 1 scripts
+[10:08:15.776] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[10:08:15.782] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pet.riv (29510 bytes, 2610ms, 0 errors, 0 warnings)
+[11:03:48.358] rive  verified (0 bytes, 164ms, 0 errors, 0 warnings)
+[11:03:50.351] rive  signing 1 scripts…
+[11:03:52.032] rive  signed 1 scripts
+[11:03:52.153] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[11:03:52.162] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pet.riv (30982 bytes, 2724ms, 0 errors, 0 warnings)
