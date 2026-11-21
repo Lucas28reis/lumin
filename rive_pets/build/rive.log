@@ -70,3 +70,249 @@
 [11:03:52.032] rive  signed 1 scripts
 [11:03:52.153] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
 [11:03:52.162] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pet.riv (30982 bytes, 2724ms, 0 errors, 0 warnings)
+[07:23:06.459] rive  verified (0 bytes, 156ms, 0 errors, 0 warnings)
+[07:23:08.179] rive  signing 1 scripts…
+[07:23:09.872] rive  signed 1 scripts
+[07:23:09.987] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[07:23:09.994] rive  published ../app/assets/pets/lumin_pets.riv (31935 bytes, 2689ms, 0 errors, 0 warnings)
+[07:23:23.186] rive  built (18035 bytes, 151ms, 0 errors, 0 warnings)
+[07:23:23.220] rive  wrote 85 ids into scene.rml
+[16:38:07.161] rive  built (18035 bytes, 184ms, 0 errors, 0 warnings)
+[16:38:07.348] rive  showing Artboard 1 [1/2]
+[16:38:07.716] rive  viewport 640x452 @1x
+[16:38:07.717] rive  viewport 500x500 @1x
+[16:38:37.934] rive  built (18035 bytes, 169ms, 0 errors, 0 warnings)
+[16:38:38.066] rive  showing Artboard 1 [1/2]
+[16:38:38.209] rive  viewport 640x452 @1x
+[16:38:38.209] rive  viewport 500x500 @1x
+[16:38:41.155] rive  viewport 504x500 @1x
+[16:38:41.163] rive  viewport 559x500 @1x
+[16:38:41.173] rive  viewport 589x500 @1x
+[16:38:41.194] rive  viewport 636x500 @1x
+[16:38:41.204] rive  viewport 653x500 @1x
+[16:38:41.218] rive  viewport 686x500 @1x
+[16:38:41.228] rive  viewport 703x500 @1x
+[16:38:41.238] rive  viewport 719x500 @1x
+[16:38:41.249] rive  viewport 733x500 @1x
+[16:38:41.272] rive  viewport 780x500 @1x
+[16:38:41.285] rive  viewport 809x500 @1x
+[16:38:41.299] rive  viewport 835x500 @1x
+[16:38:41.326] rive  viewport 847x500 @1x
+[16:38:41.338] rive  viewport 865x500 @1x
+[16:38:41.354] rive  viewport 881x500 @1x
+[16:38:48.672] rive  opening https://rive.app/docs/cli/reference/status-bar#frame
+[17:04:19.498] rive  built (18035 bytes, 226ms, 0 errors, 0 warnings)
+[17:04:19.719] rive  showing Artboard 1 [1/2]
+[17:04:19.941] rive  viewport 640x452 @1x
+[17:04:19.943] rive  viewport 500x500 @1x
+[17:04:25.891] rive  viewport 500x493 @1x
+[17:04:25.956] rive  viewport 498x485 @1x
+[17:04:26.028] rive  viewport 627x627 @1x
+[17:12:37.430] rive  unknown command '', type ? for help
+[17:15:44.557] rive  signing 1 scripts…
+[17:15:46.380] rive  signed 1 scripts
+[17:15:46.493] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[17:15:46.499] rive  published ../app/assets/pets/lumin_pets.riv (31945 bytes, 2823ms, 0 errors, 0 warnings)
+[17:17:19.072] rive  built (18045 bytes, 213ms, 0 errors, 0 warnings)
+[17:17:19.309] rive  showing Artboard 1 [1/2]
+[17:17:19.526] rive  viewport 640x452 @1x
+[17:17:19.529] rive  viewport 500x500 @1x
+[17:17:24.435] rive  opening https://rive.app/account/upgrade?utm_source=cli&utm_medium=status-bar&utm_campaign=cli-upgrade
+[17:25:25.808] rive  built (17975 bytes, 179ms, 0 errors, 0 warnings)
+[17:25:25.826] rive  showing Artboard 1 [1/2]
+[17:25:25.826] rive  viewport 500x500 @1x
+[17:25:27.974] rive  built (17975 bytes, 161ms, 0 errors, 0 warnings)
+[17:25:27.994] rive  showing Artboard 1 [1/2]
+[17:25:27.995] rive  viewport 500x500 @1x
+[17:25:29.843] rive  built (17975 bytes, 160ms, 0 errors, 0 warnings)
+[17:25:29.862] rive  showing Artboard 1 [1/2]
+[17:25:29.862] rive  viewport 500x500 @1x
+[17:25:31.556] rive  built (17975 bytes, 162ms, 0 errors, 0 warnings)
+[17:25:31.616] rive  showing Artboard 1 [1/2]
+[17:25:31.617] rive  viewport 500x500 @1x
+[17:25:33.736] rive  built (17975 bytes, 158ms, 0 errors, 0 warnings)
+[17:25:33.784] rive  showing Artboard 1 [1/2]
+[17:25:33.784] rive  viewport 500x500 @1x
+[17:25:35.450] rive  built (17975 bytes, 158ms, 0 errors, 0 warnings)
+[17:25:35.502] rive  showing Artboard 1 [1/2]
+[17:25:35.503] rive  viewport 500x500 @1x
+[17:25:37.648] rive  built (17975 bytes, 173ms, 0 errors, 0 warnings)
+[17:25:37.685] rive  showing Artboard 1 [1/2]
+[17:25:37.686] rive  viewport 500x500 @1x
+[17:26:00.101] rive  built (17975 bytes, 142ms, 0 errors, 0 warnings)
+[17:26:00.144] rive  showing Artboard 1 [1/2]
+[17:26:00.144] rive  viewport 500x500 @1x
+[17:26:19.197] rive  verified (0 bytes, 152ms, 0 errors, 0 warnings)
+[17:26:19.901] rive  built (17975 bytes, 149ms, 0 errors, 0 warnings)
+[17:26:19.904] rive  showing Artboard 1 [1/2]
+[17:26:19.904] rive  viewport 500x500 @1x
+[17:26:20.425] rive  wrote C:\Users\Crrea\.gemini\antigravity\brain\cd30241b-7ed0-4672-a538-e89df833248f\scratch\dog_fixed.png
+[17:26:22.307] rive  signing 1 scripts…
+[17:26:24.062] rive  signed 1 scripts
+[17:26:24.183] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[17:26:24.191] rive  published ../app/assets/pets/lumin_pets.riv (31875 bytes, 2792ms, 0 errors, 0 warnings)
+[17:26:24.471] rive  built (17975 bytes, 173ms, 0 errors, 0 warnings)
+[17:27:17.465] rive  built (17975 bytes, 134ms, 0 errors, 0 warnings)
+[17:27:17.483] rive  showing Artboard 1 [1/2]
+[17:27:17.483] rive  viewport 500x500 @1x
+[17:27:28.893] rive  opening https://rive.app/docs/cli/reference/status-bar#advance
+[17:31:01.040] rive  unknown command 'r', type ? for help
+[17:31:05.740] rive  unknown command 'exite', type ? for help
+[17:31:08.163] rive  unknown command 'exit', type ? for help
+[18:12:26.591] rive  verified (0 bytes, 198ms, 0 errors, 0 warnings)
+[22:10:35.023] rive  built (17975 bytes, 191ms, 0 errors, 0 warnings)
+[22:10:35.030] rive  showing Artboard 1 [1/2]
+[22:10:35.030] rive  viewport 500x500 @1x
+[22:10:35.789] rive  wrote C:/Users/Crrea/Documents/lumin/rive_pets/build/baseline.png
+[22:14:58.674] error   scene.rml:511:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:1357:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:2146:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:2989:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:4369:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:5172:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:5990:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:6786:1  [rml] AnimationState has no property "name"
+[22:14:58.677] error   scene.rml:7654:1  [rml] AnimationState has no property "name"
+[22:14:58.677] rive  build failed (0 bytes, 835ms, 9 errors, 0 warnings)
+[22:15:11.439] rive  verified (0 bytes, 976ms, 0 errors, 0 warnings)
+[22:15:13.484] rive  built (101414 bytes, 1188ms, 0 errors, 0 warnings)
+[22:15:13.493] rive  showing Dog_golden [3/9]
+[22:15:13.494] rive  viewport 500x500 @1x
+[22:15:14.286] rive  wrote C:/Users/Crrea/Documents/lumin/rive_pets/build/golden.png
+[22:15:28.680] rive  built (101414 bytes, 846ms, 0 errors, 0 warnings)
+[22:15:28.687] rive  showing Dog_french_bulldog [4/9]
+[22:15:28.687] rive  viewport 500x500 @1x
+[22:15:29.182] rive  wrote C:/Users/Crrea/Documents/lumin/rive_pets/build/french_bulldog.png
+[22:15:30.646] rive  built (101414 bytes, 899ms, 0 errors, 0 warnings)
+[22:15:30.652] rive  showing Dog_poodle [5/9]
+[22:15:30.652] rive  viewport 500x500 @1x
+[22:15:31.316] rive  wrote C:/Users/Crrea/Documents/lumin/rive_pets/build/poodle.png
+[22:15:33.016] rive  built (101414 bytes, 977ms, 0 errors, 0 warnings)
+[22:15:33.023] rive  showing Dog_lhasa_apso [6/9]
+[22:15:33.023] rive  viewport 500x500 @1x
+[22:15:33.555] rive  wrote C:/Users/Crrea/Documents/lumin/rive_pets/build/lhasa_apso.png
+[22:31:10.593] rive  built (101414 bytes, 1045ms, 0 errors, 0 warnings)
+[22:31:10.607] rive  showing CatArtboard [2/9]
+[22:31:10.610] rive  viewport 500x500 @1x
+[22:31:10.901] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\test_cat.png
+[22:32:15.220] rive  verified (0 bytes, 887ms, 0 errors, 0 warnings)
+[22:32:16.614] rive  built (101414 bytes, 896ms, 0 errors, 0 warnings)
+[22:32:16.628] rive  showing Artboard 1 [1/9]
+[22:32:16.631] rive  viewport 500x500 @1x
+[22:32:17.048] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[22:32:18.519] rive  built (101414 bytes, 950ms, 0 errors, 0 warnings)
+[22:32:18.527] rive  showing CatArtboard [2/9]
+[22:32:18.528] rive  viewport 500x500 @1x
+[22:32:18.851] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[22:32:21.641] rive  signing 1 scripts…
+[22:32:23.359] rive  signed 1 scripts
+[22:32:24.106] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[22:32:24.122] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (115310 bytes, 4145ms, 0 errors, 0 warnings)
+[22:36:32.932] rive  verified (0 bytes, 978ms, 0 errors, 0 warnings)
+[22:36:34.310] rive  built (101680 bytes, 859ms, 0 errors, 0 warnings)
+[22:36:34.323] rive  showing Artboard 1 [1/9]
+[22:36:34.326] rive  viewport 500x500 @1x
+[22:36:34.716] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[22:36:36.051] rive  built (101680 bytes, 870ms, 0 errors, 0 warnings)
+[22:36:36.057] rive  showing CatArtboard [2/9]
+[22:36:36.058] rive  viewport 500x500 @1x
+[22:36:36.296] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[22:36:38.919] rive  signing 1 scripts…
+[22:36:40.573] rive  signed 1 scripts
+[22:36:41.117] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[22:36:41.129] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (115576 bytes, 3850ms, 0 errors, 0 warnings)
+[22:36:42.102] rive  built (101680 bytes, 876ms, 0 errors, 0 warnings)
+[22:36:42.300] rive  wrote 9 ids into scene.rml
+[22:37:44.217] rive  verified (0 bytes, 870ms, 0 errors, 0 warnings)
+[22:37:45.561] rive  built (101680 bytes, 912ms, 0 errors, 0 warnings)
+[22:37:45.567] rive  showing Artboard 1 [1/9]
+[22:37:45.567] rive  viewport 500x500 @1x
+[22:37:45.946] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[22:37:47.280] rive  built (101680 bytes, 875ms, 0 errors, 0 warnings)
+[22:37:47.286] rive  showing CatArtboard [2/9]
+[22:37:47.286] rive  viewport 500x500 @1x
+[22:37:47.529] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[22:37:50.047] rive  signing 1 scripts…
+[22:37:51.722] rive  signed 1 scripts
+[22:37:52.263] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[22:37:52.274] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (115576 bytes, 3839ms, 0 errors, 0 warnings)
+[22:37:53.254] rive  built (101680 bytes, 881ms, 0 errors, 0 warnings)
+[22:38:24.652] rive  verified (0 bytes, 865ms, 0 errors, 0 warnings)
+[22:38:25.988] rive  built (101682 bytes, 899ms, 0 errors, 0 warnings)
+[22:38:25.994] rive  showing Artboard 1 [1/9]
+[22:38:25.994] rive  viewport 500x500 @1x
+[22:38:26.372] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[22:38:27.699] rive  built (101682 bytes, 872ms, 0 errors, 0 warnings)
+[22:38:27.705] rive  showing CatArtboard [2/9]
+[22:38:27.706] rive  viewport 500x500 @1x
+[22:38:27.950] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[22:38:30.583] rive  signing 1 scripts…
+[22:38:32.318] rive  signed 1 scripts
+[22:38:32.858] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[22:38:32.869] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (115578 bytes, 4017ms, 0 errors, 0 warnings)
+[22:38:33.825] rive  built (101682 bytes, 860ms, 0 errors, 0 warnings)
+[22:57:03.223] rive  verified (0 bytes, 1021ms, 0 errors, 0 warnings)
+[22:57:04.718] rive  built (102346 bytes, 938ms, 0 errors, 0 warnings)
+[22:57:04.727] rive  showing Artboard 1 [1/9]
+[22:57:04.728] rive  viewport 500x500 @1x
+[22:57:05.131] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[22:57:06.521] rive  built (102346 bytes, 911ms, 0 errors, 0 warnings)
+[22:57:06.529] rive  showing CatArtboard [2/9]
+[22:57:06.529] rive  viewport 500x500 @1x
+[22:57:06.782] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[22:57:09.468] rive  signing 1 scripts…
+[22:57:11.132] rive  signed 1 scripts
+[22:57:11.783] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[22:57:11.805] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (116242 bytes, 4077ms, 0 errors, 0 warnings)
+[22:57:12.905] rive  built (102346 bytes, 945ms, 0 errors, 0 warnings)
+[22:58:15.192] rive  verified (0 bytes, 1235ms, 0 errors, 0 warnings)
+[22:58:31.978] rive  verified (0 bytes, 919ms, 0 errors, 0 warnings)
+[22:58:33.382] rive  built (102341 bytes, 928ms, 0 errors, 0 warnings)
+[22:58:33.389] rive  showing Artboard 1 [1/9]
+[22:58:33.390] rive  viewport 500x500 @1x
+[22:58:33.779] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[22:58:35.215] rive  built (102341 bytes, 953ms, 0 errors, 0 warnings)
+[22:58:35.222] rive  showing CatArtboard [2/9]
+[22:58:35.223] rive  viewport 500x500 @1x
+[22:58:35.473] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[22:58:38.082] rive  signing 1 scripts…
+[22:58:39.758] rive  signed 1 scripts
+[22:58:40.335] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[22:58:40.347] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (116237 bytes, 3949ms, 0 errors, 0 warnings)
+[22:58:41.412] rive  built (102341 bytes, 947ms, 0 errors, 0 warnings)
+[22:59:32.034] rive  verified (0 bytes, 910ms, 0 errors, 0 warnings)
+[22:59:33.383] rive  built (102162 bytes, 920ms, 0 errors, 0 warnings)
+[22:59:33.389] rive  showing Artboard 1 [1/9]
+[22:59:33.390] rive  viewport 500x500 @1x
+[22:59:33.798] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[22:59:35.284] rive  built (102162 bytes, 947ms, 0 errors, 0 warnings)
+[22:59:35.291] rive  showing CatArtboard [2/9]
+[22:59:35.292] rive  viewport 500x500 @1x
+[22:59:35.578] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[22:59:38.492] rive  signing 1 scripts…
+[22:59:40.167] rive  signed 1 scripts
+[22:59:41.074] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[22:59:41.097] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (116058 bytes, 4481ms, 0 errors, 0 warnings)
+[22:59:42.653] rive  built (102162 bytes, 1347ms, 0 errors, 0 warnings)
+[23:00:29.538] rive  verified (0 bytes, 920ms, 0 errors, 0 warnings)
+[23:00:30.954] rive  built (102162 bytes, 929ms, 0 errors, 0 warnings)
+[23:00:30.960] rive  showing Artboard 1 [1/9]
+[23:00:30.961] rive  viewport 500x500 @1x
+[23:00:31.347] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_dog.png
+[23:00:32.697] rive  built (102162 bytes, 880ms, 0 errors, 0 warnings)
+[23:00:32.703] rive  showing CatArtboard [2/9]
+[23:00:32.703] rive  viewport 500x500 @1x
+[23:00:32.968] rive  wrote c:\Users\Crrea\Documents\lumin\rive_pets\build\preview_cat.png
+[23:00:35.550] rive  signing 1 scripts…
+[23:00:37.228] rive  signed 1 scripts
+[23:00:37.778] rive  watermarked: LuminPet is on a plan with the Rive splash screen. Upgrade to publish without it: https://rive.app/pricing?utm_source=cli&utm_medium=watermark&utm_campaign=cli-upgrade
+[23:00:37.790] rive  published c:/Users/Crrea/Documents/lumin/app/assets/pets/lumin_pets.riv (116058 bytes, 3918ms, 0 errors, 0 warnings)
+[23:00:38.785] rive  built (102162 bytes, 895ms, 0 errors, 0 warnings)
+[18:53:42.337] rive  verified (0 bytes, 231ms, 0 errors, 0 warnings)
+[18:58:01.395] rive  built (18813 bytes, 191ms, 0 errors, 0 warnings)
+[18:58:01.401] rive  data: snoutScaleX = 1
+[18:58:01.402] rive  data: snoutScaleY = 1.12
+[18:58:01.402] rive  data: catWhiskersOpacity = 1
+[18:58:01.403] rive  showing CatArtboard [2/2]
+[18:58:01.404] rive  viewport 500x500 @1x
+[18:58:01.779] rive  wrote C:/Users/Crrea/Documents/lumin/rive_pets/build/cat_muzzle_fixed.png

@@ -1,0 +1,1775 @@
+<Rive version="1" kind="fragment">
+    <Artboard defaultStateMachineId="5:7" viewModelId="1:14" viewModelInstanceId="1:15" spaceId="2:1" width="500" height="500" styleId="5:5" x="560" name="CatArtboard" id="5:2">
+        <Node x="260" y="440" name="PetRootRing" id="5:37">
+            <Node x="45" y="-172" name="HeadRig" id="5:177">
+                <Node x="-305" y="-268" name="HeadSpace" id="7:10">
+                    <Node name="Whiskers" id="5:300">
+                        <Shape name="WhiskerTopLeft" id="5:301">
+                            <PointsPath isClockwise="false" id="5:302">
+                                <StraightVertex x="311" y="232" id="5:303"/>
+                                <StraightVertex radius="14" x="288" y="231" id="5:304"/>
+                                <StraightVertex x="266" y="235" id="7:304"/>
+                            </PointsPath>
+                            <Stroke thickness="2.8" cap="round" join="round" id="5:305">
+                                <SolidColor colorValue="FF0D0D0D" id="5:306"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape name="WhiskerBottomLeft" id="5:307">
+                            <PointsPath isClockwise="false" id="5:308">
+                                <StraightVertex x="313" y="237" id="5:309"/>
+                                <StraightVertex radius="14" x="293" y="241" id="5:310"/>
+                                <StraightVertex x="274" y="249" id="7:310"/>
+                            </PointsPath>
+                            <Stroke thickness="2.8" cap="round" join="round" id="5:311">
+                                <SolidColor colorValue="FF0D0D0D" id="5:312"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape name="WhiskerTopRight" id="5:313">
+                            <PointsPath id="5:314">
+                                <StraightVertex x="356" y="231" id="5:315"/>
+                                <StraightVertex radius="14" x="376" y="227" id="5:316"/>
+                                <StraightVertex x="395" y="229" id="7:316"/>
+                            </PointsPath>
+                            <Stroke thickness="2.8" cap="round" join="round" id="5:317">
+                                <SolidColor colorValue="FF0D0D0D" id="5:318"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape name="WhiskerBottomRight" id="5:319">
+                            <PointsPath id="5:320">
+                                <StraightVertex x="357" y="236" id="5:321"/>
+                                <StraightVertex radius="14" x="374" y="237" id="5:322"/>
+                                <StraightVertex x="391" y="242" id="7:322"/>
+                            </PointsPath>
+                            <Stroke thickness="2.8" cap="round" join="round" id="5:323">
+                                <SolidColor colorValue="FF0D0D0D" id="5:324"/>
+                            </Stroke>
+                        </Shape>
+                        <DataBindContext sourcePathIds="1:14-8:19" propertyKey="18" id="0:13026"/>
+                    </Node>
+                    <Node name="Mouth" id="5:169">
+                        <Shape name="MouthLeftArc" id="5:165">
+                            <PointsPath isClockwise="false" id="5:166">
+                                <StraightVertex x="319" y="238" id="7:166"/>
+                                <StraightVertex radius="8" x="328" y="244" id="7:167"/>
+                                <StraightVertex x="336.5" y="233" id="7:168"/>
+                            </PointsPath>
+                            <Stroke thickness="3.2" cap="round" join="round" id="5:170">
+                                <SolidColor colorValue="FF0D0D0D" id="5:171"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape name="MouthRightArc" id="7:170">
+                            <PointsPath isClockwise="false" id="7:171">
+                                <StraightVertex x="336.5" y="233" id="7:172"/>
+                                <StraightVertex radius="8" x="344" y="243" id="7:173"/>
+                                <StraightVertex x="351" y="237" id="7:174"/>
+                            </PointsPath>
+                            <Stroke thickness="3.2" cap="round" join="round" id="7:175">
+                                <SolidColor colorValue="FF0D0D0D" id="7:176"/>
+                            </Stroke>
+                        </Shape>
+                        <DataBindContext sourcePathIds="1:14-8:7" propertyKey="16" id="0:13027"/>
+                    </Node>
+                    <Node name="Nose" id="5:181">
+                        <Shape id="5:70">
+                            <PointsPath isClosed="true" id="5:81">
+                                <StraightVertex radius="3" x="329.5" y="225" id="5:86"/>
+                                <StraightVertex radius="3" x="343.5" y="225" id="5:85"/>
+                                <StraightVertex radius="3" x="336.5" y="233.5" id="5:87"/>
+                            </PointsPath>
+                            <Fill id="5:72">
+                                <SolidColor colorValue="FFD96B63" id="5:73"/>
+                            </Fill>
+                            <Stroke thickness="2.8" cap="round" join="round" id="5:31">
+                                <SolidColor colorValue="FF0D0D0D" id="5:32"/>
+                            </Stroke>
+                        </Shape>
+                    </Node>
+                    <Node name="EyeSpot" id="5:179">
+                        <Shape x="345.5" y="208" name="PupilRight" id="5:157">
+                            <Ellipse width="4" height="6.5" id="5:158"/>
+                            <Fill id="5:159">
+                                <SolidColor colorValue="FFFAF8F8" id="5:160"/>
+                            </Fill>
+                            <DataBindContext sourcePathIds="1:14-8:18" propertyKey="18" id="0:13028"/>
+                        </Shape>
+                        <Shape x="348" y="212.5" name="EyeRight" id="5:161">
+                            <Ellipse width="11.5" height="19" id="5:162"/>
+                            <Fill id="5:163">
+                                <SolidColor colorValue="FF0D0D0D" id="5:164"/>
+                            </Fill>
+                            <DataBindContext sourcePathIds="1:14-8:17" propertyKey="17" id="0:13029"/>
+                            <DataBindContext sourcePathIds="1:14-8:16" propertyKey="16" id="0:13030"/>
+                        </Shape>
+                        <Shape x="305.5" y="207.5" name="PupilLeft" id="5:147">
+                            <Ellipse width="4.1999998" height="6.8000002" id="5:148"/>
+                            <Fill id="5:149">
+                                <SolidColor colorValue="FFFAF8F8" id="5:150"/>
+                            </Fill>
+                            <DataBindContext sourcePathIds="1:14-8:18" propertyKey="18" id="0:13031"/>
+                        </Shape>
+                        <Shape x="308" y="212" name="EyeLeft" id="5:135">
+                            <Ellipse width="12.5" height="20" id="5:136"/>
+                            <Fill id="5:137">
+                                <SolidColor colorValue="FF0D0D0D" id="5:138"/>
+                            </Fill>
+                            <DataBindContext sourcePathIds="1:14-8:17" propertyKey="17" id="0:13032"/>
+                            <DataBindContext sourcePathIds="1:14-8:16" propertyKey="16" id="0:13033"/>
+                        </Shape>
+                    </Node>
+                </Node>
+                <Node x="-42" y="-78" name="EarRig" id="5:182">
+                    <Node x="-263" y="-190" name="LeftEarSpace" id="7:180">
+                        <Shape name="LeftEarInner" id="5:228">
+                            <PointsPath isClosed="true" id="5:232">
+                                <StraightVertex radius="2" x="260" y="197" id="5:256"/>
+                                <StraightVertex radius="3" x="264" y="155" id="5:251"/>
+                                <StraightVertex radius="2" x="285" y="178" id="5:236"/>
+                            </PointsPath>
+                            <Fill id="5:233">
+                                <SolidColor colorValue="FFE89B93" id="5:234"/>
+                            </Fill>
+                            <Stroke thickness="2.5999999" cap="round" join="round" id="7:235">
+                                <SolidColor colorValue="FF0D0D0D" id="7:236"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape name="LeftEarOuterStroke" id="7:257">
+                            <PointsPath isClosed="true" name="null Path 2" id="9:12636">
+                                <StraightVertex radius="4" x="249" y="204" id="9:12637"/>
+                                <CubicDetachedVertex inRotation="1.810028" inDistance="21.100948" outRotation="-1.3597029" outDistance="14.317822" x="252" y="168" id="9:12638"/>
+                                <StraightVertex radius="5" x="261" y="145" id="9:12639"/>
+                                <StraightVertex radius="12" x="276" y="160" id="9:12640"/>
+                                <StraightVertex radius="4" x="291" y="178" id="9:12641"/>
+                            </PointsPath>
+                            <Stroke thickness="2" cap="round" join="round" id="5:248">
+                                <SolidColor colorValue="FF0D0D0D" id="5:249"/>
+                                <TrimPath start="0.69" end="0.02" modeValue="sequential" id="9:12642"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape name="LeftEarOuterFill" id="5:227">
+                            <PointsPath isClosed="true" id="5:231">
+                                <StraightVertex radius="4" x="249" y="204" id="5:255"/>
+                                <CubicDetachedVertex inRotation="1.810028" inDistance="21.100948" outRotation="-1.3597029" outDistance="14.317822" x="252" y="168" id="9:12635"/>
+                                <StraightVertex radius="5" x="261" y="145" id="7:252"/>
+                                <StraightVertex radius="12" x="276" y="160" id="7:253"/>
+                                <StraightVertex radius="4" x="291" y="178" id="7:254"/>
+                            </PointsPath>
+                            <Fill id="5:229">
+                                <SolidColor colorValue="FFF4A258" id="5:230">
+                                    <DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="0:13037"/>
+                                </SolidColor>
+                            </Fill>
+                        </Shape>
+                    </Node>
+                    <DataBindContext sourcePathIds="1:14-8:15" propertyKey="15" id="0:13034"/>
+                    <DataBindContext sourcePathIds="1:14-8:14" propertyKey="17" id="0:13035"/>
+                    <DataBindContext sourcePathIds="1:14-8:13" propertyKey="16" id="0:13036"/>
+                </Node>
+                <Node x="-305" y="-268" name="HeadBase" id="5:178">
+                    <Shape name="HeadOutline" id="7:200">
+                        <PointsPath isClosed="true" name="null Path 2" id="9:12664">
+                            <StraightVertex radius="22" x="286" y="177" id="9:12665"/>
+                            <CubicDetachedVertex inRotation="-3.0548544" inDistance="11.543396" outRotation="0.053156313" outDistance="14.019802" x="315" y="173" id="9:12666"/>
+                            <CubicDetachedVertex inRotation="-2.4775465" inDistance="14.603082" outRotation="0.63413709" outDistance="7.5" x="346" y="184" id="9:12667"/>
+                            <CubicDetachedVertex inRotation="-1.9952446" inDistance="6.1288252" outRotation="1.1463481" outDistance="6.1288252" x="364" y="208" id="9:12668"/>
+                            <CubicDetachedVertex inRotation="-1.5042281" inDistance="7.5166483" outRotation="1.5707964" outDistance="9.5" x="369" y="232" id="9:12669"/>
+                            <CubicDetachedVertex inRotation="-0.51238948" inDistance="9.1787796" outRotation="2.642246" outDistance="12.529964" x="354" y="256" id="9:12670"/>
+                            <CubicDetachedVertex inRotation="-0.072765231" inDistance="9.4107647" outRotation="3.0688274" outDistance="9.4107647" x="318" y="267" id="9:12671"/>
+                            <CubicDetachedVertex inRotation="0.43337947" inDistance="7.6198754" outRotation="-2.7082131" outDistance="7.6198754" x="272" y="260" id="9:12672"/>
+                            <CubicDetachedVertex inRotation="1.0303768" inDistance="11.661903" outRotation="-2.0899425" outDistance="12.093387" x="249" y="240" id="9:12673"/>
+                            <CubicDetachedVertex inRotation="1.6422484" inDistance="5.771698" outRotation="-1.4993442" outDistance="5.771698" x="245" y="216" id="9:12674"/>
+                            <StraightVertex radius="20" x="252" y="194" id="9:12675"/>
+                        </PointsPath>
+                        <Stroke thickness="3" cap="round" join="round" id="7:213">
+                            <SolidColor colorValue="FF0D0D0D" id="7:214"/>
+                        </Stroke>
+                    </Shape>
+                    <Shape name="HeadTabbyStripes" id="7:220">
+                        <PointsPath isClosed="true" id="7:221">
+                            <StraightVertex radius="3" x="286" y="172" id="7:222"/>
+                            <StraightVertex radius="3" x="297" y="172" id="7:223"/>
+                            <StraightVertex radius="3" x="308" y="198" id="7:224"/>
+                            <StraightVertex radius="3" x="302" y="200" id="7:225"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:226">
+                            <StraightVertex radius="3" x="304" y="171" id="7:227"/>
+                            <StraightVertex radius="3" x="314" y="171" id="7:228"/>
+                            <StraightVertex radius="3" x="322" y="198" id="7:229"/>
+                            <StraightVertex radius="3" x="317" y="199" id="7:230"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:231">
+                            <StraightVertex radius="3" x="320" y="173" id="7:232"/>
+                            <StraightVertex radius="3" x="328" y="175" id="7:233"/>
+                            <StraightVertex radius="3" x="334" y="196" id="7:234"/>
+                            <StraightVertex radius="3" x="329" y="197" id="7:237"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:238">
+                            <StraightVertex radius="3" x="242" y="227" id="7:239"/>
+                            <StraightVertex radius="3" x="274" y="222" id="7:240"/>
+                            <StraightVertex radius="3" x="275" y="226" id="7:241"/>
+                            <StraightVertex radius="3" x="244" y="238" id="7:242"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:243">
+                            <StraightVertex radius="3" x="247" y="245" id="7:244"/>
+                            <StraightVertex radius="3" x="274" y="236" id="7:245"/>
+                            <StraightVertex radius="3" x="275" y="240" id="7:246"/>
+                            <StraightVertex radius="3" x="255" y="255" id="7:247"/>
+                        </PointsPath>
+                        <Fill id="7:248">
+                            <SolidColor colorValue="FFC56B27" id="7:249">
+                                <DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="0:13039"/>
+                            </SolidColor>
+                        </Fill>
+                        <ClippingShape sourceId="5:188" id="7:250"/>
+                        <DataBindContext sourcePathIds="1:14-8:6" propertyKey="18" id="0:13038"/>
+                    </Shape>
+                    <Shape name="MuzzleCreamPatch" id="7:260">
+                        <PointsPath isClosed="true" id="7:261">
+                            <StraightVertex radius="14" x="280" y="268" id="7:262"/>
+                            <StraightVertex radius="18" x="298" y="240" id="7:263"/>
+                            <StraightVertex radius="18" x="312" y="224" id="7:264"/>
+                            <StraightVertex radius="18" x="336" y="218" id="7:265"/>
+                            <StraightVertex radius="16" x="358" y="224" id="7:266"/>
+                            <StraightVertex radius="14" x="372" y="236" id="7:267"/>
+                            <StraightVertex radius="14" x="362" y="268" id="7:268"/>
+                        </PointsPath>
+                        <Fill id="7:269">
+                            <SolidColor colorValue="FFFDE3BA" id="7:270">
+                                <DataBindContext sourcePathIds="1:14-8:3" propertyKey="37" id="0:13041"/>
+                            </SolidColor>
+                        </Fill>
+                        <ClippingShape sourceId="5:188" id="7:271"/>
+                        <DataBindContext sourcePathIds="1:14-8:8" propertyKey="17" id="0:13040"/>
+                    </Shape>
+                    <Shape name="HeadBaseFill" id="5:188">
+                        <PointsPath isClosed="true" id="5:173">
+                            <StraightVertex radius="22" x="286" y="177" id="5:174"/>
+                            <CubicDetachedVertex inRotation="-3.0548544" inDistance="11.543396" outRotation="0.053156313" outDistance="14.019802" x="315" y="173" id="9:12643"/>
+                            <CubicDetachedVertex inRotation="-2.4775465" inDistance="14.603082" outRotation="0.63413709" outDistance="7.5" x="346" y="184" id="9:12644"/>
+                            <CubicDetachedVertex inRotation="-1.9952446" inDistance="6.1288252" outRotation="1.1463481" outDistance="6.1288252" x="364" y="208" id="9:12645"/>
+                            <CubicDetachedVertex inRotation="-1.5042281" inDistance="7.5166483" outRotation="1.5707964" outDistance="9.5" x="369" y="232" id="9:12646"/>
+                            <CubicDetachedVertex inRotation="-0.51238948" inDistance="9.1787796" outRotation="2.642246" outDistance="12.529964" x="354" y="256" id="9:12647"/>
+                            <CubicDetachedVertex inRotation="-0.072765231" inDistance="9.4107647" outRotation="3.0688274" outDistance="9.4107647" x="318" y="267" id="9:12651"/>
+                            <CubicDetachedVertex inRotation="0.43337947" inDistance="7.6198754" outRotation="-2.7082131" outDistance="7.6198754" x="272" y="260" id="9:12650"/>
+                            <CubicDetachedVertex inRotation="1.0303768" inDistance="11.661903" outRotation="-2.0899425" outDistance="12.093387" x="249" y="240" id="9:12649"/>
+                            <CubicDetachedVertex inRotation="1.6422484" inDistance="5.771698" outRotation="-1.4993442" outDistance="5.771698" x="245" y="216" id="9:12648"/>
+                            <StraightVertex radius="20" x="252" y="194" id="7:286"/>
+                        </PointsPath>
+                        <Fill id="5:190">
+                            <SolidColor colorValue="FFF4A258" id="5:191">
+                                <DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="0:13042"/>
+                            </SolidColor>
+                        </Fill>
+                    </Shape>
+                    <Shape name="RightEarInner" id="7:290">
+                        <PointsPath isClosed="true" id="7:291">
+                            <StraightVertex radius="2" x="332" y="180" id="7:292"/>
+                            <StraightVertex radius="3" x="350" y="155" id="7:293"/>
+                            <StraightVertex radius="2" x="352" y="193" id="7:294"/>
+                        </PointsPath>
+                        <Fill id="7:295">
+                            <SolidColor colorValue="FFE89B93" id="7:296"/>
+                        </Fill>
+                        <Stroke thickness="2.5999999" cap="round" join="round" id="7:297">
+                            <SolidColor colorValue="FF0D0D0D" id="7:298"/>
+                        </Stroke>
+                    </Shape>
+                    <Shape name="RightEarOuter" id="5:260">
+                        <PointsPath isClosed="true" id="5:261">
+                            <StraightVertex radius="4" x="320" y="178" id="5:262"/>
+                            <StraightVertex radius="12" x="336" y="160" id="7:299"/>
+                            <StraightVertex radius="5" x="352" y="146" id="5:263"/>
+                            <StraightVertex radius="12" x="357" y="170" id="7:300"/>
+                            <StraightVertex radius="4" x="358" y="198" id="5:264"/>
+                        </PointsPath>
+                        <Fill id="5:265">
+                            <SolidColor colorValue="FFF4A258" id="5:266">
+                                <DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="0:13043"/>
+                            </SolidColor>
+                        </Fill>
+                        <Stroke thickness="2" cap="round" join="round" id="5:267">
+                            <SolidColor colorValue="FF0D0D0D" id="5:268"/>
+                        </Stroke>
+                    </Shape>
+                </Node>
+            </Node>
+            <Node x="-260" y="-440" name="FrontHand" id="6:130">
+                <Shape name="LeftPawToes" id="7:400">
+                    <PointsPath id="7:401">
+                        <StraightVertex x="311" y="428" id="7:402"/>
+                        <CubicDetachedVertex inRotation="-1.855988" inDistance="1.9525625" outRotation="1.2856047" outDistance="1.9525625" x="316" y="434" id="7:12872"/>
+                        <StraightVertex x="315" y="442" id="7:404"/>
+                    </PointsPath>
+                    <PointsPath id="7:405">
+                        <StraightVertex x="323" y="426" id="7:406"/>
+                        <CubicDetachedVertex inRotation="-1.8026202" inDistance="1.8027756" outRotation="1.3389726" outDistance="1.8027756" x="327" y="432" id="7:12871"/>
+                        <StraightVertex x="326" y="440" id="7:408"/>
+                    </PointsPath>
+                    <Stroke thickness="3" cap="round" join="round" id="7:409">
+                        <SolidColor colorValue="FF0D0D0D" id="7:410"/>
+                    </Stroke>
+                </Shape>
+                <Shape name="FrontLegLeftOutline" id="7:411">
+                    <PointsPath isClockwise="false" id="7:412">
+                        <StraightVertex x="275" y="346" id="7:413"/>
+                        <StraightVertex radius="16" x="282" y="412" id="7:420"/>
+                        <StraightVertex radius="12" x="290" y="440" id="7:419"/>
+                        <StraightVertex radius="12" x="312" y="443" id="7:418"/>
+                        <StraightVertex radius="10" x="335" y="439" id="7:417"/>
+                        <StraightVertex radius="12" x="334" y="424" id="7:416"/>
+                        <StraightVertex radius="12" x="314" y="416" id="7:415"/>
+                        <StraightVertex x="307" y="346" id="7:414"/>
+                    </PointsPath>
+                    <Stroke thickness="3" cap="round" join="round" id="7:421">
+                        <SolidColor colorValue="FF0D0D0D" id="7:422"/>
+                    </Stroke>
+                </Shape>
+                <Shape name="FrontLegLeftDetails" id="7:424">
+                    <PointsPath isClosed="true" id="7:425">
+                        <StraightVertex radius="3" x="276" y="366" id="7:426"/>
+                        <StraightVertex radius="3" x="308" y="362" id="7:427"/>
+                        <StraightVertex radius="3" x="308" y="369" id="7:428"/>
+                        <StraightVertex radius="3" x="277" y="374" id="7:429"/>
+                    </PointsPath>
+                    <PointsPath isClosed="true" id="7:430">
+                        <StraightVertex radius="3" x="278" y="385" id="7:431"/>
+                        <StraightVertex radius="3" x="310" y="380" id="7:432"/>
+                        <StraightVertex radius="3" x="310" y="388" id="7:433"/>
+                        <StraightVertex radius="3" x="280" y="394" id="7:434"/>
+                    </PointsPath>
+                    <PointsPath isClosed="true" id="7:435">
+                        <StraightVertex radius="3" x="282" y="404" id="7:436"/>
+                        <StraightVertex radius="3" x="312" y="399" id="7:437"/>
+                        <StraightVertex radius="3" x="312" y="406" id="7:438"/>
+                        <StraightVertex radius="3" x="284" y="412" id="7:439"/>
+                    </PointsPath>
+                    <Fill id="7:440">
+                        <SolidColor colorValue="FFC56B27" id="7:441">
+                            <DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="0:13045"/>
+                        </SolidColor>
+                    </Fill>
+                    <ClippingShape sourceId="7:450" id="7:442"/>
+                    <DataBindContext sourcePathIds="1:14-8:6" propertyKey="18" id="0:13044"/>
+                </Shape>
+                <Shape name="FrontLegLeftCreamSock" id="7:443">
+                    <PointsPath isClosed="true" id="7:444">
+                        <StraightVertex radius="10" x="284" y="426" id="7:445"/>
+                        <StraightVertex radius="12" x="312" y="418" id="7:446"/>
+                        <StraightVertex radius="10" x="338" y="422" id="7:447"/>
+                        <StraightVertex radius="6" x="338" y="446" id="7:448"/>
+                        <StraightVertex radius="6" x="284" y="446" id="7:449"/>
+                    </PointsPath>
+                    <Fill id="7:451">
+                        <SolidColor colorValue="FFFDE3BA" id="7:452">
+                            <DataBindContext sourcePathIds="1:14-8:3" propertyKey="37" id="0:13046"/>
+                        </SolidColor>
+                    </Fill>
+                    <ClippingShape sourceId="7:450" id="7:453"/>
+                </Shape>
+                <Shape name="FrontLegLeftFill" id="7:450">
+                    <PointsPath isClosed="true" id="7:454">
+                        <StraightVertex radius="8" x="274" y="340" id="7:455"/>
+                        <StraightVertex radius="8" x="307" y="340" id="7:456"/>
+                        <StraightVertex radius="12" x="314" y="416" id="7:457"/>
+                        <StraightVertex radius="12" x="334" y="424" id="7:458"/>
+                        <StraightVertex radius="10" x="335" y="439" id="7:459"/>
+                        <StraightVertex radius="12" x="312" y="443" id="7:460"/>
+                        <StraightVertex radius="12" x="290" y="440" id="7:461"/>
+                        <StraightVertex radius="16" x="282" y="412" id="7:462"/>
+                    </PointsPath>
+                    <Fill id="7:463">
+                        <SolidColor colorValue="FFF4A258" id="7:464">
+                            <DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="0:13047"/>
+                        </SolidColor>
+                    </Fill>
+                </Shape>
+            </Node>
+            <Node x="-260" y="-440" name="BackHand" id="5:1570">
+                <Shape name="HindHaunchLine" id="7:470">
+                    <PointsPath id="7:471">
+                        <StraightVertex x="216" y="356" id="7:472"/>
+                        <CubicDetachedVertex inRotation="-2.4827867" inDistance="19.602295" outRotation="0.69473827" outDistance="15.6205" x="250" y="362" id="7:12856"/>
+                        <CubicDetachedVertex inRotation="-1.5586036" inDistance="7.6157732" outRotation="1.5707964" outDistance="15" x="262" y="392" id="7:12855"/>
+                        <StraightVertex x="249" y="416.5" id="7:475"/>
+                    </PointsPath>
+                    <Stroke thickness="3" cap="round" join="round" id="7:476">
+                        <SolidColor colorValue="FF0D0D0D" id="7:477"/>
+                    </Stroke>
+                </Shape>
+                <Shape name="HindPawCreamOutline" id="7:490">
+                    <PointsPath id="7:491">
+                        <StraightVertex x="222" y="428" id="7:492"/>
+                        <CubicDetachedVertex inRotation="-3.1415927" inDistance="7.5" outDistance="8" x="252" y="418" id="7:12873"/>
+                        <CubicDetachedVertex inRotation="-2.1768091" inDistance="3.75" outRotation="0.96478349" outDistance="3.75" x="268" y="424" id="7:12883"/>
+                        <StraightVertex radius="10" x="268" y="439" id="7:495"/>
+                        <StraightVertex x="216" y="439" id="7:496"/>
+                    </PointsPath>
+                    <Stroke thickness="3" cap="round" join="round" id="7:487">
+                        <SolidColor colorValue="FF0D0D0D" id="7:488"/>
+                    </Stroke>
+                </Shape>
+                <Shape name="HindPawCreamFill" id="7:478">
+                    <PointsPath isClosed="true" id="7:479">
+                        <StraightVertex radius="8" x="222" y="428" id="7:480"/>
+                        <StraightVertex radius="10" x="252" y="418" id="7:481"/>
+                        <StraightVertex radius="10" x="268" y="424" id="7:482"/>
+                        <StraightVertex radius="10" x="268" y="439" id="7:483"/>
+                        <StraightVertex radius="10" x="220" y="439" id="7:484"/>
+                    </PointsPath>
+                    <Fill id="7:485">
+                        <SolidColor colorValue="FFFDE3BA" id="7:486">
+                            <DataBindContext sourcePathIds="1:14-8:3" propertyKey="37" id="0:13048"/>
+                        </SolidColor>
+                    </Fill>
+                </Shape>
+            </Node>
+            <Node x="-10" y="-90" name="BodyGroup" id="5:24">
+                <Node x="-250" y="-350" name="BodySpace" id="7:500">
+                    <Node name="CollarStrap" id="5:1760">
+                        <Shape id="5:192">
+                            <PointsPath isClosed="true" id="5:193">
+                                <StraightVertex radius="6" x="260" y="254" id="5:197"/>
+                                <StraightVertex radius="18" x="296" y="266" id="5:198"/>
+                                <StraightVertex radius="6" x="336" y="270" id="5:202"/>
+                                <StraightVertex radius="6" x="336" y="284" id="5:203"/>
+                                <StraightVertex radius="18" x="294" y="281" id="5:201"/>
+                                <StraightVertex radius="6" x="255" y="267" id="7:501"/>
+                            </PointsPath>
+                            <Fill id="7:502">
+                                <SolidColor colorValue="FF589686" id="7:503">
+                                    <DataBindContext sourcePathIds="1:14-8:4" propertyKey="37" id="0:13050"/>
+                                </SolidColor>
+                            </Fill>
+                            <Stroke thickness="4.5" cap="round" join="round" id="5:208">
+                                <SolidColor colorValue="FF0D0D0D" id="5:209"/>
+                            </Stroke>
+                        </Shape>
+                        <DataBindContext sourcePathIds="1:14-8:5" propertyKey="18" id="0:13049"/>
+                    </Node>
+                    <Shape name="TorsoOutline" id="5:1100">
+                        <PointsPath isClosed="true" name="Torso 2" id="9:12625">
+                            <CubicDetachedVertex inRotation="2.9156857" inDistance="12.651581" outRotation="-0.22590692" outDistance="12.651581" x="257" y="270" id="9:12626"/>
+                            <CubicDetachedVertex inRotation="-2.3424966" inDistance="25.811819" outRotation="0.8402828" outDistance="12.811128" x="334" y="283" id="9:12627"/>
+                            <CubicDetachedVertex inRotation="-1.3587426" inDistance="11.535272" outRotation="1.78285" outDistance="11.535272" x="339" y="334" id="9:12628"/>
+                            <CubicDetachedVertex inRotation="-1.0590771" inDistance="11.535272" outRotation="2.0825155" outDistance="11.535272" x="316" y="374" id="9:12629"/>
+                            <StraightVertex radius="16" x="282" y="436" id="9:12630"/>
+                            <StraightVertex radius="18" x="196" y="436" id="9:12631"/>
+                            <CubicDetachedVertex inRotation="1.4761131" inDistance="11.63239" outRotation="-1.6654797" outDistance="11.63239" x="179" y="388" id="9:12632"/>
+                            <CubicDetachedVertex inRotation="1.9607022" inDistance="11.63239" outRotation="-1.1808906" outDistance="11.63239" x="186" y="342" id="9:12633"/>
+                            <CubicDetachedVertex inRotation="2.3409376" inDistance="12.651581" outRotation="-0.80065507" outDistance="12.651581" x="218" y="298" id="9:12634"/>
+                        </PointsPath>
+                        <Stroke thickness="3" cap="round" join="round" id="5:1170">
+                            <SolidColor colorValue="FF0D0D0D" id="5:1180"/>
+                        </Stroke>
+                    </Shape>
+                    <Shape name="BackTabbyStripes" id="7:520">
+                        <PointsPath isClosed="true" id="7:521">
+                            <StraightVertex radius="3" x="240" y="278" id="7:522"/>
+                            <StraightVertex radius="3" x="250" y="274" id="7:523"/>
+                            <StraightVertex radius="4" x="269" y="312" id="7:524"/>
+                            <StraightVertex radius="4" x="262" y="315" id="7:525"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:526">
+                            <StraightVertex radius="3" x="216" y="296" id="7:527"/>
+                            <StraightVertex radius="3" x="226" y="290" id="7:528"/>
+                            <StraightVertex radius="4" x="253" y="334" id="7:529"/>
+                            <StraightVertex radius="4" x="246" y="337" id="7:530"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:531">
+                            <StraightVertex radius="3" x="195" y="320" id="7:532"/>
+                            <StraightVertex radius="3" x="204" y="313" id="7:533"/>
+                            <StraightVertex radius="4" x="236" y="352" id="7:534"/>
+                            <StraightVertex radius="4" x="229" y="355" id="7:535"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:536">
+                            <StraightVertex radius="3" x="182" y="348" id="7:537"/>
+                            <StraightVertex radius="3" x="188" y="340" id="7:538"/>
+                            <StraightVertex radius="4" x="216" y="370" id="7:539"/>
+                            <StraightVertex radius="4" x="210" y="373" id="7:540"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:541">
+                            <StraightVertex radius="3" x="176" y="376" id="7:542"/>
+                            <StraightVertex radius="3" x="212" y="389" id="7:543"/>
+                            <StraightVertex radius="3" x="210" y="395" id="7:544"/>
+                            <StraightVertex radius="3" x="176" y="388" id="7:545"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:546">
+                            <StraightVertex radius="3" x="178" y="404" id="7:547"/>
+                            <StraightVertex radius="3" x="209" y="409" id="7:548"/>
+                            <StraightVertex radius="3" x="208" y="415" id="7:549"/>
+                            <StraightVertex radius="3" x="180" y="416" id="7:550"/>
+                        </PointsPath>
+                        <Fill id="7:551">
+                            <SolidColor colorValue="FFC56B27" id="7:552">
+                                <DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="0:13052"/>
+                            </SolidColor>
+                        </Fill>
+                        <ClippingShape sourceId="5:29" id="7:553"/>
+                        <DataBindContext sourcePathIds="1:14-8:6" propertyKey="18" id="0:13051"/>
+                    </Shape>
+                    <Shape name="ChestSpot" id="5:56">
+                        <PointsPath isClosed="true" id="5:57">
+                            <StraightVertex radius="12" x="308" y="282" id="7:560"/>
+                            <StraightVertex radius="14" x="344" y="282" id="7:564"/>
+                            <StraightVertex radius="14" x="344" y="350" id="7:563"/>
+                            <StraightVertex radius="14" x="308" y="376" id="7:562"/>
+                            <StraightVertex radius="18" x="304" y="330" id="7:561"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:565">
+                            <StraightVertex radius="10" x="256" y="376" id="7:566"/>
+                            <StraightVertex radius="10" x="284" y="376" id="7:567"/>
+                            <StraightVertex radius="10" x="288" y="438" id="7:568"/>
+                            <StraightVertex radius="10" x="248" y="438" id="7:569"/>
+                        </PointsPath>
+                        <Fill id="5:58">
+                            <SolidColor colorValue="FFFDE3BA" id="5:59">
+                                <DataBindContext sourcePathIds="1:14-8:3" propertyKey="37" id="0:13053"/>
+                            </SolidColor>
+                        </Fill>
+                        <ClippingShape sourceId="5:29" id="5:61"/>
+                    </Shape>
+                    <Shape name="TorsoBase" id="5:29">
+                        <PointsPath isClosed="true" name="Torso" id="5:42">
+                            <CubicDetachedVertex inRotation="2.9156857" inDistance="12.651581" outRotation="-0.22590692" outDistance="12.651581" x="257" y="270" id="9:12617"/>
+                            <CubicDetachedVertex inRotation="-2.3424966" inDistance="25.811819" outRotation="0.8402828" outDistance="12.811128" x="334" y="283" id="9:12618"/>
+                            <CubicDetachedVertex inRotation="-1.3587426" inDistance="11.535272" outRotation="1.78285" outDistance="11.535272" x="339" y="334" id="9:12619"/>
+                            <CubicDetachedVertex inRotation="-1.0590771" inDistance="11.535272" outRotation="2.0825155" outDistance="11.535272" x="316" y="374" id="9:12620"/>
+                            <StraightVertex radius="16" x="282" y="436" id="7:572"/>
+                            <StraightVertex radius="18" x="196" y="436" id="7:571"/>
+                            <CubicDetachedVertex inRotation="1.4761131" inDistance="11.63239" outRotation="-1.6654797" outDistance="11.63239" x="179" y="388" id="9:12622"/>
+                            <CubicDetachedVertex inRotation="1.9607022" inDistance="11.63239" outRotation="-1.1808906" outDistance="11.63239" x="186" y="342" id="9:12623"/>
+                            <CubicDetachedVertex inRotation="2.3409376" inDistance="12.651581" outRotation="-0.80065507" outDistance="12.651581" x="218" y="298" id="9:12624"/>
+                        </PointsPath>
+                        <Fill id="5:3100">
+                            <SolidColor colorValue="FFF4A258" id="5:3200">
+                                <DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="0:13054"/>
+                            </SolidColor>
+                        </Fill>
+                    </Shape>
+                    <Shape name="RightPawToes" id="7:580">
+                        <PointsPath id="7:581">
+                            <StraightVertex x="344" y="424" id="7:582"/>
+                            <StraightVertex radius="4" x="348" y="430" id="7:583"/>
+                            <StraightVertex x="347" y="437" id="7:584"/>
+                        </PointsPath>
+                        <PointsPath id="7:585">
+                            <StraightVertex x="354" y="422" id="7:586"/>
+                            <StraightVertex radius="4" x="358" y="428" id="7:587"/>
+                            <StraightVertex x="357" y="435" id="7:588"/>
+                        </PointsPath>
+                        <Stroke thickness="3" cap="round" join="round" id="7:589">
+                            <SolidColor colorValue="FF0D0D0D" id="7:590"/>
+                        </Stroke>
+                    </Shape>
+                    <Shape name="FrontLegRightOutline" id="7:591">
+                        <PointsPath id="7:592">
+                            <StraightVertex x="340" y="346" id="7:594"/>
+                            <StraightVertex radius="10" x="348" y="414" id="7:595"/>
+                            <StraightVertex radius="10" x="364" y="422" id="7:596"/>
+                            <StraightVertex radius="8" x="364" y="435" id="7:597"/>
+                            <StraightVertex radius="10" x="328" y="437" id="7:598"/>
+                            <StraightVertex x="314" y="416" id="7:599"/>
+                        </PointsPath>
+                        <Stroke thickness="2" cap="round" join="round" id="7:600">
+                            <SolidColor colorValue="FF0D0D0D" id="7:601"/>
+                        </Stroke>
+                    </Shape>
+                    <Shape name="FrontLegRightStripes" id="7:602">
+                        <PointsPath isClosed="true" id="7:603">
+                            <StraightVertex radius="3" x="318" y="374" id="7:604"/>
+                            <StraightVertex radius="3" x="344" y="370" id="7:605"/>
+                            <StraightVertex radius="3" x="345" y="377" id="7:606"/>
+                            <StraightVertex radius="3" x="318" y="381" id="7:607"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:608">
+                            <StraightVertex radius="3" x="318" y="392" id="7:609"/>
+                            <StraightVertex radius="3" x="346" y="388" id="7:610"/>
+                            <StraightVertex radius="3" x="347" y="395" id="7:611"/>
+                            <StraightVertex radius="3" x="318" y="399" id="7:612"/>
+                        </PointsPath>
+                        <Fill id="7:613">
+                            <SolidColor colorValue="FFC56B27" id="7:614">
+                                <DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="0:13056"/>
+                            </SolidColor>
+                        </Fill>
+                        <ClippingShape sourceId="7:622" id="7:615"/>
+                        <DataBindContext sourcePathIds="1:14-8:6" propertyKey="18" id="0:13055"/>
+                    </Shape>
+                    <Shape name="FrontLegRightCreamSock" id="7:616">
+                        <PointsPath isClosed="true" id="7:617">
+                            <StraightVertex radius="8" x="320" y="418" id="7:618"/>
+                            <StraightVertex radius="8" x="366" y="416" id="7:619"/>
+                            <StraightVertex radius="6" x="366" y="440" id="7:620"/>
+                            <StraightVertex radius="6" x="320" y="440" id="7:621"/>
+                        </PointsPath>
+                        <Fill id="7:623">
+                            <SolidColor colorValue="FFFDE3BA" id="7:624">
+                                <DataBindContext sourcePathIds="1:14-8:3" propertyKey="37" id="0:13057"/>
+                            </SolidColor>
+                        </Fill>
+                        <ClippingShape sourceId="7:622" id="7:625"/>
+                    </Shape>
+                    <Shape name="FrontLegRightFill" id="7:622">
+                        <PointsPath isClosed="true" id="7:626">
+                            <StraightVertex radius="8" x="314" y="356" id="7:627"/>
+                            <StraightVertex radius="8" x="340" y="346" id="7:628"/>
+                            <StraightVertex radius="10" x="348" y="414" id="7:629"/>
+                            <StraightVertex radius="10" x="364" y="422" id="7:630"/>
+                            <StraightVertex radius="8" x="364" y="435" id="7:631"/>
+                            <StraightVertex radius="10" x="328" y="437" id="7:632"/>
+                            <StraightVertex radius="10" x="314" y="416" id="7:633"/>
+                        </PointsPath>
+                        <Fill id="7:634">
+                            <SolidColor colorValue="FFF4A258" id="7:635">
+                                <DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="0:13058"/>
+                            </SolidColor>
+                        </Fill>
+                    </Shape>
+                </Node>
+            </Node>
+            <Node x="-68" y="-28" name="TailRing" id="5:110">
+                <Node x="-192" y="-412" name="TailSpace" id="7:700">
+                    <Shape x="-8.0329283e-07" y="-1.5391214e-07" rotation="-2.663465e-09" name="TailEdgle" id="7:12774">
+                        <PointsPath isClosed="true" name="Outline" id="7:12911">
+                            <StraightVertex radius="10" x="190" y="420" id="7:12912"/>
+                            <CubicDetachedVertex inRotation="0.99093044" inDistance="11.401754" outRotation="-2.1506622" outDistance="11.401754" x="154" y="392" id="7:12913"/>
+                            <CubicDetachedVertex inRotation="1.5893127" inDistance="27.004629" outRotation="-1.4909663" outDistance="25.079872" x="142" y="345" id="7:12914"/>
+                            <CubicDetachedVertex inRotation="1.6730031" inDistance="19.602295" outRotation="-1.6142472" outDistance="23.021729" x="156" y="284" id="7:12915"/>
+                            <CubicDetachedVertex inRotation="1.5042281" inDistance="7.5166483" outRotation="-1.6539376" outDistance="6.0207973" x="130" y="234" id="7:12916"/>
+                            <CubicDetachedVertex inRotation="-3.1415927" inDistance="13" outRotation="0.14707835" outDistance="13.647344" x="145" y="218" id="7:12917"/>
+                            <CubicDetachedVertex inRotation="-1.8622531" inDistance="10.440307" outRotation="1.2242575" outDistance="19.137659" x="176" y="266" id="7:12918"/>
+                            <CubicDetachedVertex inRotation="-1.3415644" inDistance="30.805843" outRotation="1.801887" outDistance="26.196373" x="166" y="336" id="7:12919"/>
+                            <CubicDetachedVertex inRotation="-2.067219" inDistance="13.647344" outRotation="0.95517641" outDistance="25.109758" x="167.5" y="379" id="7:12920"/>
+                            <StraightVertex radius="10" x="196" y="402" id="7:12921"/>
+                        </PointsPath>
+                        <Stroke thickness="3" join="round" id="7:12847">
+                            <SolidColor colorValue="FF0D0D0D" id="7:12848"/>
+                        </Stroke>
+                    </Shape>
+                    <Shape name="TailTabbyRings" id="7:715">
+                        <PointsPath isClosed="true" id="7:716">
+                            <StraightVertex radius="2" x="136" y="248" id="7:717"/>
+                            <StraightVertex radius="2" x="172" y="236" id="7:718"/>
+                            <StraightVertex radius="2" x="175" y="246" id="7:719"/>
+                            <StraightVertex radius="2" x="140" y="258" id="7:720"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:721">
+                            <StraightVertex radius="2" x="148" y="270" id="7:722"/>
+                            <StraightVertex radius="2" x="180" y="264" id="7:723"/>
+                            <StraightVertex radius="2" x="180" y="275" id="7:724"/>
+                            <StraightVertex radius="2" x="150" y="280" id="7:725"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:726">
+                            <StraightVertex radius="2" x="148" y="296" id="7:727"/>
+                            <StraightVertex radius="2" x="178" y="296" id="7:728"/>
+                            <StraightVertex radius="2" x="177" y="306" id="7:729"/>
+                            <StraightVertex radius="2" x="146" y="306" id="7:730"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:731">
+                            <StraightVertex radius="2" x="142" y="322" id="7:732"/>
+                            <StraightVertex radius="2" x="172" y="325" id="7:733"/>
+                            <StraightVertex radius="2" x="171" y="335" id="7:734"/>
+                            <StraightVertex radius="2" x="140" y="332" id="7:735"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:736">
+                            <StraightVertex radius="2" x="140" y="350" id="7:737"/>
+                            <StraightVertex radius="2" x="170" y="354" id="7:738"/>
+                            <StraightVertex radius="2" x="170" y="364" id="7:739"/>
+                            <StraightVertex radius="2" x="142" y="360" id="7:740"/>
+                        </PointsPath>
+                        <PointsPath isClosed="true" id="7:741">
+                            <StraightVertex radius="2" x="148" y="380" id="7:742"/>
+                            <StraightVertex radius="2" x="176" y="374" id="7:743"/>
+                            <StraightVertex radius="2" x="180" y="384" id="7:744"/>
+                            <StraightVertex radius="2" x="154" y="390" id="7:745"/>
+                        </PointsPath>
+                        <Fill id="7:746">
+                            <SolidColor colorValue="FFC56B27" id="7:747">
+                                <DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="0:13060"/>
+                            </SolidColor>
+                        </Fill>
+                        <ClippingShape sourceId="5:117" id="7:748"/>
+                        <DataBindContext sourcePathIds="1:14-8:6" propertyKey="18" id="0:13059"/>
+                    </Shape>
+                    <Shape name="TailBaseFill" id="5:117">
+                        <PointsPath isClosed="true" id="5:118">
+                            <StraightVertex radius="10" x="190" y="420" id="5:2670"/>
+                            <CubicDetachedVertex inRotation="0.99093044" inDistance="11.401754" outRotation="-2.1506622" outDistance="11.401754" x="154" y="392" id="7:12624"/>
+                            <CubicDetachedVertex inRotation="1.5893127" inDistance="27.004629" outRotation="-1.4909663" outDistance="25.079872" x="142" y="345" id="7:12625"/>
+                            <CubicDetachedVertex inRotation="1.6730031" inDistance="19.602295" outRotation="-1.6142472" outDistance="23.021729" x="156" y="284" id="7:12626"/>
+                            <CubicDetachedVertex inRotation="1.5042281" inDistance="7.5166483" outRotation="-1.6539376" outDistance="6.0207973" x="130" y="234" id="7:12629"/>
+                            <CubicDetachedVertex inRotation="-3.1415927" inDistance="13" outRotation="0.14707835" outDistance="13.647344" x="145" y="218" id="7:12628"/>
+                            <CubicDetachedVertex inRotation="-1.8622531" inDistance="10.440307" outRotation="1.2242575" outDistance="19.137659" x="176" y="266" id="7:12627"/>
+                            <CubicDetachedVertex inRotation="-1.3415644" inDistance="30.805843" outRotation="1.801887" outDistance="26.196373" x="166" y="336" id="7:12910"/>
+                            <CubicDetachedVertex inRotation="-2.067219" inDistance="13.647344" outRotation="0.95517641" outDistance="25.109758" x="167.5" y="379" id="7:12623"/>
+                            <StraightVertex radius="10" x="196" y="402" id="7:756"/>
+                        </PointsPath>
+                        <Fill id="7:757">
+                            <SolidColor colorValue="FFF4A258" id="7:758">
+                                <DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="0:13061"/>
+                            </SolidColor>
+                        </Fill>
+                    </Shape>
+                </Node>
+            </Node>
+        </Node>
+        <Shape x="268" y="442" name="GroundShadow" id="5:1780">
+            <Ellipse width="230" height="24" id="5:1790"/>
+            <Fill id="5:1800">
+                <SolidColor colorValue="26000000" id="5:1810"/>
+            </Fill>
+        </Shape>
+        <LayoutComponentStyle id="5:5"/>
+        <LinearAnimation duration="120" loopValue="loop" name="IdleBreathing" id="5:90">
+            <KeyedObject objectId="5:24" id="5:91">
+                <KeyedProperty property="scaleY" id="5:9200">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="5:9300"/>
+                    <KeyFrameDouble value="1.035" interpolationType="linear" frame="60" id="5:1001"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="120" id="5:1052"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="5:110" id="5:9400">
+                <KeyedProperty property="rotation" id="5:9500">
+                    <KeyFrameDouble value="-0.079999998" interpolationType="linear" id="5:9600"/>
+                    <KeyFrameDouble value="0.14" interpolationType="linear" frame="60" id="5:1020"/>
+                    <KeyFrameDouble value="-0.079999998" interpolationType="linear" frame="120" id="5:1062"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="5:177" id="5:9700">
+                <KeyedProperty property="rotation" id="5:9800">
+                    <KeyFrameDouble interpolationType="linear" id="5:9900"/>
+                    <KeyFrameDouble value="-0.059999999" interpolationType="linear" frame="60" id="5:1010"/>
+                    <KeyFrameDouble interpolationType="linear" frame="120" id="5:1042"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="7:12847" id="7:12849">
+                <KeyedProperty property="thickness" id="7:12850">
+                    <KeyFrameDouble value="4" interpolationType="linear" id="7:12851"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="7:12848" id="7:12852">
+                <KeyedProperty property="colorValue" id="7:12853">
+                    <KeyFrameColor value="FF0D0D0D" interpolationType="linear" id="7:12854"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="7:12855" id="7:12857">
+                <KeyedProperty property="inDistance" id="7:12858">
+                    <KeyFrameDouble value="12" interpolationType="linear" id="7:12859"/>
+                </KeyedProperty>
+                <KeyedProperty property="inRotation" id="7:12860">
+                    <KeyFrameDouble value="-1.5707964" interpolationType="linear" id="7:12861"/>
+                </KeyedProperty>
+                <KeyedProperty property="outDistance" id="7:12862">
+                    <KeyFrameDouble value="11.5" interpolationType="linear" id="7:12863"/>
+                </KeyedProperty>
+                <KeyedProperty property="outRotation" id="7:12864">
+                    <KeyFrameDouble value="1.5707964" interpolationType="linear" id="7:12865"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="7:12856" id="7:12866">
+                <KeyedProperty property="inDistance" id="7:12867">
+                    <KeyFrameDouble value="14.916434" interpolationType="linear" id="7:12868"/>
+                </KeyedProperty>
+                <KeyedProperty property="inRotation" id="7:12869">
+                    <KeyFrameDouble value="-2.4511461" interpolationType="linear" id="7:12870"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="7:12873" id="7:12874">
+                <KeyedProperty property="inDistance" id="7:12875">
+                    <KeyFrameDouble value="9" interpolationType="linear" id="7:12876"/>
+                </KeyedProperty>
+                <KeyedProperty property="inRotation" id="7:12877">
+                    <KeyFrameDouble value="-3.1415927" interpolationType="linear" id="7:12878"/>
+                </KeyedProperty>
+                <KeyedProperty property="outDistance" id="7:12879">
+                    <KeyFrameDouble value="10.5" interpolationType="linear" id="7:12880"/>
+                </KeyedProperty>
+                <KeyedProperty property="outRotation" id="7:12881">
+                    <KeyFrameDouble interpolationType="linear" id="7:12882"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="7:12883" id="7:12884">
+                <KeyedProperty property="outDistance" id="7:12885">
+                    <KeyFrameDouble value="8.3216581" interpolationType="linear" id="7:12886"/>
+                </KeyedProperty>
+                <KeyedProperty property="outRotation" id="7:12887">
+                    <KeyFrameDouble value="0.99945885" interpolationType="linear" id="7:12888"/>
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+        <LinearAnimation duration="40" name="BarkJump" id="5:1">
+            <KeyedObject objectId="5:37" id="5:500">
+                <KeyedProperty property="y" id="5:510">
+                    <KeyFrameDouble value="440" interpolationType="linear" id="5:720"/>
+                    <KeyFrameDouble value="408" interpolationType="linear" frame="16" id="5:631"/>
+                    <KeyFrameDouble value="440" interpolationType="linear" frame="28" id="5:681"/>
+                    <KeyFrameDouble value="440" interpolationType="linear" frame="40" id="5:761"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="5:530">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="5:740"/>
+                    <KeyFrameDouble value="1.04" interpolationType="linear" frame="6" id="5:621"/>
+                    <KeyFrameDouble value="0.94" interpolationType="linear" frame="16" id="5:641"/>
+                    <KeyFrameDouble value="1.0599999" interpolationType="linear" frame="28" id="5:691"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="40" id="5:751"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleY" id="5:550">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="5:730"/>
+                    <KeyFrameDouble value="0.92000002" interpolationType="linear" frame="6" id="5:611"/>
+                    <KeyFrameDouble value="1.0700001" interpolationType="linear" frame="16" id="5:651"/>
+                    <KeyFrameDouble value="0.94999999" interpolationType="linear" frame="28" id="5:701"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="40" id="5:771"/>
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+        <StateMachine name="State Machine 1" id="5:7">
+            <StateMachineLayer name="Layer 1" id="5:8">
+                <AnyState x="400" id="5:9"/>
+                <ExitState x="480" id="5:10"/>
+                <EntryState id="5:11">
+                    <StateTransition stateToId="5:12" id="5:13"/>
+                </EntryState>
+                <AnimationState animationId="5:90" x="160" id="5:12">
+                    <StateTransition stateToId="41:10001" id="41:10002">
+                        <TransitionViewModelCondition id="41:10003">
+                            <TransitionPropertyViewModelComparator id="41:10004">
+                                <BindablePropertyTrigger id="0:13083">
+                                    <DataBindContext sourcePathIds="1:14-8:20" propertyKey="686" id="41:10005"/>
+                                </BindablePropertyTrigger>
+                            </TransitionPropertyViewModelComparator>
+                            <TransitionValueTriggerComparator id="41:10006"/>
+                        </TransitionViewModelCondition>
+                    </StateTransition>
+                </AnimationState>
+                <AnimationState animationId="5:1" x="340" y="120" id="41:10001">
+                    <StateTransition stateToId="5:12" enableExitTime="true" exitTimeIsPercetange="true" duration="100" exitTime="100" id="41:10007"/>
+                </AnimationState>
+            </StateMachineLayer>
+        </StateMachine>
+    </Artboard>
+    <Artboard defaultStateMachineId="28:20825" viewModelId="1:14" viewModelInstanceId="1:15" spaceId="2:1" width="500" height="500" styleId="28:20823" x="1134" name="GoldenRoot" isolated="true" id="28:20820">
+        <Node x="196.36111" y="244.87471" name="GoldenRig" id="32:20808">
+            <RootBone x="58.304031" y="-141.56407" length="87.626709" rotation="1.5581387" scaleY="1.0426763" name="BoneEar" id="28:21265">
+                <Shape x="-13.476213" y="-26.507553" rotation="-1.5581386" name="Left" id="28:21131">
+                    <PointsPath isClosed="true" isClockwise="false" id="28:21132">
+                        <CubicDetachedVertex inRotation="0.78539819" inDistance="18.384777" outRotation="3.4173985" outDistance="27.540878" name="Component 2" id="28:21153"/>
+                        <CubicDetachedVertex inRotation="0.78539819" inDistance="18.384777" outRotation="3.4173985" outDistance="27.540878" id="28:21145"/>
+                        <CubicDetachedVertex inRotation="-1.1000881" inDistance="4.1325688" outRotation="1.8925469" outDistance="11.067972" x="-61" y="39" id="28:21148"/>
+                        <CubicAsymmetricVertex rotation="1.2756268" inDistance="3.698385" outDistance="2.7447917" x="-60" y="55.5" id="28:21147"/>
+                        <CubicAsymmetricVertex rotation="1.7088029" inDistance="3.1566801" outDistance="18.172781" x="-57.5" y="54" id="28:21146"/>
+                        <CubicDetachedVertex inRotation="-1.6631256" inDistance="27.115494" outRotation="0.3620874" outDistance="35.288101" x="-30.5" y="100.5" id="28:21142"/>
+                        <CubicDetachedVertex inRotation="1.7561443" inDistance="22.5" outRotation="-1.3854483" outDistance="8.13941" x="-3.5" y="28.5" id="28:21152"/>
+                    </PointsPath>
+                    <Fill fillRule="clockwise" id="28:21133">
+                        <SolidColor colorValue="FFF2BC62" id="28:21134"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:1"/></SolidColor>
+                    </Fill>
+                    <Stroke thickness="3" cap="round" join="round" id="28:21154">
+                        <SolidColor colorValue="FF0D0D0D" id="28:21155"/>
+                        <TrimPath start="0.89999998" end="0.11" modeValue="sequential" id="28:21156"/>
+                    </Stroke>
+                </Shape>
+                <Shape x="65.903214" y="-9.120779" rotation="-1.5575986" scaleX="0.87028617" scaleY="0.90477705" name="shaveL" id="32:20126">
+                    <PointsPath isClosed="true" isClockwise="false" x="-22.823454" y="3.8192375" rotation="6.7363683e-17" scaleY="0.99999881" visibleOverride="true" id="32:20127">
+                        <StraightVertex id="32:20128"/>
+                        <CubicDetachedVertex inRotation="3.0978675" inDistance="9.0017357" outRotation="-0.043725185" outDistance="9.0017357" x="12.5" y="32" id="32:20129"/>
+                        <CubicDetachedVertex inRotation="1.2490457" inDistance="28.460499" outRotation="-1.7774228" outDistance="52.702213" x="43.865326" y="-48.166374" id="32:20130"/>
+                    </PointsPath>
+                    <Fill fillRule="clockwise" id="32:20131">
+                        <SolidColor colorValue="FFD59D4D" id="32:20132"><DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="101:2"/></SolidColor>
+                    </Fill>
+                </Shape>
+            </RootBone>
+            <RootBone x="131.50528" y="-137.12762" length="93.336731" rotation="1.922613" name="BoneHead" id="28:21266">
+                <Node x="41.591373" y="-12.214316" rotation="-1.922613" name="HeadMain" id="28:21060">
+                    <Node x="12.5" y="-6.5" name="Eyes 2" id="32:20471">
+                        <Shape x="20" y="-26.5" rotation="-0.19198622" name="Pupil 2" id="32:20472">
+                            <Ellipse width="4.6200914" height="8.3815918" x="4.2931142e-06" y="-5.9659885e-07" id="32:20473"/>
+                            <Fill fillRule="clockwise" id="32:20474">
+                                <SolidColor colorValue="FFF2EDED" id="32:20475"/>
+                            </Fill>
+                        </Shape>
+                        <Shape x="-23.677593" y="-22.314886" rotation="-0.017967094" name="Pupil" id="32:20476">
+                            <Ellipse width="4.6200914" height="8.3815918" x="4.2931142e-06" y="-5.9659885e-07" id="32:20477"/>
+                            <Fill fillRule="clockwise" id="32:20478">
+                                <SolidColor colorValue="FFF2EDED" id="32:20479"/>
+                            </Fill>
+                        </Shape>
+                        <Shape x="21.5" y="-20.5" name="Right" id="32:20480">
+                            <PointsPath isClosed="true" x="0.25" id="32:20481">
+                                <CubicDetachedVertex inRotation="3.1415927" inDistance="3.4517796" outDistance="3.4517796" x="-1.75" y="-10.5" id="32:20482"/>
+                                <CubicDetachedVertex inRotation="-1.5707964" inDistance="6.3512745" outRotation="1.5707964" outDistance="6.3512745" x="4.25" id="32:20483"/>
+                                <CubicDetachedVertex inRotation="-1.5707964" inDistance="1.5" outRotation="3.1415927" outDistance="3.4517796" x="3.25" y="8" id="32:20484"/>
+                                <CubicDetachedVertex inRotation="1.5707964" inDistance="6.3512745" outRotation="-1.5707964" outDistance="6.3512745" x="-6.25" id="32:20485"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="32:20486">
+                                <SolidColor colorValue="FF0D0D0D" id="32:20487"/>
+                            </Fill>
+                        </Shape>
+                        <Shape x="-24.5" y="-16.5" name="Left" id="32:20488">
+                            <PointsPath isClosed="true" x="0.25" id="32:20489">
+                                <CubicDetachedVertex inRotation="3.1415927" inDistance="3.4517796" outDistance="3.4517796" x="-1.25" y="-12.5" id="32:20490"/>
+                                <CubicDetachedVertex inRotation="-1.5707964" inDistance="6.3512745" outRotation="1.4382448" outDistance="7.5663729" x="6.25" id="32:20491"/>
+                                <CubicDetachedVertex inDistance="3.4517796" outRotation="3.1415927" outDistance="3.4517796" y="11.5" id="32:20492"/>
+                                <CubicDetachedVertex inRotation="1.5707964" inDistance="6.3512745" outRotation="-1.5707964" outDistance="6.3512745" x="-7.25" id="32:20493"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="32:20494">
+                                <SolidColor colorValue="FF0D0D0D" id="32:20495"/>
+                            </Fill>
+                        </Shape>
+                    </Node>
+                    <Node x="12.5" y="-6.5" name="Eyes" id="28:21171">
+                        <Shape x="20" y="-26.5" rotation="-0.19198622" name="Pupil 2" id="28:21194">
+                            <Ellipse width="4.6200914" height="8.3815918" x="4.2931142e-06" y="-5.9659885e-07" id="28:21195"/>
+                            <Fill fillRule="clockwise" id="28:21196">
+                                <SolidColor colorValue="FFF2EDED" id="28:21197"/>
+                            </Fill>
+                        </Shape>
+                        <Shape x="-23.677593" y="-22.314886" rotation="-0.017967094" name="Pupil" id="28:21190">
+                            <Ellipse width="4.6200914" height="8.3815918" x="4.2931142e-06" y="-5.9659885e-07" id="28:21191"/>
+                            <Fill fillRule="clockwise" id="28:21192">
+                                <SolidColor colorValue="FFF2EDED" id="28:21193"/>
+                            </Fill>
+                        </Shape>
+                        <Shape x="21.5" y="-20.5" name="Right" id="28:21176">
+                            <PointsPath isClosed="true" x="0.25" id="28:21180">
+                                <CubicDetachedVertex inRotation="3.1415927" inDistance="3.4517796" outDistance="3.4517796" x="-1.75" y="-10.5" id="28:21181"/>
+                                <CubicDetachedVertex inRotation="-1.5707964" inDistance="6.3512745" outRotation="1.5707964" outDistance="6.3512745" x="4.25" id="28:21182"/>
+                                <CubicDetachedVertex inRotation="-1.5707964" inDistance="1.5" outRotation="3.1415927" outDistance="3.4517796" x="3.25" y="8" id="28:21183"/>
+                                <CubicDetachedVertex inRotation="1.5707964" inDistance="6.3512745" outRotation="-1.5707964" outDistance="6.3512745" x="-6.25" id="28:21184"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21178">
+                                <SolidColor colorValue="FF0D0D0D" id="28:21179"/>
+                            </Fill>
+                        </Shape>
+                        <Shape x="-24.5" y="-16.5" name="Left" id="28:21172">
+                            <PointsPath isClosed="true" x="0.25" id="28:21185">
+                                <CubicDetachedVertex inRotation="3.1415927" inDistance="3.4517796" outDistance="3.4517796" x="-1.25" y="-12.5" id="28:21186"/>
+                                <CubicDetachedVertex inRotation="-1.5707964" inDistance="6.3512745" outRotation="1.4382448" outDistance="7.5663729" x="6.25" id="28:21187"/>
+                                <CubicDetachedVertex inDistance="3.4517796" outRotation="3.1415927" outDistance="3.4517796" y="11.5" id="28:21188"/>
+                                <CubicDetachedVertex inRotation="1.5707964" inDistance="6.3512745" outRotation="-1.5707964" outDistance="6.3512745" x="-7.25" id="28:21189"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21174">
+                                <SolidColor colorValue="FF0D0D0D" id="28:21175"/>
+                            </Fill>
+                        </Shape>
+                    </Node>
+                    <Node x="-11" y="-37" name="ears" isolated="true" id="28:21130">
+                        <Shape x="40" y="-30" name="Right" isolated="true" id="28:21157">
+                            <PointsPath isClosed="true" id="28:21158">
+                                <CubicDetachedVertex inRotation="-5.4734015" inDistance="29" outRotation="-0.24497867" outDistance="16.492422" y="1.5" id="28:21167"/>
+                                <CubicDetachedVertex inRotation="-2.1910458" inDistance="17.204651" outRotation="1.3734008" outDistance="5.0990195" x="33" y="37" id="28:21165"/>
+                                <CubicDetachedVertex inRotation="-0.59638363" inDistance="3.0233467" x="31.5" y="55.5" id="28:21166"/>
+                                <CubicDetachedVertex inRotation="0.34555557" inDistance="3.3213325" outRotation="-1.5707964" outDistance="2" x="19" y="51" id="28:21168"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21159">
+                                <SolidColor colorValue="FFF2BC62" id="28:21160"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:3"/></SolidColor>
+                            </Fill>
+                            <Stroke thickness="3" join="round" id="28:21169">
+                                <SolidColor colorValue="FF0D0D0D" id="28:21170"/>
+                            </Stroke>
+                        </Shape>
+                    </Node>
+                    <Node x="59" y="1" name="Nose" id="28:21106">
+                        <Shape x="-0.5" y="2" rotation="1.0995574" id="28:21107">
+                            <PointsPath isClosed="true" id="28:21111">
+                                <CubicDetachedVertex inRotation="3.1415927" inDistance="6.6673179" outDistance="6.6673179" x="-1.4786177" y="-11.415501" id="28:21115"/>
+                                <CubicDetachedVertex inRotation="-1.0507849" inDistance="6.6673179" outRotation="2.0908077" outDistance="6.6673179" x="14.718597" y="5.2548394" id="28:21117"/>
+                                <CubicDetachedVertex inRotation="1.0507849" inDistance="6.6673179" outRotation="-2.0908077" outDistance="6.6673179" x="-10.129899" y="8.8676291" id="28:21116"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21109">
+                                <SolidColor colorValue="FF913A5F" id="28:21110"/>
+                            </Fill>
+                            <Stroke thickness="2" join="round" id="28:21118">
+                                <SolidColor colorValue="FF0A0909" id="28:21119"/>
+                            </Stroke>
+                        </Shape>
+                    </Node>
+                    <Node x="33" y="25" name="muzzle" id="28:21061">
+                        <Shape x="-1" y="-44" name="Up" id="28:21062">
+                            <PointsPath isClosed="true" id="28:21063">
+                                <StraightVertex x="0.99996585" y="-1.0000052" id="28:21066"/>
+                                <CubicDetachedVertex inRotation="-2.2347748" inDistance="3.4118359" outRotation="0.90681791" outDistance="3.4118359" x="36.5" y="15" id="28:21088"/>
+                                <CubicDetachedVertex inRotation="-1.5180584" inDistance="3.4118359" outRotation="1.4858946" outDistance="23.584953" x="38.5" y="28.5" id="28:21078"/>
+                                <CubicDetachedVertex inRotation="-0.51914608" inDistance="4.0311289" outRotation="3.2834897" outDistance="10.606602" x="28.5" y="59.5" id="28:21087"/>
+                                <StraightVertex x="23.5" y="45" id="28:21074"/>
+                                <CubicDetachedVertex inRotation="-0.059928156" inDistance="25.04496" outRotation="2.9996955" outDistance="10.606602" x="-4" y="65" id="28:21085"/>
+                                <CubicDetachedVertex inRotation="0.58800262" inDistance="28.84441" outRotation="-1.7405314" outDistance="12.260837" x="-49" y="45.5" id="28:21086"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21064">
+                                <SolidColor colorValue="FFF2BC62" id="28:21065"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:4"/></SolidColor>
+                            </Fill>
+                            <Stroke thickness="3" cap="round" join="round" id="28:21100">
+                                <SolidColor colorValue="FF0D0D0D" id="28:21101"/>
+                                <TrimPath start="0.74000001" modeValue="sequential" id="28:21102"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape x="-9.5" y="-27" name="Down" id="28:21089">
+                            <PointsPath isClosed="true" id="28:21090">
+                                <StraightVertex x="10.5" y="38.5" id="28:21091"/>
+                                <CubicDetachedVertex inRotation="-1.5180584" inDistance="3.4118359" outRotation="1.8045396" outDistance="10.793516" x="31.5" y="29" id="28:21093"/>
+                                <CubicDetachedVertex inRotation="-1.7506498" inDistance="5.5901699" outRotation="1.7761917" outDistance="12.25765" x="37" y="42.5" id="28:21094"/>
+                                <CubicDetachedVertex inRotation="-0.059928156" inDistance="25.04496" outRotation="2.9996955" outDistance="10.606602" x="-4" y="65" id="28:21096"/>
+                                <CubicDetachedVertex inRotation="0.58800262" inDistance="28.84441" outRotation="-1.5707964" outDistance="45" x="-49" y="45.5" id="28:21097"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21098">
+                                <SolidColor colorValue="FFF2BC62" id="28:21099"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:5"/></SolidColor>
+                            </Fill>
+                            <Stroke thickness="3" cap="round" join="round" id="28:21103">
+                                <SolidColor colorValue="FF0D0D0D" id="28:21104"/>
+                                <TrimPath start="0.60000002" modeValue="sequential" id="28:21105"/>
+                            </Stroke>
+                        </Shape>
+                    </Node>
+                    <Node x="-12" y="-10" name="Front" id="28:21120">
+                        <Shape x="0.5" y="-4" id="28:21121">
+                            <PointsPath isClosed="true" x="-1.5977901" scaleX="1.0273126" id="28:21125">
+                                <CubicDetachedVertex inRotation="3.1415927" inDistance="31.48023" outRotation="-0.021735707" outDistance="46.010868" x="-2.5" y="-61" id="28:21126"/>
+                                <CubicDetachedVertex inRotation="-1.5707964" inDistance="35.622368" outRotation="1.5707964" outDistance="35.622368" x="58.5" y="-3" id="28:21127"/>
+                                <CubicDetachedVertex inDistance="31.48023" outRotation="3.1415927" outDistance="31.48023" x="-3.5" y="64.5" id="28:21128"/>
+                                <CubicDetachedVertex inRotation="1.5707964" inDistance="35.622368" outRotation="-1.5707964" outDistance="35.622368" x="-63.5" id="28:21129"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21123">
+                                <SolidColor colorValue="FFF2BC62" id="28:21124"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:6"/></SolidColor>
+                            </Fill>
+                        </Shape>
+                    </Node>
+                </Node>
+            </RootBone>
+            <RootBone x="-58.152527" y="135.71342" length="107.8064" rotation="-2.3387413" name="BoneTail" id="28:21264">
+                <Node x="66.789291" y="-1.688853" rotation="2.2101822" name="Tail" id="28:20834">
+                    <Node x="6.5" y="12" scaleX="0.73232269" scaleY="0.76377761" name="TailShave" id="28:21040">
+                        <Shape x="35.5" y="33.5" id="28:21041">
+                            <PointsPath isClosed="true" id="28:21042">
+                                <CubicAsymmetricVertex rotation="0.12309279" inDistance="10.66345" outDistance="21.326899" x="8.8793459" y="11.015553" id="28:21056"/>
+                                <StraightVertex x="15.024178" y="30.000135" id="28:21044"/>
+                                <CubicDetachedVertex inRotation="1.7554263" inDistance="6.6492209" outRotation="-0.045626249" outDistance="14.352879" x="-29.355164" y="22.799086" id="28:21059"/>
+                                <StraightVertex x="-20" y="18" id="28:21046"/>
+                                <CubicDetachedVertex inRotation="1.3521274" inDistance="23.048861" outRotation="0.33324429" outDistance="13.756817" x="-68.955193" y="-17.788643" id="28:21047"/>
+                                <CubicDetachedVertex inRotation="-2.8257403" inDistance="4.7793136" outRotation="1.6108884" outDistance="17.034349" x="-47.106899" y="-16.479361" id="28:21058"/>
+                                <StraightVertex x="-20.479296" y="5.123785" id="28:21052"/>
+                                <CubicAsymmetricVertex inDistance="4.7101989" outDistance="4.0965548" x="-19.796537" y="-4.695827" id="28:21057"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21054">
+                                <SolidColor colorValue="FFEBAE57" id="28:21055"><DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="101:7"/></SolidColor>
+                            </Fill>
+                        </Shape>
+                    </Node>
+                    <Shape x="35.5" y="33.5" id="28:20835">
+                        <PointsPath isClosed="true" id="28:20836">
+                            <CubicMirroredVertex rotation="0.097253196" distance="20.59733" x="9" y="2.5" id="28:20853"/>
+                            <StraightVertex x="10" y="28" id="28:20840"/>
+                            <CubicDetachedVertex inRotation="0.69473827" inDistance="15.6205" outRotation="-0.35299039" outDistance="10.124228" x="-29.5" y="21.5" id="28:20857"/>
+                            <StraightVertex x="-20" y="18" id="28:20843"/>
+                            <CubicDetachedVertex inRotation="1.3521274" inDistance="23.048861" outRotation="0.33324429" outDistance="13.756817" x="-57.5" y="-12.5" id="28:20856"/>
+                            <StraightVertex x="-46" y="-10" id="28:20845"/>
+                            <CubicDetachedVertex inRotation="1.6118691" inDistance="36.530807" outRotation="0.75092906" outDistance="10.259142" x="-66" y="-57.5" id="28:20855"/>
+                            <StraightVertex x="-57.5" y="-50" id="28:20847"/>
+                            <CubicDetachedVertex inRotation="-4.0376482" inDistance="35.217182" outRotation="1.4513674" outDistance="12.589679" x="-47.5" y="-105.5" id="28:20854"/>
+                            <StraightVertex x="-47.5" y="-92.5" id="28:20849"/>
+                            <CubicDetachedVertex inRotation="3.5376742" inDistance="29.807716" outRotation="2.3123977" outDistance="88.82708" x="9" y="-130.5" id="28:20852"/>
+                        </PointsPath>
+                        <Fill fillRule="clockwise" id="28:20837">
+                            <SolidColor colorValue="FFF2BC62" id="28:20838"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:8"/></SolidColor>
+                        </Fill>
+                    </Shape>
+                </Node>
+            </RootBone>
+            <RootBone x="90.468262" y="-22.889282" length="189.86848" rotation="2.1312532" name="BoneShape" id="28:21267">
+                <Node x="75.060394" y="-8.3478794" rotation="-2.1312532" scaleX="0.98890889" name="Shape" id="28:20858">
+                    <Node x="59" y="-33.5" name="Shaves" isolated="true" id="28:21198">
+                        <Shape x="-7" y="-55" name="mouth" id="28:21247">
+                            <PointsPath isClockwise="false" id="28:21248">
+                                <StraightVertex x="-4" id="28:21251"/>
+                                <CubicDetachedVertex inRotation="-3.0535004" inDistance="6.7546282" outRotation="0.1864869" outDistance="26.967573" x="32.5" y="33.5" id="28:21254"/>
+                                <StraightVertex x="47" y="13" id="28:21253"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:21249">
+                                <SolidColor colorValue="FFD59D4D" id="28:21250"><DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="101:9"/></SolidColor>
+                            </Fill>
+                        </Shape>
+                        <Shape x="-35" y="-38.5" name="chestB" id="28:21206">
+                            <PointsPath isClockwise="false" id="28:21207">
+                                <StraightVertex id="28:21210"/>
+                                <CubicDetachedVertex inRotation="4.0861278" inDistance="29.004311" outRotation="-1.5707964" outDistance="13.5" x="10.5" y="40.5" id="28:21221"/>
+                                <StraightVertex x="13.5" y="21.5" id="28:21212"/>
+                                <CubicDetachedVertex inRotation="4.0835929" inDistance="13.601471" outRotation="-1.8370484" outDistance="11.401754" x="28" y="51.5" id="28:21222"/>
+                                <StraightVertex x="25" y="38" id="28:21214"/>
+                                <CubicDetachedVertex inRotation="2.8079395" inDistance="2.75" outRotation="-0.33365306" outDistance="2.75" x="38" y="54.5" id="28:21223"/>
+                                <StraightVertex x="38" y="43.5" id="28:21216"/>
+                                <CubicDetachedVertex inRotation="4.6017318" inDistance="18.110771" outRotation="-0.76101273" outDistance="14.5" x="55" y="78.5" id="28:21224"/>
+                                <StraightVertex x="65.5" y="48" id="28:21218"/>
+                                <CubicDetachedVertex inRotation="4.712389" inDistance="3" outRotation="-0.75837773" outDistance="13.086252" x="68.5" y="60.5" id="28:21225"/>
+                                <StraightVertex x="72" y="25.5" id="28:21220"/>
+                            </PointsPath>
+                            <Stroke thickness="3" cap="round" join="round" id="28:21228">
+                                <SolidColor colorValue="FFD59D4D" id="28:21229"><DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="101:10"/></SolidColor>
+                            </Stroke>
+                        </Shape>
+                        <Shape x="-35" y="-35.5" name="chestL" isolated="true" id="28:21230">
+                            <PointsPath isClockwise="false" id="28:21231">
+                                <StraightVertex id="28:21232"/>
+                                <CubicDetachedVertex inRotation="4.0861278" inDistance="29.004311" outRotation="-1.5707964" outDistance="13.5" x="10.5" y="40.5" id="28:21233"/>
+                                <StraightVertex x="13.5" y="21.5" id="28:21234"/>
+                                <CubicDetachedVertex inRotation="4.0835929" inDistance="13.601471" outRotation="-1.8370484" outDistance="11.401754" x="29" y="51.5" id="28:21235"/>
+                                <StraightVertex x="25" y="38" id="28:21236"/>
+                                <CubicDetachedVertex inRotation="2.8079395" inDistance="2.75" outRotation="-0.33365306" outDistance="2.75" x="38.5" y="53" id="28:21237"/>
+                                <StraightVertex x="38.5" y="42.5" id="28:21238"/>
+                                <CubicDetachedVertex inRotation="4.861279" inDistance="10.111875" outRotation="-0.76101273" outDistance="14.5" x="51.5" y="77" id="28:21239"/>
+                                <StraightVertex x="65.5" y="48" id="28:21240"/>
+                                <CubicDetachedVertex inRotation="4.712389" inDistance="3" outRotation="-0.75837773" outDistance="13.086252" x="68" y="60.5" id="28:21241"/>
+                                <StraightVertex x="72.5" y="25.5" id="28:21242"/>
+                            </PointsPath>
+                            <Stroke thickness="3" cap="round" join="round" id="28:21243">
+                                <SolidColor colorValue="C4CF9E60" id="28:21244"><DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="101:11"/></SolidColor>
+                            </Stroke>
+                        </Shape>
+                        <Shape x="-55.5" y="-42" name="Chest3" isolated="true" id="28:21199">
+                            <PointsPath isClockwise="false" id="28:21200">
+                                <StraightVertex id="28:21203"/>
+                                <CubicDetachedVertex inRotation="-2.4087775" inDistance="6.7268119" outRotation="0.43905342" outDistance="2.0804145" x="2.5" y="20.5" id="28:21227"/>
+                                <CubicDetachedVertex inRotation="2.5702553" inDistance="2.0804145" outRotation="-0.57133746" outDistance="2.0804145" x="9.5" y="16" id="28:21226"/>
+                            </PointsPath>
+                            <Stroke thickness="3" cap="round" join="round" id="28:21245">
+                                <SolidColor colorValue="FFD59D4D" id="28:21246"><DataBindContext sourcePathIds="1:14-8:2" propertyKey="37" id="101:12"/></SolidColor>
+                            </Stroke>
+                        </Shape>
+                    </Node>
+                    <Node x="55" y="71" name="FrontlegL" id="28:20931">
+                        <Shape x="-10" y="49" name="stripL" id="28:20998">
+                            <PointsPath name="null Path 2" id="28:20999">
+                                <StraightVertex id="28:21000"/>
+                                <CubicDetachedVertex inRotation="-1.4513674" inDistance="12.589679" outRotation="1.2082521" outDistance="3.8770156" x="5.5" y="14.5" id="28:21001"/>
+                            </PointsPath>
+                            <PointsPath x="14" y="-1" id="28:21002">
+                                <StraightVertex id="28:21003"/>
+                                <CubicDetachedVertex inRotation="-1.4513674" inDistance="12.589679" outRotation="1.2082521" outDistance="3.8770156" x="5.5" y="14.5" id="28:21004"/>
+                            </PointsPath>
+                            <Stroke thickness="3" cap="round" join="round" id="28:21005">
+                                <SolidColor colorValue="FF0D0D0D" id="28:21006"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape x="-59" y="-58" name="Left" id="28:20932">
+                            <PointsPath isClockwise="false" name="null Path 2" id="28:20957">
+                                <CubicDetachedVertex inRotation="-1.4035424" inDistance="9.7612114" outRotation="1.5707964" outDistance="12" x="1.5" id="28:20958"/>
+                                <CubicDetachedVertex inRotation="-2.1017373" inDistance="5.7982368" x="-5" y="38.5" id="28:20959"/>
+                                <StraightVertex x="5" y="29.5" id="28:20960"/>
+                                <CubicDetachedVertex inRotation="-2.2974386" inDistance="6.0207973" x="2.5" y="61.5" id="28:20961"/>
+                                <StraightVertex x="11" y="51.5" id="28:20962"/>
+                                <CubicDetachedVertex inRotation="-2.1587989" inDistance="7.2111025" x="11" y="82" id="28:20963"/>
+                                <StraightVertex x="14" y="76" id="28:20964"/>
+                                <CubicDetachedVertex inRotation="-2.5004175" inDistance="11.248611" outRotation="0.64117521" outDistance="11.248611" x="25.5" y="119.5" id="28:20965"/>
+                                <CubicDetachedVertex inRotation="2.2730532" inDistance="8.5146933" outRotation="-0.92905551" outDistance="4.9117208" x="75.5" y="118" id="28:20966"/>
+                                <CubicDetachedVertex inRotation="0.78539819" inDistance="11.313708" outRotation="-2.3961732" outDistance="8.8459034" x="70.5" y="99" id="28:20967"/>
+                                <CubicDetachedVertex inRotation="1.5707964" inDistance="1" outRotation="-2.1193457" outDistance="10.547511" x="55.5" y="92" id="28:20968"/>
+                                <CubicDetachedVertex inRotation="1.8301281" inDistance="25.347584" outRotation="-1.5538487" outDistance="22.128178" x="57" y="3.5" id="28:20969"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:20934">
+                                <SolidColor colorValue="FFF2BC62" id="28:20935"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:13"/></SolidColor>
+                            </Fill>
+                            <Stroke thickness="3" cap="round" join="round" id="28:20970">
+                                <SolidColor colorValue="FF0D0D0D" id="28:20971"/>
+                            </Stroke>
+                        </Shape>
+                        <Node x="23" y="10" id="28:20972"/>
+                    </Node>
+                    <Node x="-75" y="64" name="backleg" id="28:20889">
+                        <Node x="20" y="65" name="hand" id="28:20902">
+                            <Shape x="21.5" y="-8" name="strip" id="28:20919">
+                                <PointsPath name="null Path 2" id="28:20928">
+                                    <StraightVertex id="28:20929"/>
+                                    <CubicDetachedVertex inRotation="-1.4513674" inDistance="12.589679" outRotation="1.2082521" outDistance="3.8770156" x="5.5" y="14.5" id="28:20930"/>
+                                </PointsPath>
+                                <PointsPath x="14" y="-1" id="28:20920">
+                                    <StraightVertex id="28:20923"/>
+                                    <CubicDetachedVertex inRotation="-1.4513674" inDistance="12.589679" outRotation="1.2082521" outDistance="3.8770156" x="5.5" y="14.5" id="28:20927"/>
+                                </PointsPath>
+                                <Stroke thickness="2" cap="round" join="round" id="28:20925">
+                                    <SolidColor colorValue="FF0D0D0D" id="28:20926"/>
+                                </Stroke>
+                            </Shape>
+                            <Shape x="-41" y="-22" id="28:20903">
+                                <PointsPath isClockwise="false" id="28:20904">
+                                    <CubicDetachedVertex inRotation="-0.4636476" inDistance="6.7082038" outRotation="2.0778949" outDistance="5.1478152" id="28:20912"/>
+                                    <CubicDetachedVertex inRotation="-2.1763411" inDistance="7.905694" outRotation="0.75092906" outDistance="10.259142" x="-6" y="22" id="28:20913"/>
+                                    <CubicDetachedVertex inRotation="2.9147937" inDistance="33.35416" outRotation="-0.29544082" outDistance="24.04163" x="76" y="29" id="28:20914"/>
+                                    <CubicDetachedVertex inRotation="0.78539819" inDistance="4.9497476" outRotation="-2.2655346" outDistance="3.9051249" x="85.5" y="6.5" id="28:20915"/>
+                                    <CubicDetachedVertex inRotation="-0.37753019" inDistance="31.196955" outRotation="-3.0956481" outDistance="10.886488" x="35.5" y="4.5" id="28:20916"/>
+                                </PointsPath>
+                                <Fill fillRule="clockwise" id="28:20905">
+                                    <SolidColor colorValue="FFF2BC62" id="28:20906"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:14"/></SolidColor>
+                                </Fill>
+                                <Stroke thickness="2" cap="round" join="round" id="28:20917">
+                                    <SolidColor colorValue="FF0D0D0D" id="28:20918"/>
+                                </Stroke>
+                            </Shape>
+                        </Node>
+                        <Shape x="7.5" y="-33" id="28:20890">
+                            <PointsPath name="null Path 2" id="28:20897">
+                                <StraightVertex id="28:20898"/>
+                                <CubicDetachedVertex inRotation="-1.6498392" inDistance="50.658169" outRotation="0.5974586" outDistance="14.665542" x="50" y="36.5" id="28:20899"/>
+                            </PointsPath>
+                            <PointsPath x="36.5" y="17.5" rotation="1.5526289" scaleX="1.1051251" id="28:20891">
+                                <StraightVertex id="28:20894"/>
+                                <CubicDetachedVertex inRotation="-1.7611414" inDistance="63.907333" outRotation="0.5974586" outDistance="14.665542" x="56.965168" y="30.648697" id="28:20896"/>
+                            </PointsPath>
+                            <Stroke thickness="2" cap="round" join="bevel" blendModeValue="darken" id="28:20900">
+                                <SolidColor colorValue="FF0D0D0D" id="28:20901"/>
+                            </Stroke>
+                        </Shape>
+                    </Node>
+                    <Shape x="-10" y="-113" id="28:20859">
+                        <PointsPath isClosed="true" id="28:20860">
+                            <CubicDetachedVertex inRotation="2.1200302" inDistance="22.276287" outRotation="-0.38790825" outDistance="13.867679" x="7.9775233" y="-12.500021" id="32:20459"/>
+                            <CubicDetachedVertex inRotation="-2.3159997" inDistance="12.311072" outRotation="1.5707964" outDistance="18" x="112.5" y="36.5" id="28:20888"/>
+                            <CubicDetachedVertex inRotation="-0.78539819" inDistance="4.9497476" x="122.5" y="84" id="28:20887"/>
+                            <StraightVertex x="117" y="78.5" id="28:20866"/>
+                            <CubicDetachedVertex inRotation="-0.78539819" inDistance="15.556349" x="116" y="123.5" id="28:20885"/>
+                            <CubicDetachedVertex inRotation="1.012197" inDistance="4.7169905" x="111.5" y="114.5" id="28:20886"/>
+                            <CubicDetachedVertex inRotation="-0.94531131" inDistance="22.203604" outRotation="-6.2831855" x="96.5" y="156" id="28:20884"/>
+                            <CubicDetachedVertex inRotation="1.1071488" inDistance="2.236068" outRotation="-4.712389" outDistance="10" x="95" y="147" id="28:20883"/>
+                            <CubicDetachedVertex inRotation="-0.68112653" inDistance="61.143276" outRotation="2.7545753" outDistance="24.75" x="8.5" y="231" id="28:20882"/>
+                            <StraightVertex x="-93" y="234" id="28:20872"/>
+                            <CubicDetachedVertex inRotation="2.3217254" inDistance="71.813995" outRotation="-2.1431286" outDistance="1.9764235" x="-82.5" y="129" id="28:20881"/>
+                            <CubicDetachedVertex outRotation="-0.98844337" outDistance="24.545876" x="-89.5" y="126.5" id="28:20880"/>
+                            <CubicDetachedVertex inRotation="2.0736396" inDistance="45.650848" x="-19" y="52.5" id="28:20879"/>
+                            <CubicDetachedVertex inRotation="2.0344439" inDistance="2.236068" outRotation="-0.64940077" outDistance="33.900589" x="-27" y="49.5" id="28:20878"/>
+                        </PointsPath>
+                        <Fill fillRule="clockwise" id="28:20861">
+                            <SolidColor colorValue="FFF2BC62" id="28:20862"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:15"/></SolidColor>
+                        </Fill>
+                        <Stroke thickness="3" join="round" id="28:21009">
+                            <SolidColor colorValue="FF0D0D0D" id="28:21010"/>
+                        </Stroke>
+                    </Shape>
+                    <Node x="55" y="71" name="FrontlegR" id="28:21011">
+                        <Shape x="42.662842" y="44.322571" scaleX="0.96637082" scaleY="1.3225807" name="stripR" id="28:20989">
+                            <PointsPath scaleX="0.99907076" scaleY="0.79988718" name="null Path 2" id="28:20990">
+                                <StraightVertex id="28:20991"/>
+                                <CubicDetachedVertex inRotation="-1.4513674" inDistance="12.589679" outRotation="1.2082521" outDistance="3.8770156" x="5.5" y="14.5" id="28:20992"/>
+                            </PointsPath>
+                            <PointsPath x="14" y="-1" scaleX="0.88280404" scaleY="0.77118963" id="28:20993">
+                                <StraightVertex id="28:20994"/>
+                                <CubicDetachedVertex inRotation="-1.4513674" inDistance="12.589679" outRotation="1.2082521" outDistance="3.8770156" x="5.5" y="14.5" id="28:20995"/>
+                            </PointsPath>
+                            <Stroke thickness="2" cap="round" join="round" id="28:20996">
+                                <SolidColor colorValue="FF0D0D0D" id="28:20997"/>
+                            </Stroke>
+                        </Shape>
+                        <Shape name="Right" id="28:20986">
+                            <PointsPath isClockwise="false" x="-10" y="-62.5" name="null Path 2" id="28:20973">
+                                <CubicDetachedVertex inRotation="-2.2974386" inDistance="6.0207973" x="39.5" y="31" id="28:20977"/>
+                                <CubicDetachedVertex inRotation="-1.6359215" inDistance="46.097721" x="11" y="82" id="28:20979"/>
+                                <StraightVertex x="14" y="76" id="28:20980"/>
+                                <CubicDetachedVertex inRotation="-2.5004175" inDistance="11.248611" outRotation="0.64117521" outDistance="11.248611" x="25.5" y="119.5" id="28:20981"/>
+                                <CubicDetachedVertex inRotation="2.2730532" inDistance="8.5146933" outRotation="-0.92905551" outDistance="4.9117208" x="75.5" y="118" id="28:20982"/>
+                                <CubicDetachedVertex inRotation="0.78539819" inDistance="11.313708" outRotation="-2.3961732" outDistance="8.8459034" x="70.5" y="99" id="28:20983"/>
+                                <CubicDetachedVertex inRotation="1.5707964" inDistance="1" outRotation="-2.1193457" outDistance="10.547511" x="55.5" y="92" id="28:20984"/>
+                                <CubicDetachedVertex inRotation="1.8301281" inDistance="25.347584" outRotation="-1.5538487" outDistance="22.128178" x="57" y="3.5" id="28:20985"/>
+                            </PointsPath>
+                            <Fill fillRule="clockwise" id="28:20987">
+                                <SolidColor colorValue="FFF2BC62" id="28:20988"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:16"/></SolidColor>
+                            </Fill>
+                            <Stroke thickness="3" cap="round" join="round" id="28:21007">
+                                <SolidColor colorValue="FF0D0D0D" id="28:21008"/>
+                            </Stroke>
+                        </Shape>
+                    </Node>
+                </Node>
+            </RootBone>
+        </Node>
+        <Node x="246.97733" y="433.32913" scaleX="1.0821531" scaleY="1.2969643" name="Shawdon" id="32:19999">
+            <Shape x="-7" y="-4.5" scaleY="1.1184183" id="32:20000">
+                <Ellipse width="258" height="12" id="32:20001"/>
+                <Fill fillRule="clockwise" id="32:20002">
+                    <SolidColor colorValue="B80D0D0D" id="32:20003"/>
+                </Fill>
+            </Shape>
+        </Node>
+        <LayoutComponentStyle id="28:20823"/>
+        <Fill fillRule="clockwise" id="28:20821">
+            <SolidColor colorValue="00282828" id="28:20822"/>
+        </Fill>
+        <LinearAnimation name="Jump" id="32:20550">
+            <KeyedObject objectId="32:20808" id="32:20809">
+                <KeyedProperty property="x" id="32:20810">
+                    <KeyFrameDouble value="196.36111" interpolationType="cubic" id="32:20811">
+                        <CubicEaseInterpolator id="32:20872"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="196.36111" interpolationType="linear" frame="33" id="32:20883"/>
+                    <KeyFrameDouble value="196.36111" interpolationType="linear" frame="60" id="32:20839"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="32:20812">
+                    <KeyFrameDouble value="1" interpolationType="cubic" id="32:20813">
+                        <CubicEaseInterpolator id="32:20873"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="33" id="32:20882"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="60" id="32:20840"/>
+                </KeyedProperty>
+                <KeyedProperty property="rotation" id="32:20814">
+                    <KeyFrameDouble interpolationType="cubic" id="32:20815">
+                        <CubicEaseInterpolator id="32:20877"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble interpolationType="linear" frame="33" id="32:20880"/>
+                    <KeyFrameDouble interpolationType="linear" frame="60" id="32:20842"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleY" id="32:20816">
+                    <KeyFrameDouble value="1" interpolationType="cubic" id="32:20817">
+                        <CubicEaseInterpolator id="32:20871"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="0.83999997" interpolationType="linear" frame="10" id="32:20851"/>
+                    <KeyFrameDouble value="0.83999997" interpolationType="linear" frame="30" id="32:20835"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="33" id="32:20881"/>
+                    <KeyFrameDouble value="0.83999997" interpolationType="linear" frame="40" id="32:20866"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="60" id="32:20838"/>
+                </KeyedProperty>
+                <KeyedProperty property="y" id="32:20818">
+                    <KeyFrameDouble value="244.87471" interpolationType="cubic" id="32:20819">
+                        <CubicEaseInterpolator id="32:20874"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="275" interpolationType="linear" frame="10" id="32:20850"/>
+                    <KeyFrameDouble value="215" interpolationType="linear" frame="30" id="32:20854"/>
+                    <KeyFrameDouble value="244.87471" interpolationType="linear" frame="33" id="32:20884"/>
+                    <KeyFrameDouble value="275" interpolationType="linear" frame="40" id="32:20867"/>
+                    <KeyFrameDouble value="244.87471" interpolationType="linear" frame="60" id="32:20841"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="32:19999" id="32:20820">
+                <KeyedProperty property="rotation" id="32:20821">
+                    <KeyFrameDouble interpolationType="cubic" id="32:20822">
+                        <CubicEaseInterpolator id="32:20876"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble interpolationType="linear" frame="10" id="32:20853"/>
+                    <KeyFrameDouble interpolationType="linear" frame="30" id="32:20836"/>
+                    <KeyFrameDouble interpolationType="linear" frame="33" id="32:20885"/>
+                    <KeyFrameDouble interpolationType="linear" frame="40" id="32:20869"/>
+                    <KeyFrameDouble interpolationType="linear" frame="60" id="32:20845"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="32:20823">
+                    <KeyFrameDouble value="1.0821531" interpolationType="cubic" id="32:20824">
+                        <CubicEaseInterpolator id="32:20870"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="1.28" interpolationType="linear" frame="10" id="32:20852"/>
+                    <KeyFrameDouble value="0.83999997" interpolationType="linear" frame="30" id="32:20855"/>
+                    <KeyFrameDouble value="1.0821531" interpolationType="linear" frame="33" id="32:20887"/>
+                    <KeyFrameDouble value="1.28" interpolationType="linear" frame="40" id="32:20868"/>
+                    <KeyFrameDouble value="1.0821531" interpolationType="linear" frame="60" id="32:20843"/>
+                </KeyedProperty>
+                <KeyedProperty property="x" id="32:20825">
+                    <KeyFrameDouble value="246.97733" interpolationType="cubic" id="32:20826">
+                        <CubicEaseInterpolator id="32:20878"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="246.97733" interpolationType="linear" frame="33" id="32:20889"/>
+                    <KeyFrameDouble value="246.97733" interpolationType="linear" frame="60" id="32:20846"/>
+                </KeyedProperty>
+                <KeyedProperty property="y" id="32:20827">
+                    <KeyFrameDouble value="433.32913" interpolationType="cubic" id="32:20828">
+                        <CubicEaseInterpolator id="32:20879"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="433.32913" interpolationType="linear" frame="33" id="32:20886"/>
+                    <KeyFrameDouble value="433.32913" interpolationType="linear" frame="60" id="32:20847"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleY" id="32:20829">
+                    <KeyFrameDouble value="1.2969643" interpolationType="cubic" id="32:20830">
+                        <CubicEaseInterpolator id="32:20875"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="1.2969643" interpolationType="linear" frame="33" id="32:20888"/>
+                    <KeyFrameDouble value="1.2969643" interpolationType="linear" frame="60" id="32:20844"/>
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+        <StateMachine name="State Machine 1" id="28:20825">
+            <StateMachineLayer name="Layer 1" id="28:20826">
+                <AnyState x="400" id="28:20827"/>
+                <ExitState x="480" id="28:20828"/>
+                <EntryState id="28:20829">
+                    <StateTransition stateToId="28:20830" id="28:20831"/>
+                </EntryState>
+                <AnimationState animationId="28:20824" x="160" id="28:20830">
+                    <StateTransition stateToId="100:1" id="100:2">
+                        <TransitionViewModelCondition id="100:3">
+                            <TransitionPropertyViewModelComparator id="100:4">
+                                <BindablePropertyTrigger id="100:8">
+                                    <DataBindContext sourcePathIds="1:14-8:20" propertyKey="686" id="100:5"/>
+                                </BindablePropertyTrigger>
+                            </TransitionPropertyViewModelComparator>
+                            <TransitionValueTriggerComparator id="100:6"/>
+                        </TransitionViewModelCondition>
+                    </StateTransition>
+                </AnimationState>
+                <AnimationState animationId="32:20550" x="340" y="120" id="100:1">
+                    <StateTransition stateToId="28:20830" enableExitTime="true" exitTimeIsPercetange="true" duration="100" exitTime="100" id="100:7"/>
+                </AnimationState>
+            </StateMachineLayer>
+        </StateMachine>
+        <LinearAnimation duration="120" loopValue="loop" name="IdleBreathing" id="28:20824">
+            <KeyedObject objectId="28:21267" id="32:20019">
+                <KeyedProperty property="rotation" id="32:20020">
+                    <KeyFrameDouble value="2.1312532" interpolationType="cubic" id="32:20299">
+                        <CubicEaseInterpolator id="32:20283"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="2.1312532" interpolationType="cubic" frame="120" id="32:20539">
+                        <CubicEaseInterpolator id="32:20510"/>
+                    </KeyFrameDouble>
+                </KeyedProperty>
+                <KeyedProperty property="length" id="32:20040">
+                    <KeyFrameDouble value="195" interpolationType="linear" id="32:20297"/>
+                    <KeyFrameDouble value="195" interpolationType="linear" frame="60" id="32:20041"/>
+                    <KeyFrameDouble value="195" interpolationType="linear" frame="120" id="32:20538"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleY" id="32:20042">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="32:20298"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="60" id="32:20043"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="120" id="32:20537"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21264" id="32:20022">
+                <KeyedProperty property="rotation" id="32:20023">
+                    <KeyFrameDouble value="-2.3387413" interpolationType="cubic" id="32:20296">
+                        <CubicEaseInterpolator id="32:20284"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="-2.6703537" interpolationType="linear" frame="60" id="32:20037"/>
+                    <KeyFrameDouble value="-2.3387413" interpolationType="cubic" frame="120" id="32:20544">
+                        <CubicEaseInterpolator id="32:20509"/>
+                    </KeyFrameDouble>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21266" id="32:20025">
+                <KeyedProperty property="rotation" id="32:20026">
+                    <KeyFrameDouble value="1.922613" interpolationType="cubic" id="32:20295">
+                        <CubicEaseInterpolator id="32:20281"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="1.9896754" interpolationType="linear" frame="60" id="32:20036"/>
+                    <KeyFrameDouble value="1.922613" interpolationType="cubic" frame="120" id="32:20528">
+                        <CubicEaseInterpolator id="32:20508"/>
+                    </KeyFrameDouble>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21265" id="32:20028">
+                <KeyedProperty property="rotation" id="32:20029">
+                    <KeyFrameDouble value="1.453419" interpolationType="cubic" id="32:20285">
+                        <CubicEaseInterpolator id="32:20282"/>
+                    </KeyFrameDouble>
+                    <KeyFrameDouble value="1.6580628" interpolationType="linear" frame="60" id="32:20035"/>
+                    <KeyFrameDouble value="1.453419" interpolationType="cubic" frame="120" id="32:20527">
+                        <CubicEaseInterpolator id="32:20507"/>
+                    </KeyFrameDouble>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="32:19999" id="32:20052">
+                <KeyedProperty property="rotation" id="32:20053">
+                    <KeyFrameDouble interpolationType="linear" id="32:20300"/>
+                    <KeyFrameDouble interpolationType="linear" frame="120" id="32:20525"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="32:20055">
+                    <KeyFrameDouble value="1.0405551" interpolationType="linear" id="32:20301"/>
+                    <KeyFrameDouble value="1.2241138" interpolationType="linear" frame="60" id="32:20056"/>
+                    <KeyFrameDouble value="1.0405551" interpolationType="linear" frame="120" id="32:20526"/>
+                </KeyedProperty>
+                <KeyedProperty property="x" id="32:20057">
+                    <KeyFrameDouble value="252.05228" interpolationType="linear" id="32:20302"/>
+                    <KeyFrameDouble value="229.65811" interpolationType="linear" frame="60" id="32:20058"/>
+                    <KeyFrameDouble value="252.05228" interpolationType="linear" frame="120" id="32:20524"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="32:20126" id="32:20138">
+                <KeyedProperty property="scaleY" id="32:20175">
+                    <KeyFrameDouble value="0.81648946" interpolationType="linear" id="32:20288"/>
+                    <KeyFrameDouble value="0.59573269" interpolationType="linear" frame="60" id="32:20200"/>
+                    <KeyFrameDouble value="0.81648946" interpolationType="linear" frame="120" id="32:20543"/>
+                </KeyedProperty>
+                <KeyedProperty property="x" id="32:20188">
+                    <KeyFrameDouble value="50.782688" interpolationType="linear" id="32:20289"/>
+                    <KeyFrameDouble value="68.5" interpolationType="linear" frame="60" id="32:20199"/>
+                    <KeyFrameDouble value="50.782688" interpolationType="linear" frame="120" id="32:20542"/>
+                </KeyedProperty>
+                <KeyedProperty property="y" id="32:20190">
+                    <KeyFrameDouble value="-10.23528" interpolationType="linear" id="32:20287"/>
+                    <KeyFrameDouble value="-22.5" interpolationType="linear" frame="60" id="32:20201"/>
+                    <KeyFrameDouble value="-10.23528" interpolationType="linear" frame="120" id="32:20540"/>
+                </KeyedProperty>
+                <KeyedProperty property="rotation" id="32:20205">
+                    <KeyFrameDouble value="-1.7627826" interpolationType="linear" frame="60" id="32:20206"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="32:20224">
+                    <KeyFrameDouble value="0.84404242" interpolationType="linear" id="32:20286"/>
+                    <KeyFrameDouble value="0.84404242" interpolationType="linear" frame="120" id="32:20541"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="32:20127" id="32:20192">
+                <KeyedProperty property="rotation" id="32:20193">
+                    <KeyFrameDouble value="1.6044509e-13" interpolationType="linear" id="32:20292"/>
+                    <KeyFrameDouble value="-0.20943952" interpolationType="linear" frame="60" id="32:20203"/>
+                    <KeyFrameDouble value="1.6044509e-13" interpolationType="linear" frame="120" id="32:20511"/>
+                </KeyedProperty>
+                <KeyedProperty property="x" id="32:20195">
+                    <KeyFrameDouble value="-22.978626" interpolationType="linear" id="32:20290"/>
+                    <KeyFrameDouble value="-26.65415" interpolationType="linear" frame="60" id="32:20202"/>
+                    <KeyFrameDouble value="-22.978626" interpolationType="linear" frame="120" id="32:20513"/>
+                </KeyedProperty>
+                <KeyedProperty property="y" id="32:20197">
+                    <KeyFrameDouble value="15.207041" interpolationType="linear" id="32:20291"/>
+                    <KeyFrameDouble value="-2.0849371" interpolationType="linear" frame="60" id="32:20204"/>
+                    <KeyFrameDouble value="15.207041" interpolationType="linear" frame="120" id="32:20512"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="32:20207">
+                    <KeyFrameDouble value="1.010002" interpolationType="linear" frame="60" id="32:20208"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleY" id="32:20209">
+                    <KeyFrameDouble value="1.3260422" interpolationType="linear" frame="60" id="32:20210"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="32:20129" id="32:20234">
+                <KeyedProperty property="outDistance" id="32:20235">
+                    <KeyFrameDouble value="23.266918" interpolationType="linear" id="32:20294"/>
+                    <KeyFrameDouble value="23.266918" interpolationType="linear" frame="120" id="32:20522"/>
+                </KeyedProperty>
+                <KeyedProperty property="outRotation" id="32:20237">
+                    <KeyFrameDouble value="0.044737045" interpolationType="linear" id="32:20293"/>
+                    <KeyFrameDouble value="0.044737045" interpolationType="linear" frame="120" id="32:20523"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:20859" id="32:20329">
+                <KeyedProperty property="scaleY" id="32:20330">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="32:20331"/>
+                    <KeyFrameDouble value="1.01" interpolationType="linear" frame="60" id="32:20339"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="120" id="32:20518"/>
+                </KeyedProperty>
+                <KeyedProperty property="y" id="32:20332">
+                    <KeyFrameDouble value="-113" interpolationType="linear" id="32:20333"/>
+                    <KeyFrameDouble value="-114" interpolationType="linear" frame="60" id="32:20338"/>
+                    <KeyFrameDouble value="-113" interpolationType="linear" frame="120" id="32:20521"/>
+                </KeyedProperty>
+                <KeyedProperty property="x" id="32:20334">
+                    <KeyFrameDouble value="-10" interpolationType="linear" id="32:20335"/>
+                    <KeyFrameDouble value="-10" interpolationType="linear" frame="120" id="32:20520"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="32:20336">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="32:20337"/>
+                    <KeyFrameDouble value="1.0599999" interpolationType="linear" frame="60" id="32:20340"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="120" id="32:20519"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21198" id="32:20419">
+                <KeyedProperty property="x" id="32:20420">
+                    <KeyFrameDouble value="59" interpolationType="linear" id="32:20421"/>
+                    <KeyFrameDouble value="59" interpolationType="linear" frame="120" id="32:20514"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleX" id="32:20422">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="32:20423"/>
+                    <KeyFrameDouble value="1.14" interpolationType="linear" frame="60" id="32:20428"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="120" id="32:20515"/>
+                </KeyedProperty>
+                <KeyedProperty property="y" id="32:20424">
+                    <KeyFrameDouble value="-33.5" interpolationType="linear" id="32:20425"/>
+                    <KeyFrameDouble value="-33.5" interpolationType="linear" frame="120" id="32:20517"/>
+                </KeyedProperty>
+                <KeyedProperty property="scaleY" id="32:20426">
+                    <KeyFrameDouble value="1" interpolationType="linear" id="32:20427"/>
+                    <KeyFrameDouble value="1" interpolationType="linear" frame="120" id="32:20516"/>
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+    </Artboard>
+    <DataConverterSystemNormalizer operationValue="0.0099999998" operationType="multiply" name="Normalize" id="27:20464"/>
+    <ImageAsset file="image.png" height="524" width="582" assetId="7478037" name="image" id="27:19988"/>
+    <ImageAsset file="image_2.png" height="374" width="483" assetId="7488219" name="image" id="28:20807"/>
+    <ImageAsset file="image_3.png" height="379" width="445" assetId="7488271" name="image" id="28:20832"/>
+    <ScriptAsset file="pet_controller.luau" compilationOrder="1" serializedImplementedMethods="4625" scriptProtocolValue="layout" codeFileId="0:9903" name="pet_controller" id="0:9901"/>
+    <Space name="Space 1" id="2:1"/>
+    <ViewModel defaultInstanceId="1:15" name="Fundo" id="1:14">
+        <ViewModelPropertyColor name="baseColor" id="8:1"/>
+        <ViewModelPropertyColor name="patternColor" id="8:2"/>
+        <ViewModelPropertyColor name="secondaryColor" id="8:3"/>
+        <ViewModelPropertyColor name="accessoryColor" id="8:4"/>
+        <ViewModelPropertyNumber name="accessoryOpacity" id="8:5"/>
+        <ViewModelPropertyNumber name="patternOpacity" id="8:6"/>
+        <ViewModelPropertyNumber name="snoutScaleX" id="8:7"/>
+        <ViewModelPropertyNumber name="snoutScaleY" id="8:8"/>
+        <ViewModelPropertyNumber name="dogWhiskersOpacity" id="8:9"/>
+        <ViewModelPropertyNumber name="dogEarScaleX" id="8:10"/>
+        <ViewModelPropertyNumber name="dogEarScaleY" id="8:11"/>
+        <ViewModelPropertyNumber name="dogEarRot" id="8:12"/>
+        <ViewModelPropertyNumber name="catEarScaleX" id="8:13"/>
+        <ViewModelPropertyNumber name="catEarScaleY" id="8:14"/>
+        <ViewModelPropertyNumber name="catEarRot" id="8:15"/>
+        <ViewModelPropertyNumber name="eyeScaleX" id="8:16"/>
+        <ViewModelPropertyNumber name="eyeScaleY" id="8:17"/>
+        <ViewModelPropertyNumber name="pupilOpacity" id="8:18"/>
+        <ViewModelPropertyNumber name="catWhiskersOpacity" id="8:19"/>
+        <ViewModelPropertyTrigger name="barkTrigger" id="8:20"/>
+        <ViewModelInstance exports="true" name="DefaultInstance" id="1:15">
+            <ViewModelInstanceColor propertyValue="FFDFC49D" viewModelPropertyId="8:1" id="0:13062"/>
+            <ViewModelInstanceColor propertyValue="FFC1A780" viewModelPropertyId="8:2" id="0:13063"/>
+            <ViewModelInstanceColor propertyValue="FFFDE3BA" viewModelPropertyId="8:3" id="0:13064"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="0:13065"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="0:13066"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="0:13067"/>
+            <ViewModelInstanceNumber propertyValue="1.1011559" viewModelPropertyId="8:7" id="0:13068"/>
+            <ViewModelInstanceNumber propertyValue="1.0668852" viewModelPropertyId="8:8" id="0:13069"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="0:13070"/>
+            <ViewModelInstanceNumber propertyValue="1.097561" viewModelPropertyId="8:10" id="0:13071"/>
+            <ViewModelInstanceNumber propertyValue="1.6958541" viewModelPropertyId="8:11" id="0:13072"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="0:13073"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="0:13074"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="0:13075"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="0:13076"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="0:13077"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="0:13078"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="0:13079"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="0:13080"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="0:13081"/>
+        </ViewModelInstance>
+        <ViewModelInstance exports="true" name="Breed_golden" id="50:9000">
+            <ViewModelInstanceColor propertyValue="FFF0C77F" viewModelPropertyId="8:1" id="50:9100"/>
+            <ViewModelInstanceColor propertyValue="FFD6A05E" viewModelPropertyId="8:2" id="50:9101"/>
+            <ViewModelInstanceColor propertyValue="FFF9DFAC" viewModelPropertyId="8:3" id="50:9102"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="50:9103"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="50:9104"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="50:9105"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:7" id="50:9106"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:8" id="50:9107"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="50:9108"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:10" id="50:9109"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:11" id="50:9110"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="50:9111"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="50:9112"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="50:9113"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="50:9114"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="50:9115"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="50:9116"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="50:9117"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="50:9118"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="50:9119"/>
+        </ViewModelInstance>
+        <ViewModelInstance exports="true" name="Breed_french_bulldog" id="51:9000">
+            <ViewModelInstanceColor propertyValue="FFF5F3EB" viewModelPropertyId="8:1" id="51:9100"/>
+            <ViewModelInstanceColor propertyValue="FF343638" viewModelPropertyId="8:2" id="51:9101"/>
+            <ViewModelInstanceColor propertyValue="FFF5F3EB" viewModelPropertyId="8:3" id="51:9102"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="51:9103"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="51:9104"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="51:9105"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:7" id="51:9106"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:8" id="51:9107"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="51:9108"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:10" id="51:9109"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:11" id="51:9110"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="51:9111"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="51:9112"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="51:9113"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="51:9114"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="51:9115"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="51:9116"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="51:9117"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="51:9118"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="51:9119"/>
+        </ViewModelInstance>
+        <ViewModelInstance exports="true" name="Breed_poodle" id="52:9000">
+            <ViewModelInstanceColor propertyValue="FFF4D8B0" viewModelPropertyId="8:1" id="52:9100"/>
+            <ViewModelInstanceColor propertyValue="FFE6BE8E" viewModelPropertyId="8:2" id="52:9101"/>
+            <ViewModelInstanceColor propertyValue="FFFBE6C9" viewModelPropertyId="8:3" id="52:9102"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="52:9103"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="52:9104"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="52:9105"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:7" id="52:9106"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:8" id="52:9107"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="52:9108"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:10" id="52:9109"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:11" id="52:9110"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="52:9111"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="52:9112"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="52:9113"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="52:9114"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="52:9115"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="52:9116"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="52:9117"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="52:9118"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="52:9119"/>
+        </ViewModelInstance>
+        <ViewModelInstance exports="true" name="Breed_lhasa_apso" id="53:9000">
+            <ViewModelInstanceColor propertyValue="FFE7BD7D" viewModelPropertyId="8:1" id="53:9100"/>
+            <ViewModelInstanceColor propertyValue="FF554A40" viewModelPropertyId="8:2" id="53:9101"/>
+            <ViewModelInstanceColor propertyValue="FFF9DEAB" viewModelPropertyId="8:3" id="53:9102"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="53:9103"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="53:9104"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="53:9105"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:7" id="53:9106"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:8" id="53:9107"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="53:9108"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:10" id="53:9109"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:11" id="53:9110"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="53:9111"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="53:9112"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="53:9113"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="53:9114"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="53:9115"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="53:9116"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="53:9117"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="53:9118"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="53:9119"/>
+        </ViewModelInstance>
+        <ViewModelInstance exports="true" name="Breed_pinscher" id="54:9000">
+            <ViewModelInstanceColor propertyValue="FF303438" viewModelPropertyId="8:1" id="54:9100"/>
+            <ViewModelInstanceColor propertyValue="FFC7844D" viewModelPropertyId="8:2" id="54:9101"/>
+            <ViewModelInstanceColor propertyValue="FFC7844D" viewModelPropertyId="8:3" id="54:9102"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="54:9103"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="54:9104"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="54:9105"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:7" id="54:9106"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:8" id="54:9107"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="54:9108"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:10" id="54:9109"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:11" id="54:9110"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="54:9111"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="54:9112"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="54:9113"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="54:9114"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="54:9115"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="54:9116"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="54:9117"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="54:9118"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="54:9119"/>
+        </ViewModelInstance>
+        <ViewModelInstance exports="true" name="Breed_pug" id="55:9000">
+            <ViewModelInstanceColor propertyValue="FFE9CEA0" viewModelPropertyId="8:1" id="55:9100"/>
+            <ViewModelInstanceColor propertyValue="FF514138" viewModelPropertyId="8:2" id="55:9101"/>
+            <ViewModelInstanceColor propertyValue="FF655044" viewModelPropertyId="8:3" id="55:9102"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="55:9103"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="55:9104"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="55:9105"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:7" id="55:9106"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:8" id="55:9107"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="55:9108"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:10" id="55:9109"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:11" id="55:9110"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="55:9111"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="55:9112"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="55:9113"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="55:9114"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="55:9115"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="55:9116"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="55:9117"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="55:9118"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="55:9119"/>
+        </ViewModelInstance>
+        <ViewModelInstance exports="true" name="Breed_maltese" id="56:9000">
+            <ViewModelInstanceColor propertyValue="FFF8FAF7" viewModelPropertyId="8:1" id="56:9100"/>
+            <ViewModelInstanceColor propertyValue="FFDCE5E2" viewModelPropertyId="8:2" id="56:9101"/>
+            <ViewModelInstanceColor propertyValue="FFFFFFFF" viewModelPropertyId="8:3" id="56:9102"/>
+            <ViewModelInstanceColor propertyValue="FF589686" viewModelPropertyId="8:4" id="56:9103"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:5" id="56:9104"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:6" id="56:9105"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:7" id="56:9106"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:8" id="56:9107"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:9" id="56:9108"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:10" id="56:9109"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:11" id="56:9110"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:12" id="56:9111"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:13" id="56:9112"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:14" id="56:9113"/>
+            <ViewModelInstanceNumber viewModelPropertyId="8:15" id="56:9114"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:16" id="56:9115"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:17" id="56:9116"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:18" id="56:9117"/>
+            <ViewModelInstanceNumber propertyValue="1" viewModelPropertyId="8:19" id="56:9118"/>
+            <ViewModelInstanceTrigger viewModelPropertyId="8:20" id="56:9119"/>
+        </ViewModelInstance>
+    </ViewModel>
+</Rive>

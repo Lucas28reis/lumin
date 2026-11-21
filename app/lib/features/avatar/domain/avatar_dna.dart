@@ -107,7 +107,8 @@ class AvatarDna {
   final String? accessory;
 
   static const List<({String hex, String label})> basePalette = [
-    (hex: '#DFC8A6', label: 'Labrador Creme'),
+    (hex: '#F2BC62', label: 'Golden'),
+    (hex: '#F2BC62', label: 'Labrador Creme'),
     (hex: '#F4A258', label: 'Laranja Tigrado'),
     (hex: '#FBB49A', label: 'Pêssego'),
     (hex: '#D48C46', label: 'Caramelo'),
@@ -119,7 +120,8 @@ class AvatarDna {
   ];
 
   static const List<({String hex, String label})> patternPalette = [
-    (hex: '#C4AC88', label: 'Dourado Mel'),
+    (hex: '#D59D4D', label: 'Mel'),
+    (hex: '#D59D4D', label: 'Dourado Mel'),
     (hex: '#C56B27', label: 'Rajado Âmbar'),
     (hex: '#CE7A6E', label: 'Terracota'),
     (hex: '#FFFFFF', label: 'Branco'),
@@ -132,9 +134,9 @@ class AvatarDna {
     final isCat = species == PetSpecies.cat;
     return AvatarDna(
       species: species,
-      baseColor: isCat ? '#F4A258' : '#DFC8A6',
+      baseColor: isCat ? '#F4A258' : '#F2BC62',
       pattern: isCat ? FurPattern.stripes : FurPattern.spots,
-      patternColor: isCat ? '#C56B27' : '#C4AC88',
+      patternColor: isCat ? '#C56B27' : '#D59D4D',
       ears: isCat ? EarStyle.pointed : EarStyle.floppy,
       snout: isCat ? SnoutStyle.whiskers : SnoutStyle.medium,
       eyes: EyeStyle.sparkle,

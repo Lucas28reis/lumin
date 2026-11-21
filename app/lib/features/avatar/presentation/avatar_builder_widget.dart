@@ -45,6 +45,12 @@ class _AvatarBuilderWidgetState extends State<AvatarBuilderWidget> {
   Widget build(BuildContext context) {
     final dna = widget.dna;
 
+    final tabs = dna.species == PetSpecies.dog
+        ? [0, 2]
+        : List.generate(_traitTabs.length, (i) => i);
+    final selectedTab = tabs.contains(_selectedTraitTab)
+        ? _selectedTraitTab
+        : 0;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,11 +61,7 @@ class _AvatarBuilderWidgetState extends State<AvatarBuilderWidget> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: AvatarView(
-                  dna: dna,
-                  size: 250,
-                  showBackdrop: false,
-                ),
+                child: AvatarView(dna: dna, size: 250, showBackdrop: false),
               ),
               FilledButton.tonalIcon(
                 onPressed: widget.onRandomize,
@@ -89,8 +91,8 @@ class _AvatarBuilderWidgetState extends State<AvatarBuilderWidget> {
             alignment: WrapAlignment.center,
             spacing: 8,
             runSpacing: 8,
-            children: List.generate(_traitTabs.length, (index) {
-              final selected = index == _selectedTraitTab;
+            children: tabs.map((index) {
+              final selected = index == selectedTab;
               return ChoiceChip(
                 label: Text(_traitTabs[index]),
                 selected: selected,
@@ -107,7 +109,7 @@ class _AvatarBuilderWidgetState extends State<AvatarBuilderWidget> {
                 ),
                 onSelected: (_) => setState(() => _selectedTraitTab = index),
               );
-            }),
+            }).toList(),
           ),
         ),
         const SizedBox(height: 14),
@@ -124,110 +126,108 @@ class _AvatarBuilderWidgetState extends State<AvatarBuilderWidget> {
               width: 1.5,
             ),
           ),
-          child: Center(child: _buildTraitOptions(dna)),
+          child: Center(child: _buildTraitOptions(dna, selectedTab)),
         ),
       ],
     );
   }
 
-  Widget _buildTraitOptions(AvatarDna dna) {
-    return switch (_selectedTraitTab) {
+  Widget _buildTraitOptions(AvatarDna dna, int tab) {
+    return switch (tab) {
       0 => Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 10,
-          runSpacing: 10,
-          children: AvatarDna.basePalette.map((item) {
-            final selected = dna.baseColor == item.hex;
-            return _ColorOptionChip(
-              label: item.label,
-              hex: item.hex,
-              selected: selected,
-              onTap: () => widget.onChanged(dna.copyWith(baseColor: item.hex)),
-            );
-          }).toList(),
-        ),
+        alignment: WrapAlignment.center,
+        spacing: 10,
+        runSpacing: 10,
+        children: AvatarDna.basePalette.map((item) {
+          final selected = dna.baseColor == item.hex;
+          return _ColorOptionChip(
+            label: item.label,
+            hex: item.hex,
+            selected: selected,
+            onTap: () => widget.onChanged(dna.copyWith(baseColor: item.hex)),
+          );
+        }).toList(),
+      ),
       1 => Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 10,
-          runSpacing: 10,
-          children: FurPattern.values.map((pattern) {
-            final selected = dna.pattern == pattern;
-            return _TextOptionChip(
-              label: pattern.label,
-              selected: selected,
-              onTap: () => widget.onChanged(dna.copyWith(pattern: pattern)),
-            );
-          }).toList(),
-        ),
+        alignment: WrapAlignment.center,
+        spacing: 10,
+        runSpacing: 10,
+        children: FurPattern.values.map((pattern) {
+          final selected = dna.pattern == pattern;
+          return _TextOptionChip(
+            label: pattern.label,
+            selected: selected,
+            onTap: () => widget.onChanged(dna.copyWith(pattern: pattern)),
+          );
+        }).toList(),
+      ),
       2 => Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 10,
-          runSpacing: 10,
-          children: AvatarDna.patternPalette.map((item) {
-            final selected = dna.patternColor == item.hex;
-            return _ColorOptionChip(
-              label: item.label,
-              hex: item.hex,
-              selected: selected,
-              onTap: () =>
-                  widget.onChanged(dna.copyWith(patternColor: item.hex)),
-            );
-          }).toList(),
-        ),
+        alignment: WrapAlignment.center,
+        spacing: 10,
+        runSpacing: 10,
+        children: AvatarDna.patternPalette.map((item) {
+          final selected = dna.patternColor == item.hex;
+          return _ColorOptionChip(
+            label: item.label,
+            hex: item.hex,
+            selected: selected,
+            onTap: () => widget.onChanged(dna.copyWith(patternColor: item.hex)),
+          );
+        }).toList(),
+      ),
       3 => Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 10,
-          runSpacing: 10,
-          children: EarStyle.values.map((ears) {
-            final selected = dna.ears == ears;
-            return _TextOptionChip(
-              label: ears.label,
-              selected: selected,
-              onTap: () => widget.onChanged(dna.copyWith(ears: ears)),
-            );
-          }).toList(),
-        ),
+        alignment: WrapAlignment.center,
+        spacing: 10,
+        runSpacing: 10,
+        children: EarStyle.values.map((ears) {
+          final selected = dna.ears == ears;
+          return _TextOptionChip(
+            label: ears.label,
+            selected: selected,
+            onTap: () => widget.onChanged(dna.copyWith(ears: ears)),
+          );
+        }).toList(),
+      ),
       4 => Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 10,
-          runSpacing: 10,
-          children: SnoutStyle.values.map((snout) {
-            final selected = dna.snout == snout;
-            return _TextOptionChip(
-              label: snout.label,
-              selected: selected,
-              onTap: () => widget.onChanged(dna.copyWith(snout: snout)),
-            );
-          }).toList(),
-        ),
+        alignment: WrapAlignment.center,
+        spacing: 10,
+        runSpacing: 10,
+        children: SnoutStyle.values.map((snout) {
+          final selected = dna.snout == snout;
+          return _TextOptionChip(
+            label: snout.label,
+            selected: selected,
+            onTap: () => widget.onChanged(dna.copyWith(snout: snout)),
+          );
+        }).toList(),
+      ),
       5 => Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 10,
-          runSpacing: 10,
-          children: EyeStyle.values.map((eyes) {
-            final selected = dna.eyes == eyes;
-            return _TextOptionChip(
-              label: eyes.label,
-              selected: selected,
-              onTap: () => widget.onChanged(dna.copyWith(eyes: eyes)),
-            );
-          }).toList(),
-        ),
+        alignment: WrapAlignment.center,
+        spacing: 10,
+        runSpacing: 10,
+        children: EyeStyle.values.map((eyes) {
+          final selected = dna.eyes == eyes;
+          return _TextOptionChip(
+            label: eyes.label,
+            selected: selected,
+            onTap: () => widget.onChanged(dna.copyWith(eyes: eyes)),
+          );
+        }).toList(),
+      ),
       _ => Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 10,
-          runSpacing: 10,
-          children: _accessoryOptions.map((item) {
-            final current = dna.accessory ?? 'none';
-            final selected = current == item.code;
-            return _TextOptionChip(
-              label: item.label,
-              selected: selected,
-              onTap: () =>
-                  widget.onChanged(dna.copyWith(accessory: item.code)),
-            );
-          }).toList(),
-        ),
+        alignment: WrapAlignment.center,
+        spacing: 10,
+        runSpacing: 10,
+        children: _accessoryOptions.map((item) {
+          final current = dna.accessory ?? 'none';
+          final selected = current == item.code;
+          return _TextOptionChip(
+            label: item.label,
+            selected: selected,
+            onTap: () => widget.onChanged(dna.copyWith(accessory: item.code)),
+          );
+        }).toList(),
+      ),
     };
   }
 }

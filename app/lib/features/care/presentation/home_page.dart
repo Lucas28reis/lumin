@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:share_plus/share_plus.dart';
@@ -8,6 +10,13 @@ import '../../../core/widgets/primary_cta_button.dart';
 import '../../avatar/presentation/avatar_view.dart';
 import '../domain/care_slot.dart';
 import 'care_controller.dart';
+import 'pet_edit_page.dart';
+import '../../avatar/domain/avatar_mood.dart';
+import '../../life/presentation/life_page.dart';
+import '../../life/presentation/life_controller.dart';
+import '../../notifications/local_reminders.dart';
+import '../../notifications/reminders_dialog.dart';
+import '../../onboarding/presentation/onboarding_controller.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -16,26 +25,100 @@ class HomePage extends ConsumerStatefulWidget {
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class _HomePageState extends ConsumerState<HomePage>
+    with WidgetsBindingObserver {
   String? _selectedSlotId;
+  Timer? _clock;
+  Timer? _notificationDebounce;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _clock = Timer.periodic(const Duration(seconds: 5), (_) {
+      if (mounted) setState(() {});
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _scheduleReminders();
+      final prefs = ref.read(sharedPreferencesProvider);
+      if (prefs.getBool('lumin.reminders.requested') == true &&
+          ref.read(localRemindersProvider).supported) {
+        prefs.setBool('lumin.reminders.requested', false);
+        showDialog<void>(
+          context: context,
+          builder: (_) => const RemindersDialog(),
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _clock?.cancel();
+    _notificationDebounce?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.read(careControllerProvider.notifier).refresh();
+      _scheduleReminders();
+    }
+  }
+
+  void _scheduleReminders() {
+    _notificationDebounce?.cancel();
+    _notificationDebounce = Timer(const Duration(milliseconds: 500), () async {
+      try {
+        await ref
+            .read(localRemindersProvider)
+            .reschedule(
+              ref.read(clockProvider).now(),
+              ref.read(careControllerProvider),
+              ref.read(lifeControllerProvider),
+              ref.read(onboardingControllerProvider).draft.timezone,
+            );
+      } catch (_) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Não foi possível atualizar os lembretes. Abra as configurações de avisos para tentar novamente.',
+              ),
+            ),
+          );
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(careControllerProvider);
     final controller = ref.read(careControllerProvider.notifier);
-    final now = ref.watch(clockProvider).now();
-    final mood = state.resolveMood(now);
+    final now = controller.petNow();
+    final life = ref.watch(lifeControllerProvider);
+    ref.listen(careControllerProvider, (_, _) => _scheduleReminders());
+    ref.listen(lifeControllerProvider, (_, _) => _scheduleReminders());
+    final baseMood = state.resolveMood(now);
+    final mood =
+        baseMood == AvatarMood.happy && life.records.any((r) => r.due(now))
+        ? AvatarMood.worried
+        : baseMood;
     final nextSlot = state.nextPendingSlot;
 
-    final activeSlot = state.slots
-            .where((s) => s.id == _selectedSlotId)
-            .firstOrNull ??
+    final activeSlot =
+        state.slots.where((s) => s.id == _selectedSlotId).firstOrNull ??
         nextSlot;
 
-    final feedSlots =
-        state.slots.where((s) => s.kind == CareSlotKind.dailyFeed).toList();
-    final walkSlots =
-        state.slots.where((s) => s.kind == CareSlotKind.dailyWalk).toList();
+    final feedSlots = state.slots
+        .where((s) => s.kind == CareSlotKind.dailyFeed)
+        .toList();
+    final walkSlots = state.slots
+        .where((s) => s.kind == CareSlotKind.dailyWalk)
+        .toList();
     final doneFeeds = feedSlots.where((s) => s.isDone).length;
     final doneWalks = walkSlots.where((s) => s.isDone).length;
     final totalDone = state.slots.where((s) => s.isDone).length;
@@ -43,6 +126,57 @@ class _HomePageState extends ConsumerState<HomePage> {
     final dayPercent = ((totalDone / totalSlots) * 100).round();
 
     return Scaffold(
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Row(
+            children: [
+              for (final item in [
+                (Icons.schedule, 'Rotina', const PetEditPage(routine: true)),
+                (
+                  Icons.medical_services_outlined,
+                  'Prontuário',
+                  const LifePage(section: LifeSection.health),
+                ),
+                (
+                  Icons.restaurant,
+                  'Ração',
+                  const LifePage(section: LifeSection.food),
+                ),
+                (
+                  Icons.palette_outlined,
+                  'Estilo',
+                  const PetEditPage(routine: false),
+                ),
+              ])
+                Expanded(
+                  child: TextButton(
+                    onPressed: () => Navigator.of(context)
+                        .push(MaterialPageRoute<void>(builder: (_) => item.$3)),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 6),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(item.$1),
+                        Text(item.$2, style: const TextStyle(fontSize: 12)),
+                      ],
+                    ),
+                  ),
+                ),
+              IconButton(
+                tooltip: 'Lembretes',
+                icon: const Icon(Icons.notifications_outlined),
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (_) => const RemindersDialog(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         toolbarHeight: 68,
         title: Center(
@@ -54,15 +188,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                 const SizedBox(width: 10),
                 _FreezeBadge(freezes: state.freezesAvailable),
                 const Spacer(),
-                if (nextSlot != null)
-                  IconButton(
-                    onPressed: controller.simulateCoTutorAction,
-                    tooltip: 'Simular co-tutor',
-                    icon: const Icon(
-                      Icons.bolt_rounded,
-                      color: AppColors.primary,
-                    ),
-                  ),
+                IconButton(
+                  onPressed: controller.refresh,
+                  tooltip: 'Atualizar cuidados',
+                  icon: const Icon(Icons.refresh),
+                ),
                 FilledButton.tonalIcon(
                   onPressed: () => _shareFamilyInvite(state),
                   style: FilledButton.styleFrom(
@@ -151,8 +281,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 children: state.slots.map((slot) {
                                   final isSelected = activeSlot?.id == slot.id;
                                   return Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 6),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 6,
+                                    ),
                                     child: _LeftCareFigureButton(
                                       slot: slot,
                                       isSelected: isSelected,
@@ -160,7 +291,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         setState(
                                           () => _selectedSlotId = slot.id,
                                         );
-                                        if (!slot.isDone) {
+                                        if (slot.isDone && slot.logId != null) {
+                                          ScaffoldMessenger.of(context)
+                                              .clearSnackBars();
+                                          controller.undoLastCare(slot.logId!);
+                                        } else if (!slot.isDone) {
                                           _handleLogCare(
                                             context,
                                             controller,
@@ -220,9 +355,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       builder: (context, constraints) {
                                         final maxDim =
                                             constraints.maxHeight.isFinite
-                                                ? constraints.maxHeight
-                                                    .clamp(210.0, 340.0)
-                                                : 300.0;
+                                            ? constraints.maxHeight.clamp(
+                                                210.0,
+                                                340.0,
+                                              )
+                                            : 300.0;
                                         return AvatarView(
                                           dna: state.avatarDna,
                                           mood: mood,
@@ -246,8 +383,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         ),
                                         decoration: BoxDecoration(
                                           color: AppColors.surface,
-                                          borderRadius:
-                                              BorderRadius.circular(999),
+                                          borderRadius: BorderRadius.circular(
+                                            999,
+                                          ),
                                           border: Border.all(
                                             color: AppColors.border,
                                           ),
@@ -268,8 +406,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         ),
                                         decoration: BoxDecoration(
                                           color: AppColors.primary,
-                                          borderRadius:
-                                              BorderRadius.circular(999),
+                                          borderRadius: BorderRadius.circular(
+                                            999,
+                                          ),
                                         ),
                                         child: Text(
                                           '$dayPercent% do dia concluído',
@@ -306,7 +445,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           label: 'Comida',
                                           value:
                                               '$doneFeeds/${feedSlots.length}',
-                                          isComplete: feedSlots.isNotEmpty &&
+                                          isComplete:
+                                              feedSlots.isNotEmpty &&
                                               doneFeeds == feedSlots.length,
                                         ),
                                         Container(
@@ -318,7 +458,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           label: 'Passeios',
                                           value:
                                               '$doneWalks/${walkSlots.length}',
-                                          isComplete: walkSlots.isEmpty ||
+                                          isComplete:
+                                              walkSlots.isEmpty ||
                                               doneWalks == walkSlots.length,
                                         ),
                                         Container(
@@ -328,7 +469,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         ),
                                         _PetStatMiniColumn(
                                           label: 'Próximo',
-                                          value: nextSlot?.timeLabel ?? '100% ✓',
+                                          value:
+                                              nextSlot?.timeLabel ?? '100% ✓',
                                           isComplete: nextSlot == null,
                                         ),
                                       ],
@@ -340,7 +482,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   if (nextSlot != null)
                                     PrimaryCtaButton(
                                       label:
-                                          '${nextSlot.emoji} ${nextSlot.timeLabel} • ${nextSlot.kind == CareSlotKind.dailyWalk ? "Passear" : nextSlot.kind == CareSlotKind.dailyFeed ? "Alimentar" : nextSlot.title}',
+                                          '${nextSlot.emoji} ${nextSlot.timeLabel} • ${nextSlot.kind == CareSlotKind.dailyWalk
+                                              ? "Passear"
+                                              : nextSlot.kind == CareSlotKind.dailyFeed
+                                              ? "Alimentar"
+                                              : nextSlot.title}',
                                       onPressed: () => _handleLogCare(
                                         context,
                                         controller,
@@ -371,13 +517,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  void _handleLogCare(
+  Future<void> _handleLogCare(
     BuildContext context,
     CareController controller,
     CareSlotItem slot,
     String petName,
-  ) {
-    final result = controller.logCareSlot(slot.id);
+  ) async {
+    final result = await controller.logCareSlot(slot.id);
     final logId = result.logId;
 
     if (logId != null && context.mounted) {
@@ -400,6 +546,16 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Future<void> _shareFamilyInvite(CareHomeState state) async {
+    if (ref.read(supabaseClientProvider) == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Convites ficam disponíveis quando a conexão da família estiver configurada.',
+          ),
+        ),
+      );
+      return;
+    }
     final text =
         'Agora a gente cuida do ${state.petName} junto pelo Lumin 🐾 '
         'Usa o código ${state.inviteCode} para entrar na família!';
@@ -432,16 +588,14 @@ class _HomePageState extends ConsumerState<HomePage> {
             children: [
               Text(
                 'Primeira vitória do $petName! 🎉',
-                style: Theme.of(sheetContext).textTheme.titleLarge?.copyWith(
-                  color: AppColors.textPrimary,
-                ),
+                style: Theme.of(sheetContext).textTheme.titleLarge
+                    ?.copyWith(color: AppColors.textPrimary),
               ),
               const SizedBox(height: 8),
               Text(
-                'Salve o progresso do $petName para não perder nada se trocar de celular.',
-                style: Theme.of(sheetContext).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
+                'Os cuidados locais estão salvos neste aparelho. A vinculação de conta depende da conexão online; o histórico de saúde pode ser compartilhado em relatório.',
+                style: Theme.of(sheetContext).textTheme.bodyMedium
+                    ?.copyWith(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 20),
               PrimaryCtaButton(
@@ -584,18 +738,16 @@ class _LeftCareFigureButton extends StatelessWidget {
                         fit: BoxFit.contain,
                       )
                     else
-                      Text(
-                        slot.emoji,
-                        style: const TextStyle(fontSize: 28),
-                      ),
+                      Text(slot.emoji, style: const TextStyle(fontSize: 28)),
                     const SizedBox(height: 4),
                     Text(
                       slot.timeLabel,
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w900,
-                        decoration:
-                            slot.isDone ? TextDecoration.lineThrough : null,
+                        decoration: slot.isDone
+                            ? TextDecoration.lineThrough
+                            : null,
                         color: AppColors.textPrimary,
                       ),
                     ),
@@ -642,10 +794,7 @@ class _StreakBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: isActive ? AppColors.primary : AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: AppColors.primary,
-          width: 2,
-        ),
+        border: Border.all(color: AppColors.primary, width: 2),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -707,10 +856,7 @@ class _FreezeBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: AppColors.freezeBlue,
-          width: 2,
-        ),
+        border: Border.all(color: AppColors.freezeBlue, width: 2),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

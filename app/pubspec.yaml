@@ -43,6 +43,8 @@ dependencies:
   share_plus: ^13.3.1
   supabase_flutter: ^2.18.3
   rive: ^0.14.11
+  flutter_local_notifications: ^23.0.3
+  timezone: ^0.11.2
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +69,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/pets/
+    - assets/pets/LuminProduction.riv
 
   # To add assets to your application, add an assets section, like this:
   # assets:

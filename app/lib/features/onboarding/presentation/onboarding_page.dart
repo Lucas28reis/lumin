@@ -1,3 +1,5 @@
+import '../../../core/widgets/routine_time_editor.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:share_plus/share_plus.dart';
@@ -139,6 +141,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                     child: _Step3DailyRoutineView(
                       state: state,
                       onFeedPresetSelected: controller.selectFeedPreset,
+                      onFeedTimesChanged: controller.setFeedTimes,
                       onWalkPresetSelected: controller.selectWalkPreset,
                       onNext: controller.submitStep3Routine,
                     ),
@@ -148,12 +151,12 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       state: state,
                       onToggleCare: controller.toggleForgettableCare,
                       onRecencyChanged: controller.setForgettableCareRecency,
-                      onNext: () => controller.submitStep4ForgettableCare(
-                        skipped: false,
-                      ),
-                      onSkip: () => controller.submitStep4ForgettableCare(
-                        skipped: true,
-                      ),
+                      onFleaDate: controller.setFleaDate,
+                      onFleaInterval: controller.setFleaInterval,
+                      onNext: () =>
+                          controller.submitStep4ForgettableCare(skipped: false),
+                      onSkip: () =>
+                          controller.submitStep4ForgettableCare(skipped: true),
                     ),
                   ),
                   _CenteredStepShell(
@@ -553,11 +556,13 @@ class _Step3DailyRoutineView extends StatelessWidget {
   const _Step3DailyRoutineView({
     required this.state,
     required this.onFeedPresetSelected,
+    required this.onFeedTimesChanged,
     required this.onWalkPresetSelected,
     required this.onNext,
   });
 
   final OnboardingState state;
+  final ValueChanged<List<String>> onFeedTimesChanged;
   final ValueChanged<FeedPreset> onFeedPresetSelected;
   final ValueChanged<WalkPreset> onWalkPresetSelected;
   final VoidCallback onNext;
@@ -652,6 +657,11 @@ class _Step3DailyRoutineView extends StatelessWidget {
                             );
                           }).toList(),
                         ),
+                        if (draft.feedPreset == FeedPreset.custom)
+                          RoutineTimeEditor(
+                            times: draft.customFeedTimes,
+                            onChanged: onFeedTimesChanged,
+                          ),
                       ],
                     ),
                   ),
@@ -773,133 +783,210 @@ class _Step3DailyRoutineView extends StatelessWidget {
 // -----------------------------------------------------------------------------
 // PASSO 4: Cuidados Esquecíveis (Antipulgas, Vermífugo, Remédio)
 // -----------------------------------------------------------------------------
-class _Step4ForgettableCareView extends StatelessWidget {
+String _shortDate(DateTime d) =>
+    "${d.day.toString().padLeft(2, '0')}/${d.month.toString().padLeft(2, '0')}/${d.year}";
+
+class _Step4ForgettableCareView extends StatefulWidget {
   const _Step4ForgettableCareView({
     required this.state,
     required this.onToggleCare,
     required this.onRecencyChanged,
+    required this.onFleaDate,
+    required this.onFleaInterval,
     required this.onNext,
     required this.onSkip,
   });
 
   final OnboardingState state;
   final ValueChanged<ForgettableCareType> onToggleCare;
+  final ValueChanged<DateTime?> onFleaDate;
+  final ValueChanged<int> onFleaInterval;
   final void Function(ForgettableCareType, LastDoneRecency) onRecencyChanged;
   final VoidCallback onNext;
   final VoidCallback onSkip;
 
   @override
+  State<_Step4ForgettableCareView> createState() => _Step4CareState();
+}
+
+class _Step4CareState extends State<_Step4ForgettableCareView> {
+  final form = GlobalKey<FormState>();
+  @override
   Widget build(BuildContext context) {
-    final careMap = state.draft.forgettableCare;
+    final careMap = widget.state.draft.forgettableCare;
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            'Os cuidados que todo mundo esquece 😅',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Selecione o que você quer que o Lumin lembre na data certa.',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: ListView(
-              children: ForgettableCareType.values.map((type) {
-                final selected = careMap.containsKey(type);
-                final currentRecency = careMap[type];
+    return Form(
+      key: form,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'Os cuidados que todo mundo esquece 😅',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Selecione o que você quer que o Lumin lembre na data certa.',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView(
+                children: ForgettableCareType.values.map((type) {
+                  final selected = careMap.containsKey(type);
+                  final currentRecency = careMap[type];
 
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                      color: selected ? AppColors.primary : AppColors.border,
-                      width: selected ? 2.5 : 1.5,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () => onToggleCare(type),
-                        child: Row(
-                          children: [
-                            Text(
-                              type.emoji,
-                              style: const TextStyle(fontSize: 24),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                type.label,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ),
-                            Checkbox(
-                              value: selected,
-                              activeColor: AppColors.primary,
-                              checkColor: AppColors.textPrimary,
-                              onChanged: (_) => onToggleCare(type),
-                            ),
-                          ],
-                        ),
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(
+                        color: selected ? AppColors.primary : AppColors.border,
+                        width: selected ? 2.5 : 1.5,
                       ),
-                      if (selected) ...[
-                        const Divider(height: 16),
-                        const Text(
-                          'Quando foi a última vez?',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.textSecondary,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () => widget.onToggleCare(type),
+                          child: Row(
+                            children: [
+                              Text(
+                                type.emoji,
+                                style: const TextStyle(fontSize: 24),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  type.label,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium,
+                                ),
+                              ),
+                              Checkbox(
+                                value: selected,
+                                activeColor: AppColors.primary,
+                                checkColor: AppColors.textPrimary,
+                                onChanged: (_) => widget.onToggleCare(type),
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: LastDoneRecency.values.map((rec) {
-                            final isRecSelected = currentRecency == rec;
-                            return ChoiceChip(
-                              label: Text(rec.label),
-                              selected: isRecSelected,
-                              selectedColor: AppColors.primary,
-                              backgroundColor: AppColors.surfaceAlt,
-                              checkmarkColor: AppColors.textPrimary,
-                              labelStyle: const TextStyle(
-                                fontSize: 13,
-                                color: AppColors.textPrimary,
-                                fontWeight: FontWeight.w800,
+                        if (selected) ...[
+                          const Divider(height: 16),
+                          if (type == ForgettableCareType.fleaTick) ...[
+                            OutlinedButton.icon(
+                              icon: const Icon(Icons.calendar_month),
+                              label: Text(
+                                widget.state.draft.fleaLastDate == null
+                                    ? 'Selecionar última aplicação'
+                                    : 'Última aplicação · ${_shortDate(widget.state.draft.fleaLastDate!)}',
                               ),
-                              onSelected: (_) => onRecencyChanged(type, rec),
-                            );
-                          }).toList(),
-                        ),
+                              onPressed: () async {
+                                final today = DateTime.now();
+                                final date = await showDatePicker(
+                                  context: context,
+                                  firstDate: DateTime(1900),
+                                  lastDate: today,
+                                  initialDate:
+                                      widget.state.draft.fleaLastDate ?? today,
+                                );
+                                if (date != null && context.mounted)
+                                  widget.onFleaDate(date);
+                              },
+                            ),
+                            if (widget.state.draft.fleaLastDate != null)
+                              TextButton(
+                                onPressed: () => widget.onFleaDate(null),
+                                child: const Text('Não lembro da data'),
+                              ),
+                            TextFormField(
+                              initialValue: widget.state.draft.fleaIntervalDays
+                                  .toString(),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                labelText: 'Repetir a cada (dias)',
+                              ),
+                              validator: (value) {
+                                final days = int.tryParse(value ?? '');
+                                return days == null || days < 1 || days > 365
+                                    ? 'Informe de 1 a 365 dias'
+                                    : null;
+                              },
+                              onChanged: (value) {
+                                final days = int.tryParse(value);
+                                if (days != null) widget.onFleaInterval(days);
+                              },
+                            ),
+                            if (widget.state.draft.fleaLastDate != null)
+                              Text(
+                                'Próxima aplicação · ${_shortDate(widget.state.draft.fleaDue(DateTime.now()))}',
+                              )
+                            else
+                              const Text(
+                                'Sem data anterior, o primeiro lembrete fica para hoje.',
+                              ),
+                          ] else ...[
+                            const Text(
+                              'Quando foi a última vez?',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: LastDoneRecency.values.map((rec) {
+                                final isRecSelected = currentRecency == rec;
+                                return ChoiceChip(
+                                  label: Text(rec.label),
+                                  selected: isRecSelected,
+                                  selectedColor: AppColors.primary,
+                                  backgroundColor: AppColors.surfaceAlt,
+                                  checkmarkColor: AppColors.textPrimary,
+                                  labelStyle: const TextStyle(
+                                    fontSize: 13,
+                                    color: AppColors.textPrimary,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                  onSelected: (_) =>
+                                      widget.onRecencyChanged(type, rec),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ],
                       ],
-                    ],
-                  ),
-                );
-              }).toList(),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          PrimaryCtaButton(
-            label: 'Salvar e continuar',
-            isLoading: state.isSubmitting,
-            onPressed: onNext,
-            secondaryLabel: 'Pular por enquanto',
-            onSecondaryPressed: onSkip,
-          ),
-        ],
+            const SizedBox(height: 8),
+            PrimaryCtaButton(
+              label: 'Salvar e continuar',
+              isLoading: widget.state.isSubmitting,
+              onPressed: () {
+                if (form.currentState!.validate()) widget.onNext();
+              },
+              secondaryLabel: 'Pular por enquanto',
+              onSecondaryPressed: widget.onSkip,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1109,10 +1196,7 @@ class _Step6NotificationPromptView extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.surface,
                         borderRadius: BorderRadius.circular(18),
-                        border: Border.all(
-                          color: AppColors.border,
-                          width: 1.5,
-                        ),
+                        border: Border.all(color: AppColors.border, width: 1.5),
                       ),
                       child: Text(
                         '"Me avisa quando for hora do meu papá? 🥺"',

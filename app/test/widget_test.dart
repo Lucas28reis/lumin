@@ -110,6 +110,20 @@ void main() {
       },
     );
 
+    test('Antipulgas preserva a data e a frequência ao reabrir', () {
+      final draft = OnboardingDraft.initial().copyWith(
+        fleaLastDate: DateTime(2026, 11, 25),
+        fleaIntervalDays: 15,
+      );
+      final restored = OnboardingDraft.fromJson(draft.toJson());
+      final tasks =
+          restored.toRpcPayload(now: DateTime(2026, 12, 1))['tasks']
+              as List<Map<String, Object?>>;
+      final task = tasks.singleWhere((item) => item['type'] == 'flea_tick');
+      expect(task['next_due_date'], '2026-12-10');
+      expect(task['interval_days'], 15);
+    });
+
     test('NextSlotResolver retorna o primeiro slot pendente', () {
       const slots = [
         CareSlotItem(
@@ -176,18 +190,30 @@ void main() {
     await tester.tap(find.text('Continuar'));
     await tester.pumpAndSettle();
 
-    // Passo 2: Montador de Avatar
     expect(find.text('Vamos desenhar o Paçoca!'), findsOneWidget);
     await tester.tap(find.text('É o Paçoca!'));
     await tester.pumpAndSettle();
 
     // Passo 3: Rotina diária
     expect(find.text('Qual a rotina do Paçoca?'), findsOneWidget);
+    await tester.tap(find.text('Personalizar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Adicionar refeição'), findsOneWidget);
+    await tester.tap(find.text('08:00'));
+    await tester.pumpAndSettle();
+    expect(find.byType(TimePickerDialog), findsOneWidget);
+    Navigator.of(tester.element(find.byType(TimePickerDialog))).pop();
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Continuar'));
     await tester.pumpAndSettle();
 
     // Passo 4: Cuidados esquecíveis
     expect(find.text('Os cuidados que todo mundo esquece 😅'), findsOneWidget);
+    await tester.tap(find.text('Selecionar última aplicação'));
+    await tester.pumpAndSettle();
+    expect(find.byType(DatePickerDialog), findsOneWidget);
+    Navigator.of(tester.element(find.byType(DatePickerDialog))).pop();
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Salvar e continuar'));
     await tester.pumpAndSettle();
 
@@ -210,6 +236,22 @@ void main() {
     expect(find.text('18:30'), findsOneWidget);
     expect(find.text('19:00'), findsOneWidget);
     expect(find.textContaining('07:30 • Passear'), findsOneWidget);
+    if (find.text('Fechar').evaluate().isNotEmpty) {
+      await tester.tap(find.text('Fechar'));
+      await tester.pumpAndSettle();
+    }
+    for (final destination in [
+      ('Rotina', 'Horários dos passeios'),
+      ('Prontuário', 'Histórico de saúde'),
+      ('Ração', 'Estoque de ração'),
+      ('Estilo', 'Nome do pet'),
+    ]) {
+      await tester.tap(find.text(destination.$1));
+      await tester.pumpAndSettle();
+      expect(find.text(destination.$2), findsWidgets);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+    }
   });
 
   testWidgets('AvatarView 3D sentado reage ao toque com latido/miado', (

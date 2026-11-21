@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../../../core/error/failure.dart';
 import '../domain/onboarding_draft.dart';
 import '../domain/onboarding_repository.dart';
+import '../../avatar/domain/avatar_dna.dart';
 import 'draft_local_store.dart';
 
 class OnboardingRepositoryImpl implements OnboardingRepository {
@@ -120,11 +121,20 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
       );
       final petRow = await client
           .from('pets')
-          .select('id, name, species, avatar_dna')
+          .select('id, name, species, avatar_dna, timezone')
           .eq('household_id', householdId)
           .limit(1)
           .single();
       final petId = petRow['id'] as String;
+      await _localStore.saveDraft(
+        _localStore.loadDraft().copyWith(
+          petName: petRow['name'],
+          species: PetSpecies.fromCode(petRow['species']),
+          avatarDna: AvatarDna.fromJson(petRow['avatar_dna']),
+          timezone: petRow['timezone'],
+          tutorDisplayName: displayName,
+        ),
+      );
       await _localStore.saveCompletedPet(petId: petId, inviteCode: cleanCode);
       return OnboardingResult(
         petId: petId,
@@ -133,22 +143,8 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
       );
     }
 
-    // Modo local/offline: simula entrada na família do Paçoca com Ana
-    final currentDraft = _localStore.loadDraft();
-    final joinedDraft = currentDraft.copyWith(
-      petName: currentDraft.petName.isEmpty ? 'Paçoca' : currentDraft.petName,
-      tutorDisplayName: displayName.trim().isEmpty
-          ? 'Co-tutor'
-          : displayName.trim(),
-    );
-    final petId = _uuid.v4();
-    await _localStore.saveDraft(joinedDraft);
-    await _localStore.saveCompletedPet(petId: petId, inviteCode: cleanCode);
-
-    return OnboardingResult(
-      petId: petId,
-      householdId: 'joined-household',
-      inviteCode: cleanCode,
+    throw const NetworkFailure(
+      'Convites precisam da conexão online da família. Nenhuma entrada foi realizada.',
     );
   }
 

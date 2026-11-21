@@ -97,7 +97,10 @@ class OnboardingController extends Notifier<OnboardingState> {
     state = state.copyWith(isSubmitting: true, clearError: true);
     try {
       await repo.signInAnonymouslyIfNeeded();
-      analytics.track('onboarding_step_completed', {'step': 0, 'mode': 'creator'});
+      analytics.track('onboarding_step_completed', {
+        'step': 0,
+        'mode': 'creator',
+      });
       await _goToStep(1, mode: OnboardingFlowMode.creator);
     } catch (_) {
       // Mesmo se falhar rede no login anônimo, permite avançar com rascunho local
@@ -108,10 +111,10 @@ class OnboardingController extends Notifier<OnboardingState> {
   }
 
   void startGuestFlow() {
-    ref.read(analyticsProvider).track(
-      'onboarding_step_viewed',
-      {'step': 1, 'mode': 'guest'},
-    );
+    ref.read(analyticsProvider).track('onboarding_step_viewed', {
+      'step': 1,
+      'mode': 'guest',
+    });
     state = state.copyWith(
       mode: OnboardingFlowMode.guest,
       currentStep: 1,
@@ -135,8 +138,9 @@ class OnboardingController extends Notifier<OnboardingState> {
   void selectSpecies(PetSpecies species) {
     if (state.draft.species == species) return;
     // Ajusta preset de passeio padrão conforme espécie (Seção 4.2: cão=2x, gato=nenhum)
-    final defaultWalk =
-        species == PetSpecies.dog ? WalkPreset.twice : WalkPreset.none;
+    final defaultWalk = species == PetSpecies.dog
+        ? WalkPreset.twice
+        : WalkPreset.none;
     final updated = state.draft.copyWith(
       species: species,
       walkPreset: defaultWalk,
@@ -181,6 +185,21 @@ class OnboardingController extends Notifier<OnboardingState> {
   Future<void> submitStep2Avatar() async {
     ref.read(analyticsProvider).track('onboarding_step_completed', {'step': 2});
     await _goToStep(3);
+  }
+
+  void setFeedTimes(List<String> times) {
+    _updateDraft(state.draft.copyWith(customFeedTimes: [...times]..sort()));
+  }
+
+  void setFleaDate(DateTime? date) {
+    _updateDraft(
+      state.draft.copyWith(fleaLastDate: date, clearFleaDate: date == null),
+    );
+  }
+
+  void setFleaInterval(int days) {
+    if (days >= 1 && days <= 365)
+      _updateDraft(state.draft.copyWith(fleaIntervalDays: days));
   }
 
   void selectFeedPreset(FeedPreset preset) {
@@ -279,7 +298,10 @@ class OnboardingController extends Notifier<OnboardingState> {
   Future<void> finishOnboarding({required bool grantedPush}) async {
     final analytics = ref.read(analyticsProvider);
     final store = ref.read(draftLocalStoreProvider);
-    analytics.track('push_permission', {'granted': grantedPush});
+    analytics.track('reminder_interest', {'requested': grantedPush});
+    await ref
+        .read(sharedPreferencesProvider)
+        .setBool('lumin.reminders.requested', grantedPush);
     analytics.track('onboarding_completed', {
       'mode': state.mode.name,
       'species': state.draft.species.code,
@@ -300,7 +322,9 @@ class OnboardingController extends Notifier<OnboardingState> {
   Future<void> submitGuestJoin() async {
     state = state.copyWith(isSubmitting: true, clearError: true);
     try {
-      final result = await ref.read(onboardingRepositoryProvider).joinHousehold(
+      final result = await ref
+          .read(onboardingRepositoryProvider)
+          .joinHousehold(
             code: state.guestCodeInput,
             displayName: state.draft.tutorDisplayName,
           );
@@ -312,6 +336,7 @@ class OnboardingController extends Notifier<OnboardingState> {
         inviteCode: result.inviteCode,
         isSubmitting: false,
         currentStep: 2, // Revelação + Notificações do convidado
+        draft: ref.read(draftLocalStoreProvider).loadDraft(),
       );
     } catch (e) {
       state = state.copyWith(
@@ -321,6 +346,11 @@ class OnboardingController extends Notifier<OnboardingState> {
             : 'Código inválido ou expirado. Confira com quem te convidou.',
       );
     }
+  }
+
+  Future<void> savePetEdits(OnboardingDraft draft) async {
+    await ref.read(draftLocalStoreProvider).saveDraft(draft);
+    state = state.copyWith(draft: draft);
   }
 
   void _updateDraft(OnboardingDraft updated) {
@@ -345,5 +375,5 @@ class OnboardingController extends Notifier<OnboardingState> {
 
 final onboardingControllerProvider =
     NotifierProvider<OnboardingController, OnboardingState>(
-  OnboardingController.new,
-);
+      OnboardingController.new,
+    );

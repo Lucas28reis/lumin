@@ -1,5 +1,9 @@
 # Lumin (nome provisório): Especificação do MVP v2
 
+> Atualização: [Vida do pet](PET_LIFE.md) define estoque de ração, histórico
+> veterinário, medicamentos, lembretes e as integrações pendentes. O avatar atual
+> usa **Rive**, substituindo a proposta SVG abaixo.
+
 > Este documento substitui a proposta v1 ("Duolingo da alimentação").
 > Banco de dados: [`supabase/migrations/20261116000000_init.sql`](../supabase/migrations/20261116000000_init.sql)
 

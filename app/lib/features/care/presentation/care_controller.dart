@@ -1,10 +1,16 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:timezone/timezone.dart' as tz;
 import 'package:uuid/uuid.dart';
 
 import '../../../core/providers/core_providers.dart';
 import '../../avatar/domain/avatar_dna.dart';
 import '../../avatar/domain/avatar_mood.dart';
 import '../../avatar/domain/mood_resolver.dart';
+import '../../notifications/notification_care_action.dart';
 import '../../onboarding/domain/onboarding_draft.dart';
 import '../../onboarding/presentation/onboarding_controller.dart';
 import '../domain/care_slot.dart';
@@ -42,29 +48,36 @@ class CareHomeState {
   final bool hasShownAccountLinkPrompt;
   final bool isAccountLinked;
 
-  CareSlotItem? get nextPendingSlot => NextSlotResolver.resolveNextPending(slots);
+  CareSlotItem? get nextPendingSlot =>
+      NextSlotResolver.resolveNextPending(slots);
 
   bool get isDayComplete =>
       slots.where((s) => s.kind != CareSlotKind.interval).isNotEmpty &&
-      slots.where((s) => s.kind != CareSlotKind.interval).every((s) => s.isDone);
+      slots
+          .where((s) => s.kind != CareSlotKind.interval)
+          .every((s) => s.isDone);
 
   AvatarMood resolveMood(DateTime now) {
     final feedSlots = slots
         .where((s) => s.kind == CareSlotKind.dailyFeed)
-        .map((s) => (
-              hour: s.scheduledHour ?? 8,
-              minute: s.scheduledMinute ?? 0,
-              isDone: s.isDone,
-            ))
+        .map(
+          (s) => (
+            hour: s.scheduledHour ?? 8,
+            minute: s.scheduledMinute ?? 0,
+            isDone: s.isDone,
+          ),
+        )
         .toList();
 
     final walkSlots = slots
         .where((s) => s.kind == CareSlotKind.dailyWalk)
-        .map((s) => (
-              hour: s.scheduledHour ?? 18,
-              minute: s.scheduledMinute ?? 0,
-              isDone: s.isDone,
-            ))
+        .map(
+          (s) => (
+            hour: s.scheduledHour ?? 18,
+            minute: s.scheduledMinute ?? 0,
+            isDone: s.isDone,
+          ),
+        )
         .toList();
 
     final hasOverdueInterval = slots.any(
@@ -119,20 +132,44 @@ class CareHomeState {
 
 class CareController extends Notifier<CareHomeState> {
   static const Uuid _uuid = Uuid();
+  String _key = '';
+  String _day = '';
+  bool _busy = false;
+  bool _refreshing = false;
+  bool _remoteReady = false;
+  DateTime? _localFleaDue;
+  final Set<String> _completeDays = {};
+  DateTime petNow() {
+    final now = ref.read(clockProvider).now();
+    try {
+      return tz.TZDateTime.from(
+        now,
+        tz.getLocation(ref.read(onboardingControllerProvider).draft.timezone),
+      );
+    } catch (_) {
+      return now;
+    }
+  }
+
+  String _date(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
   @override
   CareHomeState build() {
-    final onboarding = ref.watch(onboardingControllerProvider);
+    ref.watch(onboardingControllerProvider.select((s) => s.petId));
+    final onboarding = ref.read(onboardingControllerProvider);
     final draft = onboarding.draft;
-    final petName =
-        draft.petName.trim().isEmpty ? 'Paçoca' : draft.petName.trim();
+    final petName = draft.petName.trim().isEmpty
+        ? 'Paçoca'
+        : draft.petName.trim();
     final tutorName = draft.tutorDisplayName.trim().isEmpty
         ? 'Tutor'
         : draft.tutorDisplayName.trim();
 
+    _localFleaDue = null;
     final slots = _buildSlotsFromDraft(draft, petName);
 
-    return CareHomeState(
+    var initial = CareHomeState(
       petName: petName,
       petGender: draft.gender,
       tutorName: tutorName,
@@ -143,15 +180,266 @@ class CareController extends Notifier<CareHomeState> {
       freezesAvailable: 1,
       householdMemberCount: onboarding.mode == OnboardingFlowMode.guest ? 2 : 1,
     );
+    _key = 'lumin.care.v1.${onboarding.petId ?? 'draft'}';
+    _remoteReady = false;
+    _day = _date(petNow());
+    _completeDays.clear();
+    final raw = ref.read(sharedPreferencesProvider).getString(_key);
+    if (raw != null) {
+      try {
+        final j = jsonDecode(raw) as Map<String, dynamic>;
+        _localFleaDue = DateTime.tryParse(j['flea_next_due'] as String? ?? '');
+        _completeDays.addAll((j['days'] as List).cast<String>());
+        initial = initial.copyWith(
+          streakDays: _localStreak(),
+          slots: j['day'] == _day
+              ? (j['slots'] as List)
+                    .map((s) => CareSlotItem.fromJson(s))
+                    .toList()
+              : _buildSlotsFromDraft(draft, petName),
+          hasShownAccountLinkPrompt: j['prompted'] == true,
+        );
+      } catch (_) {
+        initial = initial.copyWith(
+          bannerMessage: 'Não foi possível recuperar os cuidados salvos.',
+        );
+      }
+    }
+    final timer = Timer.periodic(const Duration(seconds: 30), (_) => refresh());
+    ref.onDispose(timer.cancel);
+    final client = ref.read(supabaseClientProvider);
+    if (client != null && onboarding.petId != null) {
+      final channel = client.channel('care-${onboarding.petId}');
+      for (final table in ['care_logs', 'care_tasks', 'pet_days']) {
+        channel.onPostgresChanges(
+          event: PostgresChangeEvent.all,
+          schema: 'public',
+          table: table,
+          callback: (_) => refresh(),
+        );
+      }
+      channel.subscribe();
+      ref.onDispose(() {
+        client.removeChannel(channel);
+      });
+    }
+    Future.microtask(refresh);
+    return initial;
+  }
+
+  int _localStreak() {
+    var day = DateTime.parse(_day);
+    if (!_completeDays.contains(_date(day))) {
+      day = day.subtract(const Duration(days: 1));
+    }
+    var total = 0;
+    while (_completeDays.contains(_date(day))) {
+      total++;
+      day = day.subtract(const Duration(days: 1));
+    }
+    return total;
+  }
+
+  Future<void> _persist(CareHomeState next) async {
+    final ok = await ref
+        .read(sharedPreferencesProvider)
+        .setString(
+          _key,
+          jsonEncode({
+            'day': _day,
+            'days': _completeDays.toList(),
+            'flea_next_due': _localFleaDue?.toIso8601String(),
+            'slots': next.slots.map((s) => s.toJson()).toList(),
+            'prompted': next.hasShownAccountLinkPrompt,
+          }),
+        );
+    if (!ok) throw StateError('Falha ao salvar cuidados');
+  }
+
+  Future<void> _applyNotificationActions(String petId) async {
+    final prefs = ref.read(sharedPreferencesProvider);
+    await prefs.reload();
+    if (!ref.mounted) return;
+    final keys = prefs
+        .getKeys()
+        .where((k) => k.startsWith(CareNotificationAction.prefix(petId)))
+        .toList();
+    if (keys.isEmpty) return;
+    final slots = [...state.slots];
+    final historical = <String, Set<String>>{};
+    final requiredByDay = <String, Set<String>>{};
+    var lastCare = state.lastCareLoggedAt;
+    for (final key in keys) {
+      final record = jsonDecode(prefs.getString(key)!) as Map<String, dynamic>;
+      final day = record['day'] as String;
+      if (day != _day) {
+        historical.putIfAbsent(day, () => {}).addAll([
+          ...List<String>.from(record['done']),
+          record['slot'] as String,
+        ]);
+        requiredByDay[day] = Set<String>.from(record['required']);
+        continue;
+      }
+      for (var i = 0; i < slots.length; i++) {
+        final slot = slots[i];
+        if (slot.kind == CareSlotKind.interval || slot.isDone) continue;
+        final type = slot.kind == CareSlotKind.dailyFeed ? 'feed' : 'walk';
+        if ('$type/${slot.timeLabel}' != record['slot']) continue;
+        final at = DateTime.parse(record['at']);
+        slots[i] = slot.copyWith(
+          isDone: true,
+          doneAt: at,
+          doneByName: state.tutorName,
+          logId: record['log'],
+        );
+        if (lastCare == null || at.isAfter(lastCare)) lastCare = at;
+      }
+    }
+    for (final day in historical.keys) {
+      if (historical[day]!.containsAll(requiredByDay[day]!))
+        _completeDays.add(day);
+    }
+    var next = state.copyWith(slots: slots, lastCareLoggedAt: lastCare);
+    if (next.isDayComplete) _completeDays.add(_day);
+    next = next.copyWith(streakDays: _localStreak());
+    await _persist(next);
+    if (!ref.mounted) return;
+    state = next;
+    for (final key in keys) {
+      await prefs.remove(key);
+    }
+  }
+
+  Future<void> refresh() async {
+    if (!ref.mounted || _busy || _refreshing) return;
+    _refreshing = true;
+    try {
+      final today = _date(petNow());
+      if (_day != today) {
+        _day = today;
+        _remoteReady = false;
+        state = state.copyWith(
+          slots: _buildSlotsFromDraft(
+            ref.read(onboardingControllerProvider).draft,
+            state.petName,
+          ),
+          streakDays: _localStreak(),
+        );
+      }
+      final client = ref.read(supabaseClientProvider);
+      final petId = ref.read(onboardingControllerProvider).petId;
+      if (petId == null) return;
+      if (client == null) {
+        await _applyNotificationActions(petId);
+        return;
+      }
+      final pet = await client.from('pets').select().eq('id', petId).single();
+      final tasks = await client
+          .from('care_tasks')
+          .select()
+          .eq('pet_id', petId)
+          .eq('active', true);
+      final logs = await client
+          .from('care_logs')
+          .select()
+          .eq('pet_id', petId)
+          .eq('slot_date', _day);
+      final members = await client
+          .from('household_members')
+          .select()
+          .eq('household_id', pet['household_id']);
+      final streak = await client.rpc<int>(
+        'pet_streak',
+        params: {'p_pet': petId},
+      );
+      final slots = <CareSlotItem>[];
+      for (final task in tasks) {
+        final interval = task['kind'] == 'interval';
+        if (interval &&
+            (task['next_due_date'] as String).compareTo(_day) > 0 &&
+            !logs.any((l) => l['task_id'] == task['id'])) {
+          continue;
+        }
+        final times = interval
+            ? <String>['']
+            : (task['daily_times'] as List).cast<String>();
+        for (var i = 0; i < times.length; i++) {
+          final log = logs
+              .where((l) => l['task_id'] == task['id'] && l['slot_index'] == i)
+              .firstOrNull;
+          final actor = members
+              .where((m) => m['user_id'] == log?['done_by'])
+              .firstOrNull;
+          final parts = times[i].split(':');
+          slots.add(
+            CareSlotItem(
+              id: '${task['id']}-$i',
+              taskId: task['id'],
+              slotIndex: i,
+              kind: interval
+                  ? CareSlotKind.interval
+                  : task['type'] == 'feed'
+                  ? CareSlotKind.dailyFeed
+                  : CareSlotKind.dailyWalk,
+              title: task['label'],
+              subtitle: interval
+                  ? 'Cuidado periódico'
+                  : times[i].substring(0, 5),
+              emoji: interval
+                  ? '💊'
+                  : task['type'] == 'feed'
+                  ? '🍖'
+                  : '🦮',
+              scheduledHour: interval ? null : int.parse(parts[0]),
+              scheduledMinute: interval ? null : int.parse(parts[1]),
+              isDone: log != null,
+              logId: log?['id'],
+              doneByName: actor?['display_name'],
+              doneAt: log == null ? null : DateTime.parse(log['occurred_at']),
+            ),
+          );
+        }
+      }
+      if (!ref.mounted) return;
+      slots.sort((a, b) => a.sortMinutes.compareTo(b.sortMinutes));
+      _remoteReady = true;
+      final next = state.copyWith(
+        petName: pet['name'],
+        avatarDna: AvatarDna.fromJson(pet['avatar_dna']),
+        slots: slots,
+        streakDays: streak,
+        householdMemberCount: members.length,
+        isAccountLinked: client.auth.currentUser?.isAnonymous == false,
+        clearBanner: true,
+      );
+      await _persist(next);
+      if (ref.mounted) state = next;
+    } catch (_) {
+      if (ref.mounted) {
+        state = state.copyWith(
+          bannerMessage:
+              'Não foi possível atualizar a família. Verifique a conexão.',
+        );
+      }
+    } finally {
+      _refreshing = false;
+    }
   }
 
   /// Registra um cuidado em 1 toque (otimista + idempotente).
   /// Retorna se deve exibir o bottom sheet de salvar conta e o `logId` criado.
-  ({bool shouldPromptAccountLink, String? logId}) logCareSlot(
+  Future<({bool shouldPromptAccountLink, String? logId})> logCareSlot(
     String slotId, {
     String? customActorName,
-  }) {
-    final now = ref.read(clockProvider).now();
+  }) async {
+    if (_busy || _refreshing) {
+      return (shouldPromptAccountLink: false, logId: null);
+    }
+    final now = petNow();
+    if (_date(now) != _day) {
+      await refresh();
+      return (shouldPromptAccountLink: false, logId: null);
+    }
     final analytics = ref.read(analyticsProvider);
     final actor = customActorName ?? state.tutorName;
     final logId = _uuid.v4();
@@ -169,6 +457,49 @@ class CareController extends Notifier<CareHomeState> {
             '${target.doneByName ?? "Outro tutor"} já tinha marcado "${target.title}" 💛',
       );
       return (shouldPromptAccountLink: false, logId: null);
+    }
+
+    final client = ref.read(supabaseClientProvider);
+    if (client != null) {
+      if (!_remoteReady) {
+        await refresh();
+        return (shouldPromptAccountLink: false, logId: null);
+      }
+      _busy = true;
+      try {
+        final result = await client.rpc(
+          'log_care',
+          params: {
+            'p_log_id': logId,
+            'p_task_id': target.taskId,
+            'p_slot_index': target.slotIndex,
+            'p_occurred_at': now.toUtc().toIso8601String(),
+          },
+        );
+        if (!ref.mounted) return (shouldPromptAccountLink: false, logId: null);
+        state = state.copyWith(lastCareLoggedAt: now);
+        _busy = false;
+        await refresh();
+        if (result['status'] == 'already_done') {
+          state = state.copyWith(
+            bannerMessage: 'Outro tutor já registrou este cuidado 💛',
+          );
+          return (shouldPromptAccountLink: false, logId: null);
+        }
+        return (
+          shouldPromptAccountLink: false,
+          logId: result['log_id'] as String,
+        );
+      } catch (_) {
+        if (ref.mounted) {
+          state = state.copyWith(
+            bannerMessage: 'Registro não confirmado. Reconecte e atualize antes de tentar novamente.',
+          );
+        }
+        return (shouldPromptAccountLink: false, logId: null);
+      } finally {
+        _busy = false;
+      }
     }
 
     final wasCompleteBefore = state.isDayComplete;
@@ -192,10 +523,7 @@ class CareController extends Notifier<CareHomeState> {
         ? state.streakDays + 1
         : state.streakDays;
 
-    analytics.track('care_logged', {
-      'type': target.kind.name,
-      'source': 'tap',
-    });
+    analytics.track('care_logged', {'type': target.kind.name, 'source': 'tap'});
 
     if (!wasCompleteBefore && isCompleteNow) {
       analytics.track('day_completed', {'streak': updatedStreak});
@@ -204,17 +532,63 @@ class CareController extends Notifier<CareHomeState> {
     final shouldPromptAccountLink =
         !state.hasShownAccountLinkPrompt && !state.isAccountLinked;
 
-    state = nextState.copyWith(
+    final saved = nextState.copyWith(
       streakDays: updatedStreak,
       hasShownAccountLinkPrompt:
           state.hasShownAccountLinkPrompt || shouldPromptAccountLink,
     );
 
+    _busy = true;
+    final previousDue = _localFleaDue;
+    if (target.id == 'interval-flea_tick') {
+      final days = ref
+          .read(onboardingControllerProvider)
+          .draft
+          .fleaIntervalDays;
+      final today = petNow();
+      _localFleaDue = DateTime(today.year, today.month, today.day + days);
+    }
+    if (isCompleteNow) _completeDays.add(_day);
+    try {
+      await _persist(saved);
+      if (ref.mounted) state = saved;
+    } catch (_) {
+      _localFleaDue = previousDue;
+      if (!wasCompleteBefore) _completeDays.remove(_day);
+      if (ref.mounted) {
+        state = state.copyWith(
+          bannerMessage: 'Não foi possível salvar o cuidado neste aparelho.',
+        );
+      }
+      return (shouldPromptAccountLink: false, logId: null);
+    } finally {
+      _busy = false;
+    }
+
     return (shouldPromptAccountLink: shouldPromptAccountLink, logId: logId);
   }
 
   /// Desfaz o último cuidado registrado (janela de toque acidental).
-  void undoLastCare(String logId) {
+  Future<void> undoLastCare(String logId) async {
+    if (_busy || _refreshing) return;
+    final client = ref.read(supabaseClientProvider);
+    if (client != null) {
+      _busy = true;
+      try {
+        await client.rpc('undo_care', params: {'p_log_id': logId});
+      } catch (_) {
+        if (ref.mounted) {
+          state = state.copyWith(
+            bannerMessage: 'Não foi possível desfazer. Confira se o registro de hoje foi feito por você.',
+          );
+        }
+        return;
+      } finally {
+        _busy = false;
+      }
+      await refresh();
+      return;
+    }
     final index = state.slots.indexWhere((s) => s.logId == logId);
     if (index == -1) return;
 
@@ -222,10 +596,7 @@ class CareController extends Notifier<CareHomeState> {
     final updatedSlots = List<CareSlotItem>.from(state.slots);
     updatedSlots[index] = updatedSlots[index].copyWith(clearCompletion: true);
 
-    final nextState = state.copyWith(
-      slots: updatedSlots,
-      clearBanner: true,
-    );
+    final nextState = state.copyWith(slots: updatedSlots, clearBanner: true);
 
     final updatedStreak = (wasCompleteBefore && !nextState.isDayComplete)
         ? (state.streakDays > 0 ? state.streakDays - 1 : 0)
@@ -233,31 +604,146 @@ class CareController extends Notifier<CareHomeState> {
 
     ref.read(analyticsProvider).track('care_undone', {'log_id': logId});
 
-    state = nextState.copyWith(streakDays: updatedStreak);
+    final saved = nextState.copyWith(streakDays: updatedStreak);
+    _busy = true;
+    final previousDue = _localFleaDue;
+    if (updatedSlots[index].id == 'interval-flea_tick') _localFleaDue = null;
+    final wasComplete = !nextState.isDayComplete && _completeDays.remove(_day);
+    try {
+      await _persist(saved);
+      if (ref.mounted) state = saved;
+    } catch (_) {
+      _localFleaDue = previousDue;
+      if (wasComplete) _completeDays.add(_day);
+    } finally {
+      _busy = false;
+    }
   }
 
-  /// Simula um co-tutor registrando uma tarefa em tempo real (para validação
-  /// imediata do diferencial de sincronização familiar).
-  void simulateCoTutorAction() {
-    final nextSlot = state.nextPendingSlot;
-    if (nextSlot == null) return;
-    logCareSlot(nextSlot.id, customActorName: 'Parceiro(a)');
-    state = state.copyWith(
-      householdMemberCount: 2,
-      bannerMessage:
-          '🍖 Parceiro(a) acabou de marcar "${nextSlot.title}" em tempo real!',
+  Future<void> editPet({
+    String? name,
+    AvatarDna? dna,
+    List<String>? meals,
+    List<String>? walks,
+  }) async {
+    if (_busy || _refreshing)
+      throw StateError('Aguarde a atualização dos cuidados e tente novamente.');
+    final onboarding = ref.read(onboardingControllerProvider);
+    final draft = onboarding.draft.copyWith(
+      petName: name ?? state.petName,
+      avatarDna: dna ?? state.avatarDna,
+      feedPreset: meals == null ? null : FeedPreset.custom,
+      customFeedTimes: meals,
+      customWalkTimes: walks,
     );
+    final client = ref.read(supabaseClientProvider);
+    final editRoutine = meals != null && walks != null;
+    final oldComplete = _completeDays.contains(_day);
+    _busy = true;
+    try {
+      if (client != null) {
+        if (!_remoteReady || onboarding.petId == null)
+          throw StateError('Reconecte para editar o pet.');
+        if (editRoutine) {
+          await client.rpc(
+            'edit_pet_routine',
+            params: {
+              'p_pet': onboarding.petId,
+              'p_meals': meals,
+              'p_walks': walks,
+            },
+          );
+        } else {
+          await client
+              .from('pets')
+              .update({'name': name, 'avatar_dna': dna!.toJson()})
+              .eq('id', onboarding.petId!)
+              .select('id')
+              .single();
+        }
+      }
+      var next = state.copyWith(
+        petName: draft.petName,
+        avatarDna: draft.avatarDna,
+      );
+      if (client == null) {
+        final updated = _buildSlotsFromDraft(draft, draft.petName);
+        final old = state.slots;
+        for (final slot in old.where(
+          (s) => s.kind == CareSlotKind.interval && s.isDone,
+        )) {
+          if (!updated.any((s) => s.id == slot.id)) updated.add(slot);
+        }
+        final slots = updated.map((slot) {
+          final previous = old
+              .where(
+                (s) =>
+                    s.kind == slot.kind &&
+                    (slot.kind == CareSlotKind.interval
+                        ? s.id == slot.id
+                        : s.timeLabel == slot.timeLabel),
+              )
+              .firstOrNull;
+          if (previous == null || !previous.isDone) return slot;
+          return slot.copyWith(
+            isDone: true,
+            logId: previous.logId,
+            doneAt: previous.doneAt,
+            doneByName: previous.doneByName,
+          );
+        }).toList();
+        next = next.copyWith(slots: slots);
+        if (next.isDayComplete) {
+          _completeDays.add(_day);
+        } else {
+          _completeDays.remove(_day);
+        }
+        next = next.copyWith(streakDays: _localStreak());
+      }
+      await _persist(next);
+      await ref.read(onboardingControllerProvider.notifier).savePetEdits(draft);
+      if (ref.mounted) state = next;
+    } catch (_) {
+      if (oldComplete) {
+        _completeDays.add(_day);
+      } else {
+        _completeDays.remove(_day);
+      }
+      rethrow;
+    } finally {
+      _busy = false;
+    }
+    if (client != null) await refresh();
   }
 
-  void markAccountLinked(String provider) {
-    ref.read(analyticsProvider).track('account_linked', {'provider': provider});
-    state = state.copyWith(
-      isAccountLinked: true,
-      bannerMessage: 'Conta vinculada com $provider! Progresso protegido 🔒',
-    );
+  Future<void> markAccountLinked(String provider) async {
+    final client = ref.read(supabaseClientProvider);
+    if (client == null) {
+      state = state.copyWith(
+        bannerMessage:
+            'Conta online indisponível. Os registros continuam neste aparelho.',
+      );
+      return;
+    }
+    try {
+      await client.auth.linkIdentity(
+        provider == 'Google' ? OAuthProvider.google : OAuthProvider.apple,
+      );
+      if (ref.mounted) {
+        state = state.copyWith(
+          bannerMessage: 'Conclua a autenticação para vincular sua conta.',
+        );
+      }
+    } catch (_) {
+      if (ref.mounted) {
+        state = state.copyWith(
+          bannerMessage: 'Não foi possível iniciar a vinculação da conta.',
+        );
+      }
+    }
   }
 
-  static List<CareSlotItem> _buildSlotsFromDraft(
+  List<CareSlotItem> _buildSlotsFromDraft(
     OnboardingDraft draft,
     String petName,
   ) {
@@ -309,7 +795,13 @@ class CareController extends Notifier<CareHomeState> {
     final result = <CareSlotItem>[...dailySlots];
 
     for (final entry in draft.forgettableCare.entries) {
-      if (entry.value != LastDoneRecency.thisMonth) {
+      final now = petNow();
+      final due = entry.key == ForgettableCareType.fleaTick
+          ? !(_localFleaDue ?? draft.fleaDue(now)).isAfter(
+              DateTime(now.year, now.month, now.day),
+            )
+          : entry.value != LastDoneRecency.thisMonth;
+      if (due) {
         result.add(
           CareSlotItem(
             id: 'interval-${entry.key.code}',
@@ -328,5 +820,6 @@ class CareController extends Notifier<CareHomeState> {
   }
 }
 
-final careControllerProvider =
-    NotifierProvider<CareController, CareHomeState>(CareController.new);
+final careControllerProvider = NotifierProvider<CareController, CareHomeState>(
+  CareController.new,
+);

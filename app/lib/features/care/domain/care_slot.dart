@@ -39,6 +39,37 @@ class CareSlotItem {
   final String? logId;
   final bool isPendingSync;
 
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'taskId': taskId,
+    'slotIndex': slotIndex,
+    'kind': kind.name,
+    'title': title,
+    'subtitle': subtitle,
+    'emoji': emoji,
+    'hour': scheduledHour,
+    'minute': scheduledMinute,
+    'done': isDone,
+    'actor': doneByName,
+    'at': doneAt?.toIso8601String(),
+    'log': logId,
+  };
+  factory CareSlotItem.fromJson(Map<String, dynamic> j) => CareSlotItem(
+    id: j['id'],
+    taskId: j['taskId'],
+    slotIndex: j['slotIndex'],
+    kind: CareSlotKind.values.byName(j['kind']),
+    title: j['title'],
+    subtitle: j['subtitle'],
+    emoji: j['emoji'],
+    scheduledHour: j['hour'],
+    scheduledMinute: j['minute'],
+    isDone: j['done'] == true,
+    doneByName: j['actor'],
+    logId: j['log'],
+    doneAt: j['at'] == null ? null : DateTime.parse(j['at']),
+  );
+
   /// Horário curto formatado ("07:30", "08:00") para exibição limpa sem excesso de texto.
   String get timeLabel {
     if (scheduledHour == null) return 'Hoje';
@@ -48,8 +79,9 @@ class CareSlotItem {
   }
 
   /// Minutos desde 00:00 para ordenação cronológica sequencial (07:30 -> 08:00 -> 18:30 -> 19:00).
-  int get sortMinutes =>
-      scheduledHour != null ? (scheduledHour! * 60 + (scheduledMinute ?? 0)) : 9999;
+  int get sortMinutes => scheduledHour != null
+      ? (scheduledHour! * 60 + (scheduledMinute ?? 0))
+      : 9999;
 
   CareSlotItem copyWith({
     bool? isDone,

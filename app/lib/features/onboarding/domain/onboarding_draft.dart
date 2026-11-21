@@ -10,11 +10,10 @@ enum PetGender {
   final String symbol;
   final String article;
 
-  static PetGender fromCode(String? code) =>
-      PetGender.values.firstWhere(
-        (e) => e.code == code,
-        orElse: () => PetGender.male,
-      );
+  static PetGender fromCode(String? code) => PetGender.values.firstWhere(
+    (e) => e.code == code,
+    orElse: () => PetGender.male,
+  );
 }
 
 enum FeedPreset {
@@ -27,11 +26,10 @@ enum FeedPreset {
   final String label;
   final List<String> defaultTimes;
 
-  static FeedPreset fromCode(String? code) =>
-      FeedPreset.values.firstWhere(
-        (e) => e.code == code,
-        orElse: () => FeedPreset.twice,
-      );
+  static FeedPreset fromCode(String? code) => FeedPreset.values.firstWhere(
+    (e) => e.code == code,
+    orElse: () => FeedPreset.twice,
+  );
 }
 
 enum WalkPreset {
@@ -44,11 +42,10 @@ enum WalkPreset {
   final String label;
   final List<String> defaultTimes;
 
-  static WalkPreset fromCode(String? code) =>
-      WalkPreset.values.firstWhere(
-        (e) => e.code == code,
-        orElse: () => WalkPreset.twice,
-      );
+  static WalkPreset fromCode(String? code) => WalkPreset.values.firstWhere(
+    (e) => e.code == code,
+    orElse: () => WalkPreset.twice,
+  );
 }
 
 enum ForgettableCareType {
@@ -101,7 +98,10 @@ class OnboardingDraft {
     required this.feedPreset,
     required this.customFeedTimes,
     required this.walkPreset,
+    this.customWalkTimes,
     required this.forgettableCare,
+    this.fleaLastDate,
+    this.fleaIntervalDays = 30,
     required this.tutorDisplayName,
     required this.timezone,
   });
@@ -113,7 +113,17 @@ class OnboardingDraft {
   final FeedPreset feedPreset;
   final List<String> customFeedTimes;
   final WalkPreset walkPreset;
+  final List<String>? customWalkTimes;
   final Map<ForgettableCareType, LastDoneRecency> forgettableCare;
+  final DateTime? fleaLastDate;
+  final int fleaIntervalDays;
+
+  DateTime fleaDue(DateTime today) {
+    final last = fleaLastDate;
+    if (last == null) return DateTime(today.year, today.month, today.day);
+    return DateTime(last.year, last.month, last.day + fleaIntervalDays);
+  }
+
   final String tutorDisplayName;
   final String timezone;
 
@@ -134,10 +144,12 @@ class OnboardingDraft {
     );
   }
 
-  List<String> get activeFeedTimes =>
-      feedPreset == FeedPreset.custom ? customFeedTimes : feedPreset.defaultTimes;
+  List<String> get activeFeedTimes => feedPreset == FeedPreset.custom
+      ? customFeedTimes
+      : feedPreset.defaultTimes;
 
-  List<String> get activeWalkTimes => walkPreset.defaultTimes;
+  List<String> get activeWalkTimes =>
+      customWalkTimes ?? walkPreset.defaultTimes;
 
   OnboardingDraft copyWith({
     PetSpecies? species,
@@ -147,7 +159,11 @@ class OnboardingDraft {
     FeedPreset? feedPreset,
     List<String>? customFeedTimes,
     WalkPreset? walkPreset,
+    List<String>? customWalkTimes,
     Map<ForgettableCareType, LastDoneRecency>? forgettableCare,
+    DateTime? fleaLastDate,
+    bool clearFleaDate = false,
+    int? fleaIntervalDays,
     String? tutorDisplayName,
     String? timezone,
   }) {
@@ -159,7 +175,11 @@ class OnboardingDraft {
       feedPreset: feedPreset ?? this.feedPreset,
       customFeedTimes: customFeedTimes ?? this.customFeedTimes,
       walkPreset: walkPreset ?? this.walkPreset,
+      customWalkTimes:
+          customWalkTimes ?? (walkPreset == null ? this.customWalkTimes : null),
       forgettableCare: forgettableCare ?? this.forgettableCare,
+      fleaLastDate: clearFleaDate ? null : fleaLastDate ?? this.fleaLastDate,
+      fleaIntervalDays: fleaIntervalDays ?? this.fleaIntervalDays,
       tutorDisplayName: tutorDisplayName ?? this.tutorDisplayName,
       timezone: timezone ?? this.timezone,
     );
@@ -167,9 +187,6 @@ class OnboardingDraft {
 
   /// Gera o payload JSON esperado pela RPC `public.complete_onboarding(p jsonb)`.
   Map<String, Object?> toRpcPayload({required DateTime now}) {
-    final todayIso =
-        '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-
     final tasks = <Map<String, Object?>>[
       {
         'type': 'feed',
@@ -189,7 +206,9 @@ class OnboardingDraft {
     for (final entry in forgettableCare.entries) {
       final type = entry.key;
       final recency = entry.value;
-      final nextDue = recency == LastDoneRecency.thisMonth
+      final nextDue = type == ForgettableCareType.fleaTick
+          ? fleaDue(now)
+          : recency == LastDoneRecency.thisMonth
           ? now.add(Duration(days: type.intervalDays))
           : now;
       final nextDueIso =
@@ -199,16 +218,17 @@ class OnboardingDraft {
         'type': type.code,
         'label': type.label,
         'kind': 'interval',
-        'interval_days': type.intervalDays,
-        'next_due_date': recency == LastDoneRecency.thisMonth
-            ? nextDueIso
-            : todayIso,
+        'interval_days': type == ForgettableCareType.fleaTick
+            ? fleaIntervalDays
+            : type.intervalDays,
+        'next_due_date': nextDueIso,
       });
     }
 
     return {
-      'display_name':
-          tutorDisplayName.trim().isEmpty ? 'Tutor' : tutorDisplayName.trim(),
+      'display_name': tutorDisplayName.trim().isEmpty
+          ? 'Tutor'
+          : tutorDisplayName.trim(),
       'pet': {
         'name': petName.trim(),
         'species': species.code,
@@ -221,19 +241,22 @@ class OnboardingDraft {
   }
 
   Map<String, Object?> toJson() => {
-        'species': species.code,
-        'gender': gender.code,
-        'pet_name': petName,
-        'avatar_dna': avatarDna.toJson(),
-        'feed_preset': feedPreset.code,
-        'custom_feed_times': customFeedTimes,
-        'walk_preset': walkPreset.code,
-        'forgettable_care': {
-          for (final e in forgettableCare.entries) e.key.code: e.value.code,
-        },
-        'tutor_display_name': tutorDisplayName,
-        'timezone': timezone,
-      };
+    'species': species.code,
+    'gender': gender.code,
+    'pet_name': petName,
+    'avatar_dna': avatarDna.toJson(),
+    'feed_preset': feedPreset.code,
+    'custom_feed_times': customFeedTimes,
+    'flea_last_date': fleaLastDate?.toIso8601String(),
+    'flea_interval_days': fleaIntervalDays,
+    'walk_preset': walkPreset.code,
+    'custom_walk_times': customWalkTimes,
+    'forgettable_care': {
+      for (final e in forgettableCare.entries) e.key.code: e.value.code,
+    },
+    'tutor_display_name': tutorDisplayName,
+    'timezone': timezone,
+  };
 
   factory OnboardingDraft.fromJson(Map<String, dynamic> json) {
     final species = PetSpecies.fromCode(json['species'] as String?);
@@ -248,15 +271,20 @@ class OnboardingDraft {
           ? AvatarDna.fromJson(json['avatar_dna'] as Map<String, dynamic>)
           : AvatarDna.initial(species: species),
       feedPreset: FeedPreset.fromCode(json['feed_preset'] as String?),
-      customFeedTimes: (json['custom_feed_times'] as List<dynamic>?)
+      customFeedTimes:
+          (json['custom_feed_times'] as List<dynamic>?)
               ?.map((e) => e.toString())
               .toList() ??
           const ['08:00', '19:00'],
+      fleaLastDate: DateTime.tryParse(json['flea_last_date'] as String? ?? ''),
+      fleaIntervalDays: json['flea_interval_days'] as int? ?? 30,
+      customWalkTimes: (json['custom_walk_times'] as List?)?.cast<String>(),
       walkPreset: WalkPreset.fromCode(json['walk_preset'] as String?),
       forgettableCare: {
         for (final entry in rawCare.entries)
-          ForgettableCareType.fromCode(entry.key):
-              LastDoneRecency.fromCode(entry.value as String?),
+          ForgettableCareType.fromCode(entry.key): LastDoneRecency.fromCode(
+            entry.value as String?,
+          ),
       },
       tutorDisplayName: (json['tutor_display_name'] as String?) ?? 'Tutor',
       timezone: (json['timezone'] as String?) ?? 'America/Sao_Paulo',

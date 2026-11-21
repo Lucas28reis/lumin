@@ -1,11 +1,11 @@
 {
-    "name": "lumin_app",
-    "short_name": "lumin_app",
+    "name": "Lumin",
+    "short_name": "Lumin",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#081B40",
+    "theme_color": "#081B40",
+    "description": "Organize a alimentação, a saúde e os cuidados do seu pet.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

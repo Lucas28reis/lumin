@@ -1,0 +1,6 @@
+name: LuminProduction
+push:
+  projectId: 2060050
+  fileId: 2744284
+output:
+  dir: ../app/assets/pets
