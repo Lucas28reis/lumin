@@ -129,6 +129,7 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
       await _localStore.saveDraft(
         _localStore.loadDraft().copyWith(
           petName: petRow['name'],
+          gender: PetGender.fromCode(petRow['avatar_dna']['gender']),
           species: PetSpecies.fromCode(petRow['species']),
           avatarDna: AvatarDna.fromJson(petRow['avatar_dna']),
           timezone: petRow['timezone'],

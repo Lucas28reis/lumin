@@ -106,6 +106,15 @@ class OnboardingDraft {
     required this.timezone,
   });
 
+  String get namedPet => petName.trim().isEmpty
+      ? 'o seu pet'
+      : '${gender.article} ${petName.trim()}';
+
+  Map<String, Object?> get sharedAvatar => {
+    ...avatarDna.toJson(),
+    'gender': gender.code,
+  };
+
   final PetSpecies species;
   final PetGender gender;
   final String petName;
@@ -234,7 +243,7 @@ class OnboardingDraft {
         'species': species.code,
         'gender': gender.code,
         'timezone': timezone,
-        'avatar_dna': avatarDna.toJson(),
+        'avatar_dna': sharedAvatar,
       },
       'tasks': tasks,
     };

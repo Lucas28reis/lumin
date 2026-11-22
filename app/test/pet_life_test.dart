@@ -1,3 +1,5 @@
+import 'package:lumin_app/features/community/scene_shop.dart';
+import 'package:lumin_app/features/care/domain/periodic_care.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +12,28 @@ import 'package:lumin_app/features/notifications/local_reminders.dart';
 import 'package:lumin_app/features/notifications/notification_care_action.dart';
 
 void main() {
+  test(
+    'Loja guarda o cenário escolhido e respeita a ofensiva mínima',
+    () async {
+      SharedPreferences.setMockInitialValues({
+        'lumin.onboarding.pet_id': 'luma',
+      });
+      final prefs = await SharedPreferences.getInstance();
+      ProviderContainer open() => ProviderContainer(
+        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+      );
+      var c = open();
+      expect(c.read(sceneProvider), PetScene.studio);
+      await c.read(sceneProvider.notifier).equip(PetScene.meadow);
+      await c.read(sceneProvider.notifier).equip(PetScene.night);
+      expect(c.read(sceneProvider), PetScene.meadow);
+      c.dispose();
+      c = open();
+      expect(c.read(sceneProvider), PetScene.meadow);
+      c.dispose();
+    },
+  );
+
   test(
     'Ação Android registra uma refeição uma vez e ignora o aviso de ontem',
     () async {
@@ -74,6 +98,7 @@ void main() {
     expect(food.remainingGrams(now), 6000);
     expect(food.remainingMeals(now), 30);
     expect(food.remainingDays(now), 15);
+    expect(food.lastFeedingDay, DateTime.utc(2026, 12, 3));
     expect(food.reminderDay, DateTime.utc(2026, 11, 19));
     expect(food.remainingGrams(opened.add(const Duration(days: 60))), 0);
     expect(
@@ -192,6 +217,7 @@ void main() {
     await controller.editPet(
       meals: ['06:00', meal.timeLabel],
       walks: ['16:15'],
+      changes: {'bath': const PeriodicCare('2026-11-20', '15:45', 7)},
     );
     expect(
       c
@@ -219,6 +245,15 @@ void main() {
     await Future<void>.delayed(Duration.zero);
     clock.advance(const Duration(days: 1));
     await c.read(careControllerProvider.notifier).refresh();
+    final scheduler = c.read(careControllerProvider.notifier);
+    final bath = c.read(careControllerProvider).slots.singleWhere((s) => s.title == 'Banho');
+    expect(bath.timeLabel, '15:45');
+    final bathLog = await scheduler.logCareSlot(bath.id);
+    expect(scheduler.periodic['bath']!.date, '2026-11-27');
+    expect((await scheduler.monthHistory(clock.now()))['2026-11-20']['periodic']['bath'], isTrue);
+    await scheduler.undoLastCare(bathLog.logId!);
+    expect(scheduler.periodic['bath']!.date, '2026-11-20');
+    expect((await scheduler.monthHistory(clock.now()))['2026-11-20']['periodic']['bath'], isFalse);
     expect(c.read(careControllerProvider).slots.first.isDone, false);
     c.dispose();
   });
@@ -261,6 +296,16 @@ void main() {
         ),
         true,
       );
+      final vetToday = HealthRecord(
+        id: 'vet-priority',
+        kind: HealthKind.vet,
+        title: 'Vacina anual',
+        date: now.subtract(const Duration(days: 30)),
+        notes: 'Reforço',
+        nextDate: now.add(const Duration(days: 1)),
+      );
+      final withVet = planReminders(now, care, LifeState(records: [vetToday]));
+      expect(withVet.any((r) => r.body.contains('Vacina anual')), true);
       c.dispose();
     },
   );

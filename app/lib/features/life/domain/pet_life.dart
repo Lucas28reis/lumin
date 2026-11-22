@@ -28,6 +28,10 @@ class FoodPlan {
   final DateTime openedOn;
   final int alertDays;
   double get dailyGrams => gramsPerMeal * mealsPerDay;
+  /// A data de abertura já conta como o primeiro dia de consumo.
+  DateTime get lastFeedingDay => calendarDay(openedOn).add(
+    Duration(days: (kilograms * 1000 / dailyGrams).ceil() - 1),
+  );
   double remainingGrams(DateTime now) {
     final days = math.max(
       0,

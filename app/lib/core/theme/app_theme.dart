@@ -1,14 +1,11 @@
 import 'package:material_ui/material_ui.dart';
 
 abstract final class AppColors {
-  /// Base principal do aplicativo (#081B40 — Azul-marinho profundo).
-  static const Color background = Color(0xFF081B40);
+  static const Color background = Color(0xFFF5F8FA);
 
-  /// Superfície de botões padrão, cartões e quadros (#FBE8CF — Creme acolhedor).
-  static const Color surface = Color(0xFFFBE8CF);
-  static const Color surfaceAlt = Color(0xFFF2D9B8);
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color surfaceAlt = Color(0xFFE8EFF2);
 
-  /// Cor de destaque e seleção (#FDAC2F — Âmbar vibrante).
   static const Color primary = Color(0xFFFDAC2F);
   static const Color primaryDark = Color(0xFF081B40);
   static const Color accent = Color(0xFFFDAC2F);
@@ -16,15 +13,13 @@ abstract final class AppColors {
   static const Color warning = Color(0xFFE85D4A);
   static const Color freezeBlue = Color(0xFF38A3E0);
 
-  /// Texto escuro de alto contraste usado dentro dos quadros (#FBE8CF) e botões (#FDAC2F).
   static const Color textPrimary = Color(0xFF081B40);
   static const Color textSecondary = Color(0xFF354A70);
 
-  /// Texto claro usado diretamente sobre o fundo base (#081B40).
-  static const Color onBackground = Color(0xFFFBE8CF);
-  static const Color onBackgroundMuted = Color(0xFFD6C3AA);
+  static const Color onBackground = Color(0xFF233037);
+  static const Color onBackgroundMuted = Color(0xFF526168);
 
-  static const Color border = Color(0xFFE4CCA8);
+  static const Color border = Color(0xFFCFDADE);
 }
 
 abstract final class AppTheme {
@@ -36,6 +31,10 @@ abstract final class AppTheme {
       secondary: AppColors.accent,
       onSecondary: AppColors.textPrimary,
       surface: AppColors.surface,
+      surfaceContainerLow: AppColors.background,
+      surfaceContainer: AppColors.surface,
+      surfaceContainerHigh: AppColors.surfaceAlt,
+      surfaceContainerHighest: AppColors.surfaceAlt,
       onSurface: AppColors.textPrimary,
       error: AppColors.warning,
     );
@@ -43,6 +42,9 @@ abstract final class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(foregroundColor: AppColors.textPrimary),
+      ),
       scaffoldBackgroundColor: AppColors.background,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.background,

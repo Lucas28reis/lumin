@@ -12,11 +12,13 @@ class AvatarBuilderWidget extends StatefulWidget {
     required this.dna,
     required this.onChanged,
     required this.onRandomize,
+    this.avatarPreviewKey,
   });
 
   final AvatarDna dna;
   final ValueChanged<AvatarDna> onChanged;
   final VoidCallback onRandomize;
+  final Key? avatarPreviewKey;
 
   @override
   State<AvatarBuilderWidget> createState() => _AvatarBuilderWidgetState();
@@ -61,7 +63,10 @@ class _AvatarBuilderWidgetState extends State<AvatarBuilderWidget> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: AvatarView(dna: dna, size: 250, showBackdrop: false),
+                child: RepaintBoundary(
+                  key: widget.avatarPreviewKey,
+                  child: AvatarView(dna: dna, size: 250, showBackdrop: false),
+                ),
               ),
               FilledButton.tonalIcon(
                 onPressed: widget.onRandomize,

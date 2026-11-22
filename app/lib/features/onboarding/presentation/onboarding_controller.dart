@@ -198,8 +198,9 @@ class OnboardingController extends Notifier<OnboardingState> {
   }
 
   void setFleaInterval(int days) {
-    if (days >= 1 && days <= 365)
+    if (days >= 1 && days <= 365) {
       _updateDraft(state.draft.copyWith(fleaIntervalDays: days));
+    }
   }
 
   void selectFeedPreset(FeedPreset preset) {

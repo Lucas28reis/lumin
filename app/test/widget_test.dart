@@ -9,10 +9,33 @@ import 'package:lumin_app/features/avatar/domain/avatar_mood.dart';
 import 'package:lumin_app/features/avatar/domain/mood_resolver.dart';
 import 'package:lumin_app/features/avatar/presentation/avatar_view.dart';
 import 'package:lumin_app/features/care/domain/care_slot.dart';
+import 'package:lumin_app/features/care/domain/periodic_care.dart';
+import 'package:lumin_app/features/care/presentation/routine_calendar.dart';
 import 'package:lumin_app/features/onboarding/domain/onboarding_draft.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  testWidgets('Calendário prevê cuidados coincidentes no mês seguinte', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final prefs = await SharedPreferences.getInstance();
+    await tester.pumpWidget(ProviderScope(overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+      clockProvider.overrideWithValue(FixedClock(DateTime(2026, 11, 22, 12))),
+    ], child: const MaterialApp(home: Scaffold(body: SingleChildScrollView(
+      child: RoutineCalendar(changes: {
+        'bath': PeriodicCare('2026-11-27', '09:00', 15),
+        'medication': PeriodicCare('2026-11-22', '07:00', 1),
+      }),
+    )))));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Próximo mês'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('12'));
+    await tester.pumpAndSettle();
+    expect(find.text('Banho · Previsto · 09:00'), findsOneWidget);
+    expect(find.text('Remédio · Previsto · 07:00'), findsOneWidget);
+  });
+
   group('Domínio: MoodResolver & AvatarDna (🐛 QA + ⚖️ Tech Lead)', () {
     test('Respeita a ordem estrita de prioridade de humor do Avatar', () {
       final now = DateTime(2026, 11, 16, 10, 0);
@@ -185,17 +208,19 @@ void main() {
 
     // Passo 1: Espécie + Nome do Pet
     expect(find.text('Quem é o dono do seu coração?'), findsOneWidget);
-    await tester.enterText(find.byType(TextField), 'Paçoca');
+    await tester.tap(find.text('Fêmea'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'Luma');
     await tester.pump();
     await tester.tap(find.text('Continuar'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Vamos desenhar o Paçoca!'), findsOneWidget);
-    await tester.tap(find.text('É o Paçoca!'));
+    expect(find.text('Vamos desenhar a Luma!'), findsOneWidget);
+    await tester.tap(find.text('É a Luma!'));
     await tester.pumpAndSettle();
 
     // Passo 3: Rotina diária
-    expect(find.text('Qual a rotina do Paçoca?'), findsOneWidget);
+    expect(find.text('Qual a rotina da Luma?'), findsOneWidget);
     await tester.tap(find.text('Personalizar'));
     await tester.pumpAndSettle();
     expect(find.text('Adicionar refeição'), findsOneWidget);
@@ -218,36 +243,59 @@ void main() {
     await tester.pumpAndSettle();
 
     // Passo 5: Convite da família
-    expect(find.text('Quem mais cuida do Paçoca?'), findsOneWidget);
+    expect(find.text('Quem mais cuida da Luma?'), findsOneWidget);
     await tester.tap(find.text('Cuido sozinho(a) por enquanto'));
     await tester.pumpAndSettle();
 
     // Passo 6: Pre-prompt de notificações
     expect(
-      find.text('Quer que eu te avise se o Paçoca ficar com fome?'),
+      find.text('Quer que eu te avise se a Luma ficar com fome?'),
       findsOneWidget,
     );
     await tester.tap(find.text('Sim, me avise!'));
     await tester.pumpAndSettle();
 
-    // Home carregada com as opções no lado esquerdo em ordem sequencial (07:30 -> 08:00 -> 18:30 -> 19:00)
-    expect(find.text('07:30'), findsWidgets);
-    expect(find.text('08:00'), findsOneWidget);
-    expect(find.text('18:30'), findsOneWidget);
-    expect(find.text('19:00'), findsOneWidget);
-    expect(find.textContaining('07:30 • Passear'), findsOneWidget);
     if (find.text('Fechar').evaluate().isNotEmpty) {
       await tester.tap(find.text('Fechar'));
       await tester.pumpAndSettle();
     }
+    await tester.tap(find.text('Família'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Editar nome'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'Luiza');
+    await tester.tap(find.text('Salvar nome'));
+    await tester.pumpAndSettle();
+    expect(find.text('Luiza'), findsOneWidget);
+    expect(find.text('Pagamentos e compras'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('07:30'), 200, scrollable: find.byType(Scrollable).first);
+    await tester.ensureVisible(find.text('07:30'));
+    expect(find.text('07:30'), findsWidgets);
+    expect(find.text('08:00'), findsOneWidget);
+    expect(find.text('18:30'), findsOneWidget);
+    await tester.drag(find.text('Rotina de hoje'), const Offset(0,-300));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Próximos cuidados'));
+    await tester.pumpAndSettle();
+    expect(find.text('19:00'), findsOneWidget);
     for (final destination in [
+      ('Missões', 'Ranking de ofensivas'),
+      ('Loja', 'Loja de cenários'),
       ('Rotina', 'Horários dos passeios'),
       ('Prontuário', 'Histórico de saúde'),
       ('Ração', 'Estoque de ração'),
       ('Estilo', 'Nome do pet'),
     ]) {
       await tester.tap(find.text(destination.$1));
+      await tester.pump(const Duration(milliseconds: 150));
       await tester.pumpAndSettle();
+      if (destination.$1 == 'Rotina') {
+        expect(find.byTooltip('Mês anterior'), findsOneWidget);
+        await tester.scrollUntilVisible(find.text(destination.$2), 200,
+            scrollable: find.byType(Scrollable).first);
+      }
       expect(find.text(destination.$2), findsWidgets);
       await tester.pageBack();
       await tester.pumpAndSettle();
@@ -279,3 +327,4 @@ void main() {
     await tester.pumpAndSettle();
   });
 }
+

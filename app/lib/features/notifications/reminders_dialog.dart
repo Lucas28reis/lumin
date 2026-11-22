@@ -126,6 +126,7 @@ class _RemindersDialogState extends ConsumerState<RemindersDialog> {
           ref.read(careControllerProvider),
           ref.read(lifeControllerProvider),
           ref.read(onboardingControllerProvider).draft.timezone,
+          periodic: ref.read(careControllerProvider.notifier).periodic,
         );
       }
       if (mounted) {

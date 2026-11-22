@@ -321,7 +321,7 @@ class _Step1PetIdentityViewState extends State<_Step1PetIdentityView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Quem é o dono do seu coração?',
+                    'Quem é ${draft.gender.article} don${draft.gender.article} do seu coração?',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
@@ -511,9 +511,7 @@ class _Step2AvatarBuilderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final petName = state.draft.petName.trim().isEmpty
-        ? 'seu pet'
-        : state.draft.petName.trim();
+    final namedPet = state.draft.namedPet;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
@@ -521,7 +519,7 @@ class _Step2AvatarBuilderView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Vamos desenhar o $petName!',
+            'Vamos desenhar $namedPet!',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
@@ -542,7 +540,7 @@ class _Step2AvatarBuilderView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          PrimaryCtaButton(label: 'É o $petName!', onPressed: onNext),
+          PrimaryCtaButton(label: 'É $namedPet!', onPressed: onNext),
         ],
       ),
     );
@@ -590,9 +588,7 @@ class _Step3DailyRoutineView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final draft = state.draft;
-    final petName = draft.petName.trim().isEmpty
-        ? 'seu pet'
-        : draft.petName.trim();
+    final namedPet = draft.namedPet;
     final timeline = _buildPreviewTimeline(draft);
 
     return Padding(
@@ -601,7 +597,7 @@ class _Step3DailyRoutineView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Qual a rotina do $petName?',
+            'Qual a rotina d$namedPet?',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
@@ -899,8 +895,9 @@ class _Step4CareState extends State<_Step4ForgettableCareView> {
                                   initialDate:
                                       widget.state.draft.fleaLastDate ?? today,
                                 );
-                                if (date != null && context.mounted)
+                                if (date != null && context.mounted) {
                                   widget.onFleaDate(date);
+                                }
                               },
                             ),
                             if (widget.state.draft.fleaLastDate != null)
@@ -1031,12 +1028,10 @@ class _Step5HouseholdInviteViewState extends State<_Step5HouseholdInviteView> {
   }
 
   Future<void> _shareInvite() async {
-    final petName = widget.state.draft.petName.trim().isEmpty
-        ? 'nosso pet'
-        : widget.state.draft.petName.trim();
+    final namedPet = widget.state.draft.namedPet;
     final code = widget.state.inviteCode ?? 'LUMIN2';
     final message =
-        'Agora a gente cuida do $petName junto pelo Lumin 🐾 '
+        'Agora a gente cuida d$namedPet junto pelo Lumin 🐾 '
         'Baixa o app e usa o código $code para sincronizar as tarefas!';
     await SharePlus.instance.share(ShareParams(text: message));
     widget.onSharedInvite();
@@ -1044,9 +1039,7 @@ class _Step5HouseholdInviteViewState extends State<_Step5HouseholdInviteView> {
 
   @override
   Widget build(BuildContext context) {
-    final petName = widget.state.draft.petName.trim().isEmpty
-        ? 'seu pet'
-        : widget.state.draft.petName.trim();
+    final namedPet = widget.state.draft.namedPet;
     final inviteCode = widget.state.inviteCode ?? 'LUMIN2';
 
     return Padding(
@@ -1060,7 +1053,7 @@ class _Step5HouseholdInviteViewState extends State<_Step5HouseholdInviteView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Quem mais cuida do $petName?',
+                    'Quem mais cuida d$namedPet?',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
@@ -1072,7 +1065,7 @@ class _Step5HouseholdInviteViewState extends State<_Step5HouseholdInviteView> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Como o $petName te chama?',
+                    'Como $namedPet te chama?',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w800,
@@ -1174,9 +1167,7 @@ class _Step6NotificationPromptView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final petName = state.draft.petName.trim().isEmpty
-        ? 'seu pet'
-        : state.draft.petName.trim();
+    final namedPet = state.draft.namedPet;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 12, 24, 20),
@@ -1212,7 +1203,7 @@ class _Step6NotificationPromptView extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Quer que eu te avise se o $petName ficar com fome?',
+                      'Quer que eu te avise se $namedPet ficar com fome?',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
@@ -1385,7 +1376,7 @@ class _GuestOnboardingScaffoldState extends State<_GuestOnboardingScaffold> {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'Você agora cuida do ${state.draft.petName.isEmpty ? "Paçoca" : state.draft.petName} em família! 🎉',
+                        'Você agora cuida d${state.draft.namedPet} em família! 🎉',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),

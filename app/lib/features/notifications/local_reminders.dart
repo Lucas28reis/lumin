@@ -10,6 +10,7 @@ import 'notification_care_action.dart';
 import '../onboarding/data/draft_local_store.dart';
 import '../../core/providers/core_providers.dart';
 import '../care/domain/care_slot.dart';
+import '../care/domain/periodic_care.dart';
 import '../care/presentation/care_controller.dart';
 import '../life/domain/pet_life.dart';
 import '../life/presentation/life_controller.dart';
@@ -25,8 +26,9 @@ class PetReminder {
 List<PetReminder> planReminders(
   DateTime now,
   CareHomeState care,
-  LifeState life,
-) {
+  LifeState life, {
+  Map<String, PeriodicCare?> periodic = const {},
+}) {
   final candidates = <PetReminder>[];
   DateTime dayAt(int offset, int hour, [int minute = 0]) {
     if (now is tz.TZDateTime) {
@@ -40,6 +42,21 @@ List<PetReminder> planReminders(
       );
     }
     return DateTime(now.year, now.month, now.day + offset, hour, minute);
+  }
+
+  for (final entry in periodic.entries) {
+    final plan = entry.value;
+    if (plan == null || plan.time.isEmpty) continue;
+    final offset = calendarDay(DateTime.parse(plan.date))
+        .difference(calendarDay(now))
+        .inDays;
+    final time = plan.time.split(':');
+    candidates.add(
+      PetReminder(
+        dayAt(offset, int.parse(time.first), int.parse(time.last)),
+        '${PeriodicCare.labels[entry.key]} de ${care.petName} às ${plan.time}.',
+      ),
+    );
   }
 
   for (var day = 0; day < 14; day++) {
@@ -115,13 +132,22 @@ List<PetReminder> planReminders(
     }
   }
   candidates.removeWhere((r) => !r.when.isAfter(now));
-  candidates.sort((a, b) => a.when.compareTo(b.when));
+  candidates.sort((a, b) {
+    final dayCompare = shortDate(a.when).compareTo(shortDate(b.when));
+    if (dayCompare != 0) return dayCompare;
+    final priorityA = a.slot == null ? 0 : 1;
+    final priorityB = b.slot == null ? 0 : 1;
+    if (priorityA != priorityB) return priorityA.compareTo(priorityB);
+    return a.when.compareTo(b.when);
+  });
   final counts = <String, int>{};
-  return candidates.where((r) {
+  final selected = candidates.where((r) {
     final key = shortDate(r.when);
     counts[key] = (counts[key] ?? 0) + 1;
     return counts[key]! <= 3;
   }).toList();
+  selected.sort((a, b) => a.when.compareTo(b.when));
+  return selected;
 }
 
 class LocalReminders {
@@ -161,6 +187,12 @@ class LocalReminders {
     return true;
   }
 
+  Future<void> updateAvatar(Uint8List avatar) async {
+    if (!supported || !enabled) return;
+    await prefs.setString('lumin.reminders.avatar', base64Encode(avatar));
+    await prefs.remove('lumin.reminders.plan');
+  }
+
   Future<void> disable() async {
     await prefs.setBool('lumin.reminders.enabled', false);
     await prefs.remove('lumin.reminders.plan');
@@ -175,8 +207,9 @@ class LocalReminders {
     DateTime now,
     CareHomeState care,
     LifeState life,
-    String timezone,
-  ) {
+    String timezone, {
+    Map<String, PeriodicCare?> periodic = const {},
+  }) {
     final operation = _pending.then((_) async {
       if (!supported || !enabled) return;
       await initialize();
@@ -189,6 +222,7 @@ class LocalReminders {
       final petId = DraftLocalStore(prefs).loadCompletedPetId();
       final signature = jsonEncode({
         'actionVersion': 1,
+        'periodic': periodic.map((k, v) => MapEntry(k, v?.toJson())),
         'petId': petId,
         'day': shortDate(localNow),
         'zone': timezone,
@@ -202,6 +236,7 @@ class LocalReminders {
         tz.TZDateTime.from(now, location),
         care,
         life,
+        periodic: periodic,
       );
       await _plugin.cancelAll();
       await prefs.remove('lumin.reminders.plan');

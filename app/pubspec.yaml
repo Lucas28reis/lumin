@@ -45,6 +45,7 @@ dependencies:
   rive: ^0.14.11
   flutter_local_notifications: ^23.0.3
   timezone: ^0.11.2
+  audioplayers: ^6.8.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,7 @@ flutter:
 
   assets:
     - assets/pets/LuminProduction.riv
+    - assets/sounds/day-complete.wav
 
   # To add assets to your application, add an assets section, like this:
   # assets:

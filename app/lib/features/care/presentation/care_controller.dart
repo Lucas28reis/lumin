@@ -14,6 +14,7 @@ import '../../notifications/notification_care_action.dart';
 import '../../onboarding/domain/onboarding_draft.dart';
 import '../../onboarding/presentation/onboarding_controller.dart';
 import '../domain/care_slot.dart';
+import '../domain/periodic_care.dart';
 
 class CareHomeState {
   const CareHomeState({
@@ -138,6 +139,10 @@ class CareController extends Notifier<CareHomeState> {
   bool _refreshing = false;
   bool _remoteReady = false;
   DateTime? _localFleaDue;
+  final _periodic = <String, PeriodicCare?>{};
+  final _previousDates = <String, String>{};
+  Map<String, PeriodicCare?> get periodic => Map.unmodifiable(_periodic);
+  final Map<String, dynamic> _history = {};
   final Set<String> _completeDays = {};
   DateTime petNow() {
     final now = ref.read(clockProvider).now();
@@ -166,6 +171,20 @@ class CareController extends Notifier<CareHomeState> {
         ? 'Tutor'
         : draft.tutorDisplayName.trim();
 
+    _periodic.clear();
+    _previousDates.clear();
+    final now = petNow();
+    for (final entry in draft.forgettableCare.entries) {
+      if (!PeriodicCare.labels.containsKey(entry.key.code)) continue;
+      final date = entry.value == LastDoneRecency.thisMonth
+          ? DateTime(now.year, now.month, now.day + entry.key.intervalDays)
+          : now;
+      _periodic[entry.key.code] = PeriodicCare(
+        _date(date),
+        '',
+        entry.key.intervalDays,
+      );
+    }
     _localFleaDue = null;
     final slots = _buildSlotsFromDraft(draft, petName);
 
@@ -184,10 +203,25 @@ class CareController extends Notifier<CareHomeState> {
     _remoteReady = false;
     _day = _date(petNow());
     _completeDays.clear();
+    _history.clear();
     final raw = ref.read(sharedPreferencesProvider).getString(_key);
     if (raw != null) {
       try {
         final j = jsonDecode(raw) as Map<String, dynamic>;
+        for (final e in (j['periodic'] as Map? ?? {}).entries) {
+          _periodic[e.key] = e.value == null
+              ? null
+              : PeriodicCare.fromJson(e.value);
+        }
+        _previousDates.addAll(
+          Map<String, String>.from(j['previous_dates'] ?? {}),
+        );
+        _history.addAll((j['history'] as Map?)?.cast<String, dynamic>() ?? {});
+        if (j['day'] is String && j['slots'] is List) {
+          _history[j['day']] = _summary(
+            (j['slots'] as List).map((s) => CareSlotItem.fromJson(s)),
+          );
+        }
         _localFleaDue = DateTime.tryParse(j['flea_next_due'] as String? ?? '');
         _completeDays.addAll((j['days'] as List).cast<String>());
         initial = initial.copyWith(
@@ -240,6 +274,94 @@ class CareController extends Notifier<CareHomeState> {
     return total;
   }
 
+  Map<String, dynamic> _summary(Iterable<CareSlotItem> slots) {
+    final food = slots.where((s) => s.kind == CareSlotKind.dailyFeed);
+    final walks = slots.where((s) => s.kind == CareSlotKind.dailyWalk);
+    return {
+      'periodic': {
+        for (final s in slots.where((s) => s.kind == CareSlotKind.interval))
+          if (PeriodicCare.labels.containsKey(
+            s.careType ?? s.id.replaceFirst('interval-', ''),
+          ))
+            (s.careType ?? s.id.replaceFirst('interval-', '')): s.isDone,
+      },
+      'food': food.where((s) => s.isDone).length,
+      'meals': food.length,
+      'walks': walks.where((s) => s.isDone).length,
+      'outings': walks.length,
+    };
+  }
+
+  Future<Map<String, dynamic>> monthHistory(DateTime month) async {
+    final start = _date(DateTime(month.year, month.month));
+    final end = _date(DateTime(month.year, month.month + 1));
+    final result = <String, dynamic>{};
+    for (final e in _history.entries) {
+      if (e.key.compareTo(start) >= 0 && e.key.compareTo(end) < 0)
+        result[e.key] = {...e.value as Map};
+    }
+    for (final day in _completeDays) {
+      if (day.compareTo(start) >= 0 && day.compareTo(end) < 0)
+        (result[day] ??= {})['complete'] = true;
+    }
+    final client = ref.read(supabaseClientProvider);
+    final pet = ref.read(onboardingControllerProvider).petId;
+    if (client != null && pet != null) {
+      final logs = await client
+          .from('care_logs')
+          .select('slot_date,care_tasks(type)')
+          .eq('pet_id', pet)
+          .gte('slot_date', start)
+          .lt('slot_date', end);
+      final totals = <String, Map<String, int>>{};
+      final completedCare = <String, Map<String, bool>>{};
+      for (final log in logs) {
+        final item = totals.putIfAbsent(
+          log['slot_date'],
+          () => {'food': 0, 'walks': 0},
+        );
+        final type = log['care_tasks']?['type'];
+        if (PeriodicCare.labels.containsKey(type)) {
+          (completedCare[log['slot_date']] ??= {})[type] = true;
+        }
+        if (type == 'feed') item['food'] = item['food']! + 1;
+        if (type == 'walk') item['walks'] = item['walks']! + 1;
+      }
+      final days = await client
+          .from('pet_days')
+          .select('local_date,status')
+          .eq('pet_id', pet)
+          .gte('local_date', start)
+          .lt('local_date', end);
+      for (final key in {...result.keys, ...totals.keys}) {
+        result[key] = {
+          ...?result[key] as Map?,
+          'complete': false,
+          ...?totals[key],
+          'periodic': {
+            for (final k in (result[key]?['periodic'] as Map? ?? {}).keys)
+              k: false,
+            ...?completedCare[key],
+          },
+        };
+        result[key]['food'] = totals[key]?['food'] ?? 0;
+        result[key]['walks'] = totals[key]?['walks'] ?? 0;
+      }
+      for (final row in days) {
+        (result[row['local_date']] ??= {})[row['status'] == 'complete'
+                ? 'complete'
+                : 'frozen'] =
+            true;
+      }
+    }
+    if (_day.compareTo(start) >= 0 && _day.compareTo(end) < 0)
+      result[_day] = {
+        ..._summary(state.slots),
+        'complete': state.isDayComplete,
+      };
+    return result;
+  }
+
   Future<void> _persist(CareHomeState next) async {
     final ok = await ref
         .read(sharedPreferencesProvider)
@@ -248,12 +370,16 @@ class CareController extends Notifier<CareHomeState> {
           jsonEncode({
             'day': _day,
             'days': _completeDays.toList(),
+            'history': {..._history, _day: _summary(next.slots)},
+            'periodic': _periodic.map((k, v) => MapEntry(k, v?.toJson())),
+            'previous_dates': _previousDates,
             'flea_next_due': _localFleaDue?.toIso8601String(),
             'slots': next.slots.map((s) => s.toJson()).toList(),
             'prompted': next.hasShownAccountLinkPrompt,
           }),
         );
     if (!ok) throw StateError('Falha ao salvar cuidados');
+    _history[_day] = _summary(next.slots);
   }
 
   Future<void> _applyNotificationActions(String petId) async {
@@ -296,8 +422,9 @@ class CareController extends Notifier<CareHomeState> {
       }
     }
     for (final day in historical.keys) {
-      if (historical[day]!.containsAll(requiredByDay[day]!))
+      if (historical[day]!.containsAll(requiredByDay[day]!)) {
         _completeDays.add(day);
+      }
     }
     var next = state.copyWith(slots: slots, lastCareLoggedAt: lastCare);
     if (next.isDayComplete) _completeDays.add(_day);
@@ -353,7 +480,15 @@ class CareController extends Notifier<CareHomeState> {
         params: {'p_pet': petId},
       );
       final slots = <CareSlotItem>[];
+      final schedules = <String, PeriodicCare?>{};
       for (final task in tasks) {
+        if (PeriodicCare.labels.containsKey(task['type'])) {
+          schedules[task['type']] = PeriodicCare(
+            task['next_due_date'],
+            (task['scheduled_time'] as String?)?.substring(0, 5) ?? '',
+            task['interval_days'],
+          );
+        }
         final interval = task['kind'] == 'interval';
         if (interval &&
             (task['next_due_date'] as String).compareTo(_day) > 0 &&
@@ -361,7 +496,7 @@ class CareController extends Notifier<CareHomeState> {
           continue;
         }
         final times = interval
-            ? <String>['']
+            ? <String>[task['scheduled_time'] ?? '']
             : (task['daily_times'] as List).cast<String>();
         for (var i = 0; i < times.length; i++) {
           final log = logs
@@ -382,6 +517,7 @@ class CareController extends Notifier<CareHomeState> {
                   ? CareSlotKind.dailyFeed
                   : CareSlotKind.dailyWalk,
               title: task['label'],
+              careType: task['type'],
               subtitle: interval
                   ? 'Cuidado periódico'
                   : times[i].substring(0, 5),
@@ -390,8 +526,8 @@ class CareController extends Notifier<CareHomeState> {
                   : task['type'] == 'feed'
                   ? '🍖'
                   : '🦮',
-              scheduledHour: interval ? null : int.parse(parts[0]),
-              scheduledMinute: interval ? null : int.parse(parts[1]),
+              scheduledHour: int.tryParse(parts[0]),
+              scheduledMinute: parts.length > 1 ? int.tryParse(parts[1]) : null,
               isDone: log != null,
               logId: log?['id'],
               doneByName: actor?['display_name'],
@@ -402,10 +538,16 @@ class CareController extends Notifier<CareHomeState> {
       }
       if (!ref.mounted) return;
       slots.sort((a, b) => a.sortMinutes.compareTo(b.sortMinutes));
+      _periodic
+        ..clear()
+        ..addAll(schedules);
       _remoteReady = true;
       final next = state.copyWith(
         petName: pet['name'],
         avatarDna: AvatarDna.fromJson(pet['avatar_dna']),
+        petGender: pet['avatar_dna']['gender'] == null
+            ? state.petGender
+            : PetGender.fromCode(pet['avatar_dna']['gender']),
         slots: slots,
         streakDays: streak,
         householdMemberCount: members.length,
@@ -540,6 +682,17 @@ class CareController extends Notifier<CareHomeState> {
 
     _busy = true;
     final previousDue = _localFleaDue;
+    final code = target.id.replaceFirst('interval-', '');
+    final prior = _periodic[code];
+    if (prior != null) {
+      _previousDates[code] = prior.date;
+      final d = petNow();
+      _periodic[code] = PeriodicCare(
+        _date(DateTime(d.year, d.month, d.day + prior.days)),
+        prior.time,
+        prior.days,
+      );
+    }
     if (target.id == 'interval-flea_tick') {
       final days = ref
           .read(onboardingControllerProvider)
@@ -554,6 +707,7 @@ class CareController extends Notifier<CareHomeState> {
       if (ref.mounted) state = saved;
     } catch (_) {
       _localFleaDue = previousDue;
+      if (prior != null) _periodic[code] = prior;
       if (!wasCompleteBefore) _completeDays.remove(_day);
       if (ref.mounted) {
         state = state.copyWith(
@@ -607,6 +761,15 @@ class CareController extends Notifier<CareHomeState> {
     final saved = nextState.copyWith(streakDays: updatedStreak);
     _busy = true;
     final previousDue = _localFleaDue;
+    final code = updatedSlots[index].id.replaceFirst('interval-', '');
+    final prior = _periodic[code];
+    if (prior != null && _previousDates.containsKey(code)) {
+      _periodic[code] = PeriodicCare(
+        _previousDates[code]!,
+        prior.time,
+        prior.days,
+      );
+    }
     if (updatedSlots[index].id == 'interval-flea_tick') _localFleaDue = null;
     final wasComplete = !nextState.isDayComplete && _completeDays.remove(_day);
     try {
@@ -614,10 +777,34 @@ class CareController extends Notifier<CareHomeState> {
       if (ref.mounted) state = saved;
     } catch (_) {
       _localFleaDue = previousDue;
+      if (prior != null) _periodic[code] = prior;
       if (wasComplete) _completeDays.add(_day);
     } finally {
       _busy = false;
     }
+  }
+
+  Future<void> renameTutor(String name) async {
+    final profile = ref.read(onboardingControllerProvider);
+    final client = ref.read(supabaseClientProvider);
+    if (client != null) {
+      final pet = await client
+          .from('pets')
+          .select('household_id')
+          .eq('id', profile.petId!)
+          .single();
+      await client
+          .from('household_members')
+          .update({'display_name': name})
+          .eq('household_id', pet['household_id'])
+          .eq('user_id', client.auth.currentUser!.id)
+          .select('user_id')
+          .single();
+    }
+    await ref
+        .read(onboardingControllerProvider.notifier)
+        .savePetEdits(profile.draft.copyWith(tutorDisplayName: name));
+    if (ref.mounted) state = state.copyWith(tutorName: name);
   }
 
   Future<void> editPet({
@@ -625,38 +812,45 @@ class CareController extends Notifier<CareHomeState> {
     AvatarDna? dna,
     List<String>? meals,
     List<String>? walks,
+    Map<String, PeriodicCare?> changes = const {},
   }) async {
-    if (_busy || _refreshing)
+    if (_busy || _refreshing) {
       throw StateError('Aguarde a atualização dos cuidados e tente novamente.');
+    }
     final onboarding = ref.read(onboardingControllerProvider);
     final draft = onboarding.draft.copyWith(
       petName: name ?? state.petName,
       avatarDna: dna ?? state.avatarDna,
+      gender: state.petGender,
       feedPreset: meals == null ? null : FeedPreset.custom,
       customFeedTimes: meals,
       customWalkTimes: walks,
     );
     final client = ref.read(supabaseClientProvider);
     final editRoutine = meals != null && walks != null;
+    final priorSchedules = Map.of(_periodic);
     final oldComplete = _completeDays.contains(_day);
     _busy = true;
     try {
       if (client != null) {
-        if (!_remoteReady || onboarding.petId == null)
+        if (!_remoteReady || onboarding.petId == null) {
           throw StateError('Reconecte para editar o pet.');
+        }
         if (editRoutine) {
           await client.rpc(
-            'edit_pet_routine',
+            changes.isEmpty ? 'edit_pet_routine' : 'edit_pet_care_schedule',
             params: {
               'p_pet': onboarding.petId,
               'p_meals': meals,
               'p_walks': walks,
+              if (changes.isNotEmpty)
+                'p_changes': changes.map((k, v) => MapEntry(k, v?.toJson())),
             },
           );
         } else {
           await client
               .from('pets')
-              .update({'name': name, 'avatar_dna': dna!.toJson()})
+              .update({'name': name, 'avatar_dna': draft.sharedAvatar})
               .eq('id', onboarding.petId!)
               .select('id')
               .single();
@@ -667,6 +861,7 @@ class CareController extends Notifier<CareHomeState> {
         avatarDna: draft.avatarDna,
       );
       if (client == null) {
+        _periodic.addAll(changes);
         final updated = _buildSlotsFromDraft(draft, draft.petName);
         final old = state.slots;
         for (final slot in old.where(
@@ -704,6 +899,9 @@ class CareController extends Notifier<CareHomeState> {
       await ref.read(onboardingControllerProvider.notifier).savePetEdits(draft);
       if (ref.mounted) state = next;
     } catch (_) {
+      _periodic
+        ..clear()
+        ..addAll(priorSchedules);
       if (oldComplete) {
         _completeDays.add(_day);
       } else {
@@ -795,6 +993,7 @@ class CareController extends Notifier<CareHomeState> {
     final result = <CareSlotItem>[...dailySlots];
 
     for (final entry in draft.forgettableCare.entries) {
+      if (PeriodicCare.labels.containsKey(entry.key.code)) continue;
       final now = petNow();
       final due = entry.key == ForgettableCareType.fleaTick
           ? !(_localFleaDue ?? draft.fleaDue(now)).isAfter(
@@ -808,7 +1007,7 @@ class CareController extends Notifier<CareHomeState> {
             taskId: 'task-${entry.key.code}',
             slotIndex: 0,
             kind: CareSlotKind.interval,
-            title: '${entry.key.label} do $petName',
+            title: '${entry.key.label} d${draft.gender.article} $petName',
             subtitle: 'Cuidado periódico pendente hoje',
             emoji: entry.key.emoji,
           ),
@@ -816,6 +1015,25 @@ class CareController extends Notifier<CareHomeState> {
       }
     }
 
+    for (final entry in _periodic.entries) {
+      final plan = entry.value;
+      if (plan == null || plan.date.compareTo(_date(petNow())) > 0) continue;
+      final parts = plan.time.split(':');
+      result.add(
+        CareSlotItem(
+          id: 'interval-${entry.key}',
+          taskId: 'task-${entry.key}',
+          slotIndex: 0,
+          kind: CareSlotKind.interval,
+          title: PeriodicCare.labels[entry.key]!,
+          subtitle: 'A cada ${plan.days} dias',
+          emoji: entry.key == 'bath' ? '🛁' : '💊',
+          scheduledHour: int.tryParse(parts.first),
+          scheduledMinute: int.tryParse(parts.last),
+        ),
+      );
+    }
+    result.sort((a, b) => a.sortMinutes.compareTo(b.sortMinutes));
     return result;
   }
 }

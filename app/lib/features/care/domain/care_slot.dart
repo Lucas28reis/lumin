@@ -10,6 +10,7 @@ class CareSlotItem {
     required this.subtitle,
     required this.emoji,
     this.iconAsset,
+    this.careType,
     this.scheduledHour,
     this.scheduledMinute,
     this.isDone = false,
@@ -30,6 +31,7 @@ class CareSlotItem {
   /// Caminho opcional para a figura/imagem customizada escolhida pelo usuário
   /// (ex: 'assets/icons/walk.png', 'assets/icons/food.png').
   final String? iconAsset;
+  final String? careType;
 
   final int? scheduledHour;
   final int? scheduledMinute;
@@ -45,6 +47,7 @@ class CareSlotItem {
     'slotIndex': slotIndex,
     'kind': kind.name,
     'title': title,
+    'careType': careType,
     'subtitle': subtitle,
     'emoji': emoji,
     'hour': scheduledHour,
@@ -60,6 +63,7 @@ class CareSlotItem {
     slotIndex: j['slotIndex'],
     kind: CareSlotKind.values.byName(j['kind']),
     title: j['title'],
+    careType: j['careType'],
     subtitle: j['subtitle'],
     emoji: j['emoji'],
     scheduledHour: j['hour'],
@@ -101,6 +105,7 @@ class CareSlotItem {
         subtitle: subtitle,
         emoji: emoji,
         iconAsset: iconAsset,
+        careType: careType,
         scheduledHour: scheduledHour,
         scheduledMinute: scheduledMinute,
       );
@@ -114,6 +119,7 @@ class CareSlotItem {
       subtitle: subtitle,
       emoji: emoji,
       iconAsset: iconAsset,
+      careType: careType,
       scheduledHour: scheduledHour,
       scheduledMinute: scheduledMinute,
       isDone: isDone ?? this.isDone,

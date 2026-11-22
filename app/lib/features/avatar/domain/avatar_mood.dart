@@ -5,15 +5,15 @@ enum AvatarMood {
   worried('worried', 'Precisando de cuidado 💊'),
   bored('bored', 'Querendo passear 🦮'),
   sleepy('sleepy', 'Com soninho 💤'),
-  happy('happy', 'Feliz e cuidado ✨');
+  happy('happy', 'Muito feliz ✨');
 
   const AvatarMood(this.code, this.badgeLabel);
   final String code;
   final String badgeLabel;
 
-  String speechBubble(String petName) {
+  String speechBubble(String petName, {String article = 'o'}) {
     return switch (this) {
-      AvatarMood.celebrating => 'Nham! Obrigado por cuidar de mim! 💛',
+      AvatarMood.celebrating => 'Nham! Obrigad${article} por cuidar de mim! 💛',
       AvatarMood.hungry => '$petName está olhando pro pote... e pra você 🥺',
       AvatarMood.worried => 'Tem um cuidado importante vencendo hoje!',
       AvatarMood.bored => 'Que tal uma voltinha? Prometo me comportar!',

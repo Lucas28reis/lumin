@@ -6,11 +6,18 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../core/providers/core_providers.dart';
 import '../../../core/theme/app_theme.dart';
+
+import 'package:audioplayers/audioplayers.dart';
+
+import 'home_glass.dart';
+import 'family_settings.dart';
 import '../../../core/widgets/primary_cta_button.dart';
 import '../../avatar/presentation/avatar_view.dart';
 import '../domain/care_slot.dart';
 import 'care_controller.dart';
 import 'pet_edit_page.dart';
+import '../../community/scene_shop.dart';
+import '../../community/streak_ranking.dart';
 import '../../avatar/domain/avatar_mood.dart';
 import '../../life/presentation/life_page.dart';
 import '../../life/presentation/life_controller.dart';
@@ -26,13 +33,22 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage>
-    with WidgetsBindingObserver {
-  String? _selectedSlotId;
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+  late final AnimationController _burst;
+  AudioPlayer? _chime;
+  bool celebrating = false;
+  String? pressedMenu;
+  Timer? _happyTimer;
+
   Timer? _clock;
   Timer? _notificationDebounce;
   @override
   void initState() {
     super.initState();
+    _burst = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1100),
+    );
     WidgetsBinding.instance.addObserver(this);
     _clock = Timer.periodic(const Duration(seconds: 5), (_) {
       if (mounted) setState(() {});
@@ -54,6 +70,9 @@ class _HomePageState extends ConsumerState<HomePage>
 
   @override
   void dispose() {
+    _burst.dispose();
+    _happyTimer?.cancel();
+    _chime?.dispose();
     _clock?.cancel();
     _notificationDebounce?.cancel();
     WidgetsBinding.instance.removeObserver(this);
@@ -79,6 +98,7 @@ class _HomePageState extends ConsumerState<HomePage>
               ref.read(careControllerProvider),
               ref.read(lifeControllerProvider),
               ref.read(onboardingControllerProvider).draft.timezone,
+              periodic: ref.read(careControllerProvider.notifier).periodic,
             );
       } catch (_) {
         if (mounted) {
@@ -96,6 +116,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    final scene = ref.watch(sceneProvider);
     final state = ref.watch(careControllerProvider);
     final controller = ref.read(careControllerProvider.notifier);
     final now = controller.petNow();
@@ -103,418 +124,414 @@ class _HomePageState extends ConsumerState<HomePage>
     ref.listen(careControllerProvider, (_, _) => _scheduleReminders());
     ref.listen(lifeControllerProvider, (_, _) => _scheduleReminders());
     final baseMood = state.resolveMood(now);
-    final mood =
-        baseMood == AvatarMood.happy && life.records.any((r) => r.due(now))
+    final mood = celebrating
+        ? AvatarMood.celebrating
+        : baseMood == AvatarMood.happy && life.records.any((r) => r.due(now))
         ? AvatarMood.worried
         : baseMood;
     final nextSlot = state.nextPendingSlot;
 
-    final activeSlot =
-        state.slots.where((s) => s.id == _selectedSlotId).firstOrNull ??
-        nextSlot;
+    final done = state.slots.where((s) => s.isDone).length;
+    String label(CareSlotItem s) => switch (s.kind) {
+      CareSlotKind.dailyFeed => 'Alimentar',
+      CareSlotKind.dailyWalk => 'Passear',
+      CareSlotKind.interval => s.title,
+    };
+    Future<void> openMenu(String name, Widget page) async {
+      if (pressedMenu != null) return;
+      setState(() => pressedMenu = name);
+      if (!MediaQuery.disableAnimationsOf(context)) {
+        await Future<void>.delayed(const Duration(milliseconds: 120));
+      }
+      if (!mounted) return;
+      await Navigator.of(context)
+          .push(MaterialPageRoute<void>(builder: (_) => page));
+      if (mounted) setState(() => pressedMenu = null);
+    }
 
-    final feedSlots = state.slots
-        .where((s) => s.kind == CareSlotKind.dailyFeed)
-        .toList();
-    final walkSlots = state.slots
-        .where((s) => s.kind == CareSlotKind.dailyWalk)
-        .toList();
-    final doneFeeds = feedSlots.where((s) => s.isDone).length;
-    final doneWalks = walkSlots.where((s) => s.isDone).length;
-    final totalDone = state.slots.where((s) => s.isDone).length;
-    final totalSlots = state.slots.isEmpty ? 1 : state.slots.length;
-    final dayPercent = ((totalDone / totalSlots) * 100).round();
+    final walk = nextSlot?.kind == CareSlotKind.dailyWalk;
+    final due =
+        nextSlot != null && nextSlot.sortMinutes <= now.hour * 60 + now.minute;
+    Widget count(CareSlotKind kind, String title, IconData icon) {
+      final slots = state.slots.where((s) => s.kind == kind);
+      return Expanded(
+        child: GlassPanel(
+          child: Row(
+            children: [
+              Icon(icon, color: lagoon, size: 20),
+              const SizedBox(width: 8),
+              Expanded(child: Text(title)),
+              Text(
+                '${slots.where((s) => s.isDone).length}/${slots.length}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        top: false,
+        child: GlassPanel(
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
           child: Row(
             children: [
-              for (final item in [
-                (Icons.schedule, 'Rotina', const PetEditPage(routine: true)),
+              for (final entry in [
+                ('Rotina', Icons.schedule, const PetEditPage(routine: true)),
                 (
-                  Icons.medical_services_outlined,
                   'Prontuário',
+                  Icons.medical_services_outlined,
                   const LifePage(section: LifeSection.health),
                 ),
                 (
-                  Icons.restaurant,
                   'Ração',
+                  Icons.restaurant,
                   const LifePage(section: LifeSection.food),
                 ),
                 (
-                  Icons.palette_outlined,
                   'Estilo',
+                  Icons.palette_outlined,
                   const PetEditPage(routine: false),
                 ),
+                ('Loja', Icons.storefront_outlined, const SceneShop()),
+                ('Missões', Icons.emoji_events_outlined, const _MissionsPage()),
               ])
                 Expanded(
-                  child: TextButton(
-                    onPressed: () => Navigator.of(context)
-                        .push(MaterialPageRoute<void>(builder: (_) => item.$3)),
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: Material(
+                    color: pressedMenu == entry.$1
+                        ? const Color(0xffc8ebe8)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(14),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(14),
+                      highlightColor: const Color(0xffb4e0dd),
+                      onTap: () => openMenu(entry.$1, entry.$3),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(entry.$2, color: lagoon, size: 22),
+                            FittedBox(
+                              child: Text(
+                                entry.$1,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: ink,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xfff5f8fa), Colors.white, Color(0xffeaf2f4)],
+          ),
+        ),
+        child: SafeArea(
+          child: Stack(
+            children: [
+              Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 820),
+                  child: RefreshIndicator(
+                    onRefresh: controller.refresh,
+                    child: ListView(
+                      padding: const EdgeInsets.fromLTRB(14, 10, 14, 16),
                       children: [
-                        Icon(item.$1),
-                        Text(item.$2, style: const TextStyle(fontSize: 12)),
+                        Wrap(
+                          alignment: WrapAlignment.spaceBetween,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          runSpacing: 6,
+                          children: [
+                            Wrap(
+                              spacing: 6,
+                              children: [
+                                _Achievement(
+                                  icon: Icons.local_fire_department,
+                                  color: const Color(0xffc55717),
+                                  value: state.streakDays,
+                                  label: 'Ofensiva',
+                                ),
+                                _Achievement(
+                                  icon: Icons.shield_outlined,
+                                  color: lagoon,
+                                  value: state.freezesAvailable,
+                                  label: 'Escudo',
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextButton.icon(
+                                  onPressed: () => _profile(state),
+                                  icon: const Icon(Icons.people_alt_outlined),
+                                  label: const Text('Família'),
+                                ),
+                                IconButton(
+                                  tooltip: 'Lembretes',
+                                  onPressed: () => showDialog<void>(
+                                    context: context,
+                                    builder: (_) => const RemindersDialog(),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.notifications_outlined,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        if (state.bannerMessage != null)
+                          Text(state.bannerMessage!),
+                        const SizedBox(height: 8),
+                        DayProgress(done: done, total: state.slots.length),
+                        const SizedBox(height: 10),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(26),
+                          child: CustomPaint(
+                            painter: ScenePainter(scene),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 12),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: GlassPanel(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                    child: Text(
+                                      mood.speechBubble(
+                                        state.petName,
+                                        article: state.petGender.article,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                AvatarView(
+                                  dna: state.avatarDna,
+                                  mood: mood,
+                                  size:
+                                      (MediaQuery.sizeOf(context).height * .37)
+                                          .clamp(220.0, 360.0),
+                                ),
+                                GlassPanel(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 14,
+                                    vertical: 5,
+                                  ),
+                                  child: Text(
+                                    '${state.petName} ${state.petGender.symbol} · ${mood.badgeLabel}',
+                                    style: const TextStyle(
+                                      color: ink,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            count(
+                              CareSlotKind.dailyFeed,
+                              'Comida',
+                              Icons.restaurant,
+                            ),
+                            const SizedBox(width: 8),
+                            count(
+                              CareSlotKind.dailyWalk,
+                              'Passeios',
+                              Icons.directions_walk,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        if (nextSlot != null)
+                          Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: const LinearGradient(
+                                colors: [Color(0xffffc883), Color(0xffffa368)],
+                              ),
+                            ),
+                            child: Wrap(
+                              alignment: WrapAlignment.spaceBetween,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              spacing: 14,
+                              runSpacing: 8,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      due && walk
+                                          ? 'Hora do passeio!'
+                                          : 'Próximo cuidado',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: ink,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${nextSlot.timeLabel} • ${label(nextSlot)}',
+                                      style: const TextStyle(color: ink),
+                                    ),
+                                  ],
+                                ),
+                                FilledButton.icon(
+                                  style: FilledButton.styleFrom(
+                                    backgroundColor: lagoon,
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  onPressed: () => _handleLogCare(
+                                    context,
+                                    controller,
+                                    nextSlot,
+                                    state.petName,
+                                  ),
+                                  icon: TweenAnimationBuilder<double>(
+                                    key: ValueKey(nextSlot.id),
+                                    tween: Tween(begin: 0.8, end: 1),
+                                    duration:
+                                        MediaQuery.disableAnimationsOf(context)
+                                        ? Duration.zero
+                                        : const Duration(milliseconds: 500),
+                                    curve: Curves.elasticOut,
+                                    builder: (_, v, child) =>
+                                        Transform.scale(scale: v, child: child),
+                                    child: const Icon(Icons.pets),
+                                  ),
+                                  label: const Text('Concluir'),
+                                ),
+                              ],
+                            ),
+                          )
+                        else
+                          FilledButton.icon(
+                            onPressed: () => _shareStreakMilestone(state),
+                            icon: const Icon(Icons.celebration),
+                            label: const Text('Dia completo! Compartilhar'),
+                          ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Rotina de hoje',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 6),
+                        _RoutineCarousel(
+                          slots: state.slots,
+                          card: (slot) => Semantics(
+                            button: true,
+                            selected: slot.isDone,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              onTap: () {
+                                if (slot.isDone && slot.logId != null) {
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  controller.undoLastCare(slot.logId!);
+                                } else if (!slot.isDone) {
+                                  _handleLogCare(
+                                    context,
+                                    controller,
+                                    slot,
+                                    state.petName,
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 104,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: slot.isDone
+                                      ? const Color(0xffd1efe1)
+                                      : slot.id == nextSlot?.id
+                                      ? const Color(0xffffddae)
+                                      : Colors.white.withValues(alpha: .8),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: Colors.white),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(slot.emoji),
+                                        if (slot.isDone)
+                                          const Icon(
+                                            Icons.check_circle,
+                                            size: 15,
+                                            color: lagoon,
+                                          ),
+                                      ],
+                                    ),
+                                    Text(
+                                      slot.timeLabel,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: ink,
+                                      ),
+                                    ),
+                                    Text(
+                                      label(slot),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
-              IconButton(
-                tooltip: 'Lembretes',
-                icon: const Icon(Icons.notifications_outlined),
-                onPressed: () => showDialog<void>(
-                  context: context,
-                  builder: (_) => const RemindersDialog(),
+              ),
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: CustomPaint(painter: CelebrationPainter(_burst)),
                 ),
               ),
             ],
           ),
         ),
       ),
-      appBar: AppBar(
-        toolbarHeight: 68,
-        title: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 880),
-            child: Row(
-              children: [
-                _StreakBadge(days: state.streakDays),
-                const SizedBox(width: 10),
-                _FreezeBadge(freezes: state.freezesAvailable),
-                const Spacer(),
-                IconButton(
-                  onPressed: controller.refresh,
-                  tooltip: 'Atualizar cuidados',
-                  icon: const Icon(Icons.refresh),
-                ),
-                FilledButton.tonalIcon(
-                  onPressed: () => _shareFamilyInvite(state),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.surface,
-                    foregroundColor: AppColors.textPrimary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  icon: const Icon(Icons.group_add_rounded, size: 18),
-                  label: Text(
-                    state.householdMemberCount == 1
-                        ? 'Família (1)'
-                        : '${state.householdMemberCount} tutores',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 880),
-            child: Column(
-              children: [
-                if (state.bannerMessage != null)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.sync_rounded,
-                            color: AppColors.textPrimary,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: Text(
-                              state.bannerMessage!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.textPrimary,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // =====================================================
-                        // LADO ESQUERDO: Opções sequenciais por horário
-                        // (07:30 -> 08:00 -> 18:30 -> 19:00) somente com figura
-                        // =====================================================
-                        SizedBox(
-                          width: 86,
-                          child: Center(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: state.slots.map((slot) {
-                                  final isSelected = activeSlot?.id == slot.id;
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 6,
-                                    ),
-                                    child: _LeftCareFigureButton(
-                                      slot: slot,
-                                      isSelected: isSelected,
-                                      onTap: () {
-                                        setState(
-                                          () => _selectedSlotId = slot.id,
-                                        );
-                                        if (slot.isDone && slot.logId != null) {
-                                          ScaffoldMessenger.of(context)
-                                              .clearSnackBars();
-                                          controller.undoLastCare(slot.logId!);
-                                        } else if (!slot.isDone) {
-                                          _handleLogCare(
-                                            context,
-                                            controller,
-                                            slot,
-                                            state.petName,
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-
-                        // =====================================================
-                        // PALCO CENTRAL RICO: O Avatar Gigante + Status do Pet
-                        // =====================================================
-                        Expanded(
-                          child: Center(
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 480),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  // Balão de fala do Pet
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 18,
-                                      vertical: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.surface,
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                        color: AppColors.border,
-                                        width: 1.5,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      mood.speechBubble(state.petName),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 14,
-                                        color: AppColors.textPrimary,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 6),
-
-                                  // Avatar Principal Grande
-                                  Flexible(
-                                    child: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                        final maxDim =
-                                            constraints.maxHeight.isFinite
-                                            ? constraints.maxHeight.clamp(
-                                                210.0,
-                                                340.0,
-                                              )
-                                            : 300.0;
-                                        return AvatarView(
-                                          dna: state.avatarDna,
-                                          mood: mood,
-                                          size: maxDim,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  const SizedBox(height: 6),
-
-                                  // Identidade rica do Pet (Nome + Sexo + Humor)
-                                  Wrap(
-                                    alignment: WrapAlignment.center,
-                                    spacing: 8,
-                                    runSpacing: 6,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 14,
-                                          vertical: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.surface,
-                                          borderRadius: BorderRadius.circular(
-                                            999,
-                                          ),
-                                          border: Border.all(
-                                            color: AppColors.border,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '${state.petName} ${state.petGender.symbol} • ${mood.badgeLabel}',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 14,
-                                            color: AppColors.textPrimary,
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primary,
-                                          borderRadius: BorderRadius.circular(
-                                            999,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '$dayPercent% do dia concluído',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: 13,
-                                            color: AppColors.textPrimary,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 12),
-
-                                  // Painel de Status Rico do Pet (Refeições, Passeios e Rotina)
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 14,
-                                      vertical: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.surface,
-                                      borderRadius: BorderRadius.circular(18),
-                                      border: Border.all(
-                                        color: AppColors.border,
-                                        width: 1.5,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        _PetStatMiniColumn(
-                                          label: 'Comida',
-                                          value:
-                                              '$doneFeeds/${feedSlots.length}',
-                                          isComplete:
-                                              feedSlots.isNotEmpty &&
-                                              doneFeeds == feedSlots.length,
-                                        ),
-                                        Container(
-                                          width: 1.5,
-                                          height: 28,
-                                          color: AppColors.border,
-                                        ),
-                                        _PetStatMiniColumn(
-                                          label: 'Passeios',
-                                          value:
-                                              '$doneWalks/${walkSlots.length}',
-                                          isComplete:
-                                              walkSlots.isEmpty ||
-                                              doneWalks == walkSlots.length,
-                                        ),
-                                        Container(
-                                          width: 1.5,
-                                          height: 28,
-                                          color: AppColors.border,
-                                        ),
-                                        _PetStatMiniColumn(
-                                          label: 'Próximo',
-                                          value:
-                                              nextSlot?.timeLabel ?? '100% ✓',
-                                          isComplete: nextSlot == null,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 12),
-
-                                  // Botão de ação principal
-                                  if (nextSlot != null)
-                                    PrimaryCtaButton(
-                                      label:
-                                          '${nextSlot.emoji} ${nextSlot.timeLabel} • ${nextSlot.kind == CareSlotKind.dailyWalk
-                                              ? "Passear"
-                                              : nextSlot.kind == CareSlotKind.dailyFeed
-                                              ? "Alimentar"
-                                              : nextSlot.title}',
-                                      onPressed: () => _handleLogCare(
-                                        context,
-                                        controller,
-                                        nextSlot,
-                                        state.petName,
-                                      ),
-                                    )
-                                  else
-                                    PrimaryCtaButton(
-                                      label: '🎉 Dia completo! Compartilhar',
-                                      onPressed: () =>
-                                          _shareStreakMilestone(state),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
+  }
+
+  void _profile(CareHomeState state) {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (_) => const FamilySettings()));
   }
 
   Future<void> _handleLogCare(
@@ -527,6 +544,19 @@ class _HomePageState extends ConsumerState<HomePage>
     final logId = result.logId;
 
     if (logId != null && context.mounted) {
+      _happyTimer?.cancel();
+      setState(() => celebrating = true);
+      _happyTimer = Timer(const Duration(seconds: 2), () {
+        if (mounted) setState(() => celebrating = false);
+      });
+      if (!MediaQuery.disableAnimationsOf(context)) {
+        _burst.forward(from: 0);
+        if (ref.read(careControllerProvider).slots.every((s) => s.isDone)) {
+          (_chime ??= AudioPlayer())
+              .play(AssetSource('sounds/day-complete.wav'))
+              .catchError((Object _) {});
+        }
+      }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -543,23 +573,6 @@ class _HomePageState extends ConsumerState<HomePage>
     if (result.shouldPromptAccountLink && context.mounted) {
       _showAccountLinkBottomSheet(context, controller, petName);
     }
-  }
-
-  Future<void> _shareFamilyInvite(CareHomeState state) async {
-    if (ref.read(supabaseClientProvider) == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Convites ficam disponíveis quando a conexão da família estiver configurada.',
-          ),
-        ),
-      );
-      return;
-    }
-    final text =
-        'Agora a gente cuida do ${state.petName} junto pelo Lumin 🐾 '
-        'Usa o código ${state.inviteCode} para entrar na família!';
-    await SharePlus.instance.share(ShareParams(text: text));
   }
 
   Future<void> _shareStreakMilestone(CareHomeState state) async {
@@ -587,7 +600,7 @@ class _HomePageState extends ConsumerState<HomePage>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Primeira vitória do $petName! 🎉',
+                'Primeira vitória d${ref.read(careControllerProvider).petGender.article} $petName! 🎉',
                 style: Theme.of(sheetContext).textTheme.titleLarge
                     ?.copyWith(color: AppColors.textPrimary),
               ),
@@ -641,352 +654,179 @@ class _HomePageState extends ConsumerState<HomePage>
   }
 }
 
-class _PetStatMiniColumn extends StatelessWidget {
-  const _PetStatMiniColumn({
-    required this.label,
+class _Achievement extends StatelessWidget {
+  const _Achievement({
+    required this.icon,
+    required this.color,
     required this.value,
-    required this.isComplete,
+    required this.label,
   });
-
+  final IconData icon;
+  final Color color;
+  final int value;
   final String label;
-  final String value;
-  final bool isComplete;
-
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => GlassPanel(
+    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
+    child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textSecondary,
-          ),
+        TweenAnimationBuilder<double>(
+          key: ValueKey(value),
+          tween: Tween(begin: .88, end: 1),
+          duration: MediaQuery.disableAnimationsOf(context)
+              ? Duration.zero
+              : const Duration(milliseconds: 400),
+          builder: (_, v, c) => Transform.scale(scale: v, child: c),
+          child: Icon(icon, color: color),
         ),
-        const SizedBox(height: 2),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          decoration: BoxDecoration(
-            color: isComplete ? AppColors.primary : AppColors.surfaceAlt,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            value,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w900,
-              color: AppColors.textPrimary,
-            ),
+        const SizedBox(width: 4),
+        Text(
+          '$value · $label',
+          style: const TextStyle(
+            color: ink,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
 }
 
-/// Botão lateral compacto: exibe apenas a figura/imagem (que o usuário pode
-/// substituir via `slot.iconAsset`) e o horário sequencial (`07:30`, `08:00`, etc.).
-/// Usa #FBE8CF como quadro base e #FDAC2F quando selecionado/ativo!
-class _LeftCareFigureButton extends StatelessWidget {
-  const _LeftCareFigureButton({
-    required this.slot,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final CareSlotItem slot;
-  final bool isSelected;
-  final VoidCallback onTap;
-
+class _MissionsPage extends ConsumerWidget {
+  const _MissionsPage();
   @override
-  Widget build(BuildContext context) {
-    final highlighted = isSelected || slot.isDone;
-
-    return Tooltip(
-      message: slot.title,
-      child: Material(
-        color: isSelected ? AppColors.primary : AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            width: 72,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: highlighted ? AppColors.primary : AppColors.border,
-                width: highlighted ? 2.5 : 1.5,
-              ),
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              clipBehavior: Clip.none,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final care = ref.watch(careControllerProvider);
+    return Scaffold(
+      appBar: AppBar(title: const Text('Missões')),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          DayProgress(
+            done: care.slots.where((s) => s.isDone).length,
+            total: care.slots.length,
+          ),
+          const SizedBox(height: 12),
+          GlassPanel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (slot.iconAsset != null)
-                      Image.asset(
-                        slot.iconAsset!,
-                        width: 30,
-                        height: 30,
-                        fit: BoxFit.contain,
-                      )
-                    else
-                      Text(slot.emoji, style: const TextStyle(fontSize: 28)),
-                    const SizedBox(height: 4),
-                    Text(
-                      slot.timeLabel,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w900,
-                        decoration: slot.isDone
-                            ? TextDecoration.lineThrough
-                            : null,
-                        color: AppColors.textPrimary,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Missões de hoje',
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                if (slot.isDone)
-                  Positioned(
-                    top: -4,
-                    right: -2,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        color: AppColors.primary,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.check_rounded,
-                        size: 14,
-                        color: AppColors.textPrimary,
-                      ),
+                for (final slot in care.slots)
+                  ListTile(
+                    leading: Icon(
+                      slot.isDone
+                          ? Icons.check_circle
+                          : Icons.radio_button_unchecked,
+                      color: lagoon,
                     ),
+                    title: Text(slot.title),
+                    trailing: Text(slot.timeLabel),
                   ),
               ],
             ),
           ),
+          const SizedBox(height: 12),
+          FilledButton.icon(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const StreakRanking()),
+            ),
+            icon: const Icon(Icons.emoji_events),
+            label: const Text('Ranking de ofensivas'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RoutineCarousel extends StatefulWidget {
+  const _RoutineCarousel({required this.slots, required this.card});
+  final List<CareSlotItem> slots;
+  final Widget Function(CareSlotItem) card;
+  @override
+  State<_RoutineCarousel> createState() => _RoutineCarouselState();
+}
+
+class _RoutineCarouselState extends State<_RoutineCarousel> {
+  final controller = PageController();
+  int page = 0;
+  @override
+  void didUpdateWidget(_RoutineCarousel old) {
+    super.didUpdateWidget(old);
+    final before = old.slots.where((s) => !s.isDone).map((s) => s.id).join(',');
+    final after = widget.slots
+        .where((s) => !s.isDone)
+        .map((s) => s.id)
+        .join(',');
+    if (before != after && controller.hasClients) controller.jumpToPage(0);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ordered = [
+      ...widget.slots.where((s) => !s.isDone),
+      ...widget.slots.where((s) => s.isDone),
+    ];
+    final pages = (ordered.length / 3).ceil();
+    if (pages == 0) return const SizedBox.shrink();
+    void move(int index) => controller.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 230),
+      curve: Curves.easeOut,
+    );
+    return Column(
+      children: [
+        SizedBox(
+          height: 45 + MediaQuery.textScalerOf(context).scale(17) * 3,
+          child: PageView.builder(
+            controller: controller,
+            itemCount: pages,
+            onPageChanged: (index) => setState(() => page = index),
+            itemBuilder: (_, index) => Row(
+              children: [
+                for (final slot in ordered.skip(index * 3).take(3))
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
+                      child: widget.card(slot),
+                    ),
+                  ),
+                for (var i = ordered.length - index * 3; i < 3; i++)
+                  const Spacer(),
+              ],
+            ),
+          ),
         ),
-      ),
-    );
-  }
-}
-
-/// Widget de Ofensiva redesenhado com ícone vetorial customizado (_FlameVectorPainter)
-/// e visual de jogo nos tons #FBE8CF / #FDAC2F / #081B40.
-class _StreakBadge extends StatelessWidget {
-  const _StreakBadge({required this.days});
-  final int days;
-
-  @override
-  Widget build(BuildContext context) {
-    final isActive = days > 0;
-    return Container(
-      padding: const EdgeInsets.fromLTRB(8, 6, 12, 6),
-      decoration: BoxDecoration(
-        color: isActive ? AppColors.primary : AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.primary, width: 2),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 30,
-            height: 30,
-            decoration: BoxDecoration(
-              color: AppColors.textPrimary,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Center(
-              child: CustomPaint(
-                size: Size(18, 20),
-                painter: _FlameVectorPainter(),
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+        if (pages > 1)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '$days ${days == 1 ? "dia" : "dias"}',
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w900,
-                  height: 1.1,
-                  color: AppColors.textPrimary,
-                ),
+              IconButton(
+                tooltip: 'Cuidados anteriores',
+                onPressed: page > 0 ? () => move(page - 1) : null,
+                icon: const Icon(Icons.chevron_left),
               ),
-              const Text(
-                'Ofensiva',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  height: 1.1,
-                  color: AppColors.textSecondary,
-                ),
+              Text('${page + 1} de $pages'),
+              IconButton(
+                tooltip: 'Próximos cuidados',
+                onPressed: page + 1 < pages ? () => move(page + 1) : null,
+                icon: const Icon(Icons.chevron_right),
               ),
             ],
           ),
-        ],
-      ),
+      ],
     );
   }
-}
-
-/// Widget de Escudo de Gelo redesenhado com cristal vetorial customizado (_IceCrystalVectorPainter).
-class _FreezeBadge extends StatelessWidget {
-  const _FreezeBadge({required this.freezes});
-  final int freezes;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(8, 6, 12, 6),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.freezeBlue, width: 2),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 30,
-            height: 30,
-            decoration: BoxDecoration(
-              color: AppColors.textPrimary,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Center(
-              child: CustomPaint(
-                size: Size(18, 20),
-                painter: _IceCrystalVectorPainter(),
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '$freezes ${freezes == 1 ? "escudo" : "escudos"}',
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w900,
-                  height: 1.1,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-              const Text(
-                'Proteção',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  height: 1.1,
-                  color: AppColors.textSecondary,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _FlameVectorPainter extends CustomPainter {
-  const _FlameVectorPainter();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final w = size.width;
-    final h = size.height;
-
-    final outerFlame = Path()
-      ..moveTo(w * 0.52, 0)
-      ..cubicTo(w * 0.88, h * 0.25, w * 1.0, h * 0.55, w * 0.84, h * 0.82)
-      ..cubicTo(w * 0.72, h * 0.98, w * 0.28, h * 0.98, w * 0.16, h * 0.82)
-      ..cubicTo(0, h * 0.58, w * 0.18, h * 0.30, w * 0.36, h * 0.18)
-      ..cubicTo(w * 0.34, h * 0.32, w * 0.44, h * 0.36, w * 0.52, 0)
-      ..close();
-
-    canvas.drawPath(
-      outerFlame,
-      Paint()
-        ..color = AppColors.primary
-        ..style = PaintingStyle.fill,
-    );
-
-    final innerCore = Path()
-      ..moveTo(w * 0.50, h * 0.38)
-      ..cubicTo(w * 0.72, h * 0.54, w * 0.74, h * 0.76, w * 0.62, h * 0.90)
-      ..cubicTo(w * 0.54, h * 0.96, w * 0.42, h * 0.96, w * 0.36, h * 0.88)
-      ..cubicTo(w * 0.26, h * 0.74, w * 0.32, h * 0.54, w * 0.50, h * 0.38)
-      ..close();
-
-    canvas.drawPath(
-      innerCore,
-      Paint()
-        ..color = AppColors.surface
-        ..style = PaintingStyle.fill,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _IceCrystalVectorPainter extends CustomPainter {
-  const _IceCrystalVectorPainter();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final w = size.width;
-    final h = size.height;
-
-    final shield = Path()
-      ..moveTo(w * 0.5, 0)
-      ..lineTo(w * 0.94, h * 0.24)
-      ..lineTo(w * 0.84, h * 0.74)
-      ..lineTo(w * 0.5, h)
-      ..lineTo(w * 0.16, h * 0.74)
-      ..lineTo(w * 0.06, h * 0.24)
-      ..close();
-
-    canvas.drawPath(
-      shield,
-      Paint()
-        ..color = AppColors.freezeBlue
-        ..style = PaintingStyle.fill,
-    );
-
-    final highlight = Path()
-      ..moveTo(w * 0.5, h * 0.16)
-      ..lineTo(w * 0.76, h * 0.32)
-      ..lineTo(w * 0.5, h * 0.82)
-      ..lineTo(w * 0.24, h * 0.32)
-      ..close();
-
-    canvas.drawPath(
-      highlight,
-      Paint()
-        ..color = AppColors.surface.withValues(alpha: 0.85)
-        ..style = PaintingStyle.fill,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

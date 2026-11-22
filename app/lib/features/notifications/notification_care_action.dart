@@ -69,8 +69,9 @@ class CareNotificationAction {
         index < 0 ||
         index >= times.length ||
         times[index] != time ||
-        task != (feed ? 'task-feed' : 'task-walk'))
+        task != (feed ? 'task-feed' : 'task-walk')) {
       return;
+    }
     final requiredSlots = [
       for (final t in draft.activeFeedTimes) 'feed/$t',
       for (final t in draft.activeWalkTimes) 'walk/$t',

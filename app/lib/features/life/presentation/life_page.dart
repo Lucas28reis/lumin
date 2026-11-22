@@ -112,6 +112,10 @@ class LifePage extends ConsumerWidget {
                                 '${food.gramsPerMeal.toStringAsFixed(0)} g por refeição • ${food.mealsPerDay}x ao dia\n'
                                 'Saco aberto em ${shortDate(food.openedOn)}',
                               ),
+                              Text(
+                                'Previsão de término do saco: ${shortDate(food.lastFeedingDay)}',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
                               const Text(
                                 'Previsão pelo consumo diário informado. Ajuste o saldo se houver sobras ou desperdício.',
                               ),

@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 
 class RoutineTimeEditor extends StatelessWidget {
   const RoutineTimeEditor({
+    super.key,
     required this.times,
     required this.onChanged,
     this.walk = false,
