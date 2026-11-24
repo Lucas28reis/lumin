@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:rive/rive.dart' as rive;
+
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,6 +38,20 @@ enum PetScene {
     Color(0xff34436d),
     Color(0xff60698e),
     Color(0xff465779),
+  ),
+  starryBrush(
+    'Céu de Van Gogh',
+    0,
+    Color(0xff213969),
+    Color(0xff60698e),
+    Color(0xff465779),
+  ),
+  mist(
+    'Manhã de neblina',
+    0,
+    Color(0xffe1ebef),
+    Color(0xffb6cbd0),
+    Color(0xff98adbb),
   );
 
   const PetScene(this.label, this.days, this.sky, this.hills, this.ground);
@@ -84,6 +100,71 @@ class ScenePainter extends CustomPainter {
   bool shouldRepaint(ScenePainter oldDelegate) => oldDelegate.scene != scene;
 }
 
+final _sceneFile = FutureProvider<rive.File?>((ref) async {
+  final file = await rive.File.asset(
+    'assets/scenes/LuminScenarios.riv',
+    riveFactory: rive.Factory.rive,
+  );
+  if (!ref.mounted) {
+    file?.dispose();
+    return null;
+  }
+  ref.onDispose(() => file?.dispose());
+  return file;
+});
+
+class SceneBackdrop extends ConsumerWidget {
+  const SceneBackdrop(this.scene, {this.child, super.key});
+  final PetScene scene;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final file = ref.watch(_sceneFile).asData?.value;
+    return Stack(
+      fit: child == null ? StackFit.expand : StackFit.loose,
+      children: [
+        Positioned.fill(
+          child: IgnorePointer(
+            child: file == null
+                ? CustomPaint(painter: ScenePainter(scene))
+                : _SceneArtboard(
+                    key: ValueKey(scene),
+                    file: file,
+                    scene: scene,
+                  ),
+          ),
+        ),
+        if (child != null) SizedBox(width: double.infinity, child: child),
+      ],
+    );
+  }
+}
+
+class _SceneArtboard extends StatefulWidget {
+  const _SceneArtboard({super.key, required this.file, required this.scene});
+  final rive.File file;
+  final PetScene scene;
+  @override
+  State<_SceneArtboard> createState() => _SceneArtboardState();
+}
+
+class _SceneArtboardState extends State<_SceneArtboard> {
+  late final controller = rive.RiveWidgetController(
+    widget.file,
+    artboardSelector: rive.ArtboardSelector.byName(widget.scene.name),
+  );
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      rive.RiveWidget(controller: controller, fit: rive.Fit.cover);
+}
+
 class SceneStore extends Notifier<PetScene> {
   late String key;
   @override
@@ -114,15 +195,41 @@ class SceneStore extends Notifier<PetScene> {
 
 final sceneProvider = NotifierProvider<SceneStore, PetScene>(SceneStore.new);
 
-class SceneShop extends ConsumerWidget {
+class SceneShop extends ConsumerStatefulWidget {
   const SceneShop({super.key});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SceneShop> createState() => _SceneShopState();
+}
+
+class _SceneShopState extends ConsumerState<SceneShop> {
+  late int index;
+  late final PageController pages;
+  @override
+  void initState() {
+    super.initState();
+    index = ref.read(sceneProvider).index;
+    pages = PageController(initialPage: index);
+  }
+
+  @override
+  void dispose() {
+    pages.dispose();
+    super.dispose();
+  }
+
+  void move(int delta) => pages.animateToPage(
+    index + delta,
+    duration: const Duration(milliseconds: 240),
+    curve: Curves.easeOut,
+  );
+  @override
+  Widget build(BuildContext context) {
+    final s = PetScene.values[index];
     final selected = ref.watch(sceneProvider);
     final store = ref.read(sceneProvider.notifier);
     final days = ref.watch(careControllerProvider.select((c) => c.streakDays));
     return Scaffold(
-      appBar: AppBar(title: const Text('Loja de cenários')),
+      appBar: AppBar(title: const Text('Loja')),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 580),
@@ -134,57 +241,82 @@ class SceneShop extends ConsumerWidget {
                 style: Theme.of(context).textTheme.titleLarge
                     ?.copyWith(color: AppColors.onBackground),
               ),
-              for (final s in PetScene.values)
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 96,
-                        child: CustomPaint(painter: ScenePainter(s)),
-                      ),
-                      ListTile(
-                        title: Text(s.label),
-                        subtitle: Text(
-                          store.owned(s)
-                              ? (s.days == 0 ? 'Grátis' : 'Na sua coleção')
-                              : 'Ofensiva de ${s.days} dias',
-                        ),
-                        trailing: FilledButton(
-                          onPressed:
-                              selected == s ||
-                                  (!store.owned(s) && days < s.days)
-                              ? null
-                              : () async {
-                                  try {
-                                    await store.equip(s);
-                                  } catch (_) {
-                                    if (context.mounted)
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                'Não foi possível salvar o cenário.',
-                                              ),
-                                            ),
-                                          );
-                                  }
-                                },
-                          child: Text(
-                            selected == s
-                                ? 'Em uso'
-                                : store.owned(s)
-                                ? 'Usar'
-                                : days >= s.days
-                                ? 'Resgatar'
-                                : 'Bloqueado',
-                          ),
-                        ),
-                      ),
-                    ],
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Cenários',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
+                  IconButton(
+                    tooltip: 'Cenário anterior',
+                    onPressed: index > 0 ? () => move(-1) : null,
+                    icon: const Icon(Icons.chevron_left),
+                  ),
+                  Text('${index + 1} de ${PetScene.values.length}'),
+                  IconButton(
+                    tooltip: 'Próximo cenário',
+                    onPressed: index + 1 < PetScene.values.length
+                        ? () => move(1)
+                        : null,
+                    icon: const Icon(Icons.chevron_right),
+                  ),
+                ],
+              ),
+              Card(
+                clipBehavior: Clip.antiAlias,
+                child: Column(
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 2,
+                      child: PageView.builder(
+                        controller: pages,
+                        onPageChanged: (value) => setState(() => index = value),
+                        itemCount: PetScene.values.length,
+                        itemBuilder: (context, i) =>
+                            SceneBackdrop(PetScene.values[i]),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(s.label),
+                      subtitle: Text(
+                        store.owned(s)
+                            ? (s.days == 0 ? 'Grátis' : 'Na sua coleção')
+                            : 'Ofensiva de ${s.days} dias',
+                      ),
+                      trailing: FilledButton(
+                        onPressed:
+                            selected == s || (!store.owned(s) && days < s.days)
+                            ? null
+                            : () async {
+                                try {
+                                  await store.equip(s);
+                                } catch (_) {
+                                  if (context.mounted)
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Não foi possível salvar o cenário.',
+                                        ),
+                                      ),
+                                    );
+                                }
+                              },
+                        child: Text(
+                          selected == s
+                              ? 'Em uso'
+                              : store.owned(s)
+                              ? 'Usar'
+                              : days >= s.days
+                              ? 'Resgatar'
+                              : 'Bloqueado',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
             ],
           ),
         ),

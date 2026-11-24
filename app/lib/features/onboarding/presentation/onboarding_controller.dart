@@ -187,20 +187,59 @@ class OnboardingController extends Notifier<OnboardingState> {
     await _goToStep(3);
   }
 
-  void setFeedTimes(List<String> times) {
-    _updateDraft(state.draft.copyWith(customFeedTimes: [...times]..sort()));
-  }
-
-  void setFleaDate(DateTime? date) {
+  void setWalkTimes(List<String> times) {
     _updateDraft(
-      state.draft.copyWith(fleaLastDate: date, clearFleaDate: date == null),
+      state.draft.copyWith(
+        walkPreset: WalkPreset.custom,
+        customWalkTimes: [...times]..sort(),
+      ),
     );
   }
 
-  void setFleaInterval(int days) {
-    if (days >= 1 && days <= 365) {
-      _updateDraft(state.draft.copyWith(fleaIntervalDays: days));
+  void setFeedTimes(List<String> times) {
+    _updateDraft(
+      state.draft.copyWith(
+        feedPreset: FeedPreset.custom,
+        customFeedTimes: [...times]..sort(),
+      ),
+    );
+  }
+
+  void setCareDate(ForgettableCareType type, DateTime? date) {
+    final draft = state.draft;
+    if (type == ForgettableCareType.fleaTick) {
+      _updateDraft(
+        draft.copyWith(fleaLastDate: date, clearFleaDate: date == null),
+      );
+      return;
     }
+    final dates = Map.of(draft.lastDoses);
+    if (date == null) {
+      dates.remove(type.code);
+    } else {
+      dates[type.code] = date.toIso8601String();
+    }
+    _updateDraft(
+      draft.copyWith(
+        lastDoses: dates,
+        forgettableCare: {
+          ...draft.forgettableCare,
+          type: LastDoneRecency.dontRemember,
+        },
+      ),
+    );
+  }
+
+  void setCareInterval(ForgettableCareType type, int days) {
+    if (days < 1 || days > 365) return;
+    final draft = state.draft;
+    _updateDraft(
+      type == ForgettableCareType.fleaTick
+          ? draft.copyWith(fleaIntervalDays: days)
+          : draft.copyWith(
+              doseIntervals: {...draft.doseIntervals, type.code: days},
+            ),
+    );
   }
 
   void selectFeedPreset(FeedPreset preset) {
@@ -208,7 +247,14 @@ class OnboardingController extends Notifier<OnboardingState> {
   }
 
   void selectWalkPreset(WalkPreset preset) {
-    _updateDraft(state.draft.copyWith(walkPreset: preset));
+    _updateDraft(
+      state.draft.copyWith(
+        walkPreset: preset,
+        customWalkTimes: preset == WalkPreset.custom
+            ? state.draft.activeWalkTimes
+            : null,
+      ),
+    );
   }
 
   Future<void> submitStep3Routine() async {

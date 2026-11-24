@@ -60,7 +60,7 @@ com validação dos registros no servidor, preferências, silêncio e deduplica�
 
 ## Avatares e agentes
 
-O app usa `rive_pets/scene.rml` compilado em `app/assets/pets/lumin_pets.riv`.
+O app carrega `app/assets/pets/CatProduction.riv` para o gato (CatArtboard) e `app/assets/pets/LuminProduction.riv` para o Golden (GoldenRoot). O agente de geração usa `rive_pets/scene.rml` e exporta separadamente para `app/assets/pets/lumin_pets.riv`.
 O helper resolve a raiz pelo próprio arquivo e aceita `RIVE_EXE` por variável de
 ambiente. O mapa atual contém **65 vínculos**; o número 55 das instruções antigas
 está desatualizado. A validação usa o mapa, não um limiar de contagem.

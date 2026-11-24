@@ -1,0 +1,1741 @@
+<Rive version="1" kind="fragment">
+  <Artboard name="studio" width="800" height="400" x="0" id="1:1" defaultStateMachineId="1:60">
+    <Shape name="Vaso" id="1:46">
+      <PointsPath isClosed="true" id="1:47">
+        <StraightVertex x="70" y="222" id="1:48" />
+        <StraightVertex x="128" y="222" id="1:49" />
+        <StraightVertex x="119" y="264" id="1:50" />
+        <StraightVertex x="80" y="264" id="1:51" />
+      </PointsPath>
+      <Fill id="1:52">
+        <SolidColor colorValue="FFC68568" id="1:53" />
+      </Fill>
+    </Shape>
+    <Shape name="Folha 3" x="113" y="204" id="1:42">
+      <Ellipse width="18" height="42" id="1:43" />
+      <Fill id="1:44">
+        <SolidColor colorValue="FF789A82" id="1:45" />
+      </Fill>
+    </Shape>
+    <Shape name="Folha 2" x="99" y="212" id="1:38">
+      <Ellipse width="18" height="47" id="1:39" />
+      <Fill id="1:40">
+        <SolidColor colorValue="FF789A82" id="1:41" />
+      </Fill>
+    </Shape>
+    <Shape name="Folha 1" x="85" y="204" id="1:34">
+      <Ellipse width="18" height="52" id="1:35" />
+      <Fill id="1:36">
+        <SolidColor colorValue="FF789A82" id="1:37" />
+      </Fill>
+    </Shape>
+    <Shape name="Tapete" x="398" y="318" id="1:30">
+      <Ellipse width="470" height="82" id="1:31" />
+      <Fill id="1:32">
+        <SolidColor colorValue="FFF1DABB" id="1:33" />
+      </Fill>
+    </Shape>
+    <Shape name="Piso" x="400" y="330" id="1:26">
+      <Rectangle width="820" height="160" id="1:27" />
+      <Fill id="1:28">
+        <SolidColor colorValue="FFDCB78C" id="1:29" />
+      </Fill>
+    </Shape>
+    <Shape name="Montante" x="608" y="106" id="1:22">
+      <Rectangle width="7" height="134" id="1:23" />
+      <Fill id="1:24">
+        <SolidColor colorValue="FFFFF4DD" id="1:25" />
+      </Fill>
+    </Shape>
+    <Shape name="Travessa" x="614" y="109" id="1:18">
+      <Rectangle width="162" height="7" id="1:19" />
+      <Fill id="1:20">
+        <SolidColor colorValue="FFFFF4DD" id="1:21" />
+      </Fill>
+    </Shape>
+    <Shape name="Sol da manhã" x="644" y="80" id="1:14">
+      <Ellipse width="46" height="46" id="1:15" />
+      <Fill id="1:16">
+        <SolidColor colorValue="FFFFF2CB" id="1:17" />
+      </Fill>
+    </Shape>
+    <Shape name="Vidro" x="614" y="106" id="1:10">
+      <Rectangle width="162" height="134" id="1:11" />
+      <Fill id="1:12">
+        <SolidColor colorValue="FFC9E5E7" id="1:13" />
+      </Fill>
+    </Shape>
+    <Shape name="Janela" x="614" y="106" id="1:6">
+      <Rectangle width="178" height="150" id="1:7" />
+      <Fill id="1:8">
+        <SolidColor colorValue="FFDCBFA1" id="1:9" />
+      </Fill>
+    </Shape>
+    <Shape name="Fundo" x="400" y="200" id="1:2">
+      <Rectangle width="820" height="420" id="1:3" />
+      <Fill id="1:4">
+        <SolidColor colorValue="FFFFF3DF" id="1:5" />
+      </Fill>
+    </Shape>
+    <LinearAnimation name="Ambiente" duration="360" loopValue="loop" id="1:54">
+      <KeyedObject objectId="1:14" id="1:55">
+        <KeyedProperty property="opacity" id="1:56">
+          <KeyFrameDouble value="1" frame="0" interpolationType="linear" id="1:57" />
+          <KeyFrameDouble value="0.84" frame="180" interpolationType="linear" id="1:58" />
+          <KeyFrameDouble value="1" frame="360" interpolationType="linear" id="1:59" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <StateMachine name="Ambiente" id="1:60">
+      <StateMachineLayer name="Cenário" id="1:61">
+        <AnyState id="1:62" />
+        <ExitState id="1:63" />
+        <EntryState id="1:64">
+          <StateTransition stateToId="1:65" id="1:66" />
+        </EntryState>
+        <AnimationState animationId="1:54" id="1:65" />
+      </StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+  <Artboard name="meadow" width="800" height="400" x="850" id="1:67" defaultStateMachineId="1:254">
+    <Shape name="Flor 12" x="697" y="363" id="1:244">
+      <Ellipse width="6" height="5" id="1:245" />
+      <Fill id="1:246">
+        <SolidColor colorValue="FFFFF1BC" id="1:247" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 11" x="636" y="350" id="1:240">
+      <Ellipse width="6" height="5" id="1:241" />
+      <Fill id="1:242">
+        <SolidColor colorValue="FFFFF1BC" id="1:243" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 10" x="575" y="379" id="1:236">
+      <Ellipse width="6" height="5" id="1:237" />
+      <Fill id="1:238">
+        <SolidColor colorValue="FFFFF1BC" id="1:239" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 9" x="514" y="366" id="1:232">
+      <Ellipse width="6" height="5" id="1:233" />
+      <Fill id="1:234">
+        <SolidColor colorValue="FFFFF1BC" id="1:235" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 8" x="453" y="353" id="1:228">
+      <Ellipse width="6" height="5" id="1:229" />
+      <Fill id="1:230">
+        <SolidColor colorValue="FFFFF1BC" id="1:231" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 7" x="392" y="382" id="1:224">
+      <Ellipse width="6" height="5" id="1:225" />
+      <Fill id="1:226">
+        <SolidColor colorValue="FFFFF1BC" id="1:227" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 6" x="331" y="369" id="1:220">
+      <Ellipse width="6" height="5" id="1:221" />
+      <Fill id="1:222">
+        <SolidColor colorValue="FFFFF1BC" id="1:223" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 5" x="270" y="356" id="1:216">
+      <Ellipse width="6" height="5" id="1:217" />
+      <Fill id="1:218">
+        <SolidColor colorValue="FFFFF1BC" id="1:219" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 4" x="209" y="385" id="1:212">
+      <Ellipse width="6" height="5" id="1:213" />
+      <Fill id="1:214">
+        <SolidColor colorValue="FFFFF1BC" id="1:215" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 3" x="148" y="372" id="1:208">
+      <Ellipse width="6" height="5" id="1:209" />
+      <Fill id="1:210">
+        <SolidColor colorValue="FFFFF1BC" id="1:211" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 2" x="87" y="359" id="1:204">
+      <Ellipse width="6" height="5" id="1:205" />
+      <Fill id="1:206">
+        <SolidColor colorValue="FFFFF1BC" id="1:207" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 1" x="26" y="346" id="1:200">
+      <Ellipse width="6" height="5" id="1:201" />
+      <Fill id="1:202">
+        <SolidColor colorValue="FFFFF1BC" id="1:203" />
+      </Fill>
+    </Shape>
+    <Shape name="Colinas próximas" id="1:140">
+      <PointsPath isClosed="true" id="1:141">
+        <StraightVertex x="-20" y="323.95" id="1:142" />
+        <StraightVertex x="-4" y="323.01" id="1:143" />
+        <StraightVertex x="12" y="321.79" id="1:144" />
+        <StraightVertex x="28" y="320.31" id="1:145" />
+        <StraightVertex x="44" y="318.59" id="1:146" />
+        <StraightVertex x="60" y="316.63" id="1:147" />
+        <StraightVertex x="76" y="314.47" id="1:148" />
+        <StraightVertex x="92" y="312.14" id="1:149" />
+        <StraightVertex x="108" y="309.66" id="1:150" />
+        <StraightVertex x="124" y="307.06" id="1:151" />
+        <StraightVertex x="140" y="304.38" id="1:152" />
+        <StraightVertex x="156" y="301.64" id="1:153" />
+        <StraightVertex x="172" y="298.89" id="1:154" />
+        <StraightVertex x="188" y="296.14" id="1:155" />
+        <StraightVertex x="204" y="293.44" id="1:156" />
+        <StraightVertex x="220" y="290.83" id="1:157" />
+        <StraightVertex x="236" y="288.32" id="1:158" />
+        <StraightVertex x="252" y="285.96" id="1:159" />
+        <StraightVertex x="268" y="283.77" id="1:160" />
+        <StraightVertex x="284" y="281.77" id="1:161" />
+        <StraightVertex x="300" y="280.0" id="1:162" />
+        <StraightVertex x="316" y="278.47" id="1:163" />
+        <StraightVertex x="332" y="277.2" id="1:164" />
+        <StraightVertex x="348" y="276.21" id="1:165" />
+        <StraightVertex x="364" y="275.51" id="1:166" />
+        <StraightVertex x="380" y="275.11" id="1:167" />
+        <StraightVertex x="396" y="275.0" id="1:168" />
+        <StraightVertex x="412" y="275.21" id="1:169" />
+        <StraightVertex x="428" y="275.71" id="1:170" />
+        <StraightVertex x="444" y="276.51" id="1:171" />
+        <StraightVertex x="460" y="277.6" id="1:172" />
+        <StraightVertex x="476" y="278.96" id="1:173" />
+        <StraightVertex x="492" y="280.57" id="1:174" />
+        <StraightVertex x="508" y="282.42" id="1:175" />
+        <StraightVertex x="524" y="284.49" id="1:176" />
+        <StraightVertex x="540" y="286.74" id="1:177" />
+        <StraightVertex x="556" y="289.16" id="1:178" />
+        <StraightVertex x="572" y="291.7" id="1:179" />
+        <StraightVertex x="588" y="294.35" id="1:180" />
+        <StraightVertex x="604" y="297.07" id="1:181" />
+        <StraightVertex x="620" y="299.82" id="1:182" />
+        <StraightVertex x="636" y="302.57" id="1:183" />
+        <StraightVertex x="652" y="305.29" id="1:184" />
+        <StraightVertex x="668" y="307.95" id="1:185" />
+        <StraightVertex x="684" y="310.51" id="1:186" />
+        <StraightVertex x="700" y="312.95" id="1:187" />
+        <StraightVertex x="716" y="315.22" id="1:188" />
+        <StraightVertex x="732" y="317.32" id="1:189" />
+        <StraightVertex x="748" y="319.2" id="1:190" />
+        <StraightVertex x="764" y="320.84" id="1:191" />
+        <StraightVertex x="780" y="322.24" id="1:192" />
+        <StraightVertex x="796" y="323.36" id="1:193" />
+        <StraightVertex x="812" y="324.2" id="1:194" />
+        <StraightVertex x="828" y="324.74" id="1:195" />
+        <StraightVertex x="832" y="430" id="1:196" />
+        <StraightVertex x="-20" y="430" id="1:197" />
+      </PointsPath>
+      <Fill id="1:198">
+        <SolidColor colorValue="FF70AE91" id="1:199" />
+      </Fill>
+    </Shape>
+    <Shape name="Colinas distantes" id="1:80">
+      <PointsPath isClosed="true" id="1:81">
+        <StraightVertex x="-20" y="221.56" id="1:82" />
+        <StraightVertex x="-4" y="224.31" id="1:83" />
+        <StraightVertex x="12" y="227.07" id="1:84" />
+        <StraightVertex x="28" y="229.8" id="1:85" />
+        <StraightVertex x="44" y="232.47" id="1:86" />
+        <StraightVertex x="60" y="235.05" id="1:87" />
+        <StraightVertex x="76" y="237.51" id="1:88" />
+        <StraightVertex x="92" y="239.82" id="1:89" />
+        <StraightVertex x="108" y="241.95" id="1:90" />
+        <StraightVertex x="124" y="243.87" id="1:91" />
+        <StraightVertex x="140" y="245.56" id="1:92" />
+        <StraightVertex x="156" y="247.0" id="1:93" />
+        <StraightVertex x="172" y="248.17" id="1:94" />
+        <StraightVertex x="188" y="249.07" id="1:95" />
+        <StraightVertex x="204" y="249.66" id="1:96" />
+        <StraightVertex x="220" y="249.96" id="1:97" />
+        <StraightVertex x="236" y="249.96" id="1:98" />
+        <StraightVertex x="252" y="249.65" id="1:99" />
+        <StraightVertex x="268" y="249.04" id="1:100" />
+        <StraightVertex x="284" y="248.14" id="1:101" />
+        <StraightVertex x="300" y="246.96" id="1:102" />
+        <StraightVertex x="316" y="245.51" id="1:103" />
+        <StraightVertex x="332" y="243.81" id="1:104" />
+        <StraightVertex x="348" y="241.89" id="1:105" />
+        <StraightVertex x="364" y="239.75" id="1:106" />
+        <StraightVertex x="380" y="237.44" id="1:107" />
+        <StraightVertex x="396" y="234.98" id="1:108" />
+        <StraightVertex x="412" y="232.39" id="1:109" />
+        <StraightVertex x="428" y="229.72" id="1:110" />
+        <StraightVertex x="444" y="226.99" id="1:111" />
+        <StraightVertex x="460" y="224.23" id="1:112" />
+        <StraightVertex x="476" y="221.48" id="1:113" />
+        <StraightVertex x="492" y="218.78" id="1:114" />
+        <StraightVertex x="508" y="216.15" id="1:115" />
+        <StraightVertex x="524" y="213.63" id="1:116" />
+        <StraightVertex x="540" y="211.25" id="1:117" />
+        <StraightVertex x="556" y="209.03" id="1:118" />
+        <StraightVertex x="572" y="207.01" id="1:119" />
+        <StraightVertex x="588" y="205.21" id="1:120" />
+        <StraightVertex x="604" y="203.65" id="1:121" />
+        <StraightVertex x="620" y="202.34" id="1:122" />
+        <StraightVertex x="636" y="201.32" id="1:123" />
+        <StraightVertex x="652" y="200.58" id="1:124" />
+        <StraightVertex x="668" y="200.14" id="1:125" />
+        <StraightVertex x="684" y="200.0" id="1:126" />
+        <StraightVertex x="700" y="200.17" id="1:127" />
+        <StraightVertex x="716" y="200.63" id="1:128" />
+        <StraightVertex x="732" y="201.4" id="1:129" />
+        <StraightVertex x="748" y="202.45" id="1:130" />
+        <StraightVertex x="764" y="203.77" id="1:131" />
+        <StraightVertex x="780" y="205.36" id="1:132" />
+        <StraightVertex x="796" y="207.18" id="1:133" />
+        <StraightVertex x="812" y="209.22" id="1:134" />
+        <StraightVertex x="828" y="211.45" id="1:135" />
+        <StraightVertex x="832" y="430" id="1:136" />
+        <StraightVertex x="-20" y="430" id="1:137" />
+      </PointsPath>
+      <Fill id="1:138">
+        <SolidColor colorValue="FFACD193" id="1:139" />
+      </Fill>
+    </Shape>
+    <Shape name="Nuvem" x="180" y="86" id="1:76">
+      <Ellipse width="130" height="16" id="1:77" />
+      <Fill id="1:78">
+        <SolidColor colorValue="FFF8FAED" id="1:79" />
+      </Fill>
+    </Shape>
+    <Shape name="Sol" x="625" y="91" id="1:72">
+      <Ellipse width="72" height="72" id="1:73" />
+      <Fill id="1:74">
+        <SolidColor colorValue="FFFFF0BD" id="1:75" />
+      </Fill>
+    </Shape>
+    <Shape name="Fundo" x="400" y="200" id="1:68">
+      <Rectangle width="820" height="420" id="1:69" />
+      <Fill id="1:70">
+        <SolidColor colorValue="FFC4EAF2" id="1:71" />
+      </Fill>
+    </Shape>
+    <LinearAnimation name="Ambiente" duration="360" loopValue="loop" id="1:248">
+      <KeyedObject objectId="1:76" id="1:249">
+        <KeyedProperty property="x" id="1:250">
+          <KeyFrameDouble value="180" frame="0" interpolationType="linear" id="1:251" />
+          <KeyFrameDouble value="208" frame="180" interpolationType="linear" id="1:252" />
+          <KeyFrameDouble value="180" frame="360" interpolationType="linear" id="1:253" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <StateMachine name="Ambiente" id="1:254">
+      <StateMachineLayer name="Cenário" id="1:255">
+        <AnyState id="1:256" />
+        <ExitState id="1:257" />
+        <EntryState id="1:258">
+          <StateTransition stateToId="1:259" id="1:260" />
+        </EntryState>
+        <AnimationState animationId="1:248" id="1:259" />
+      </StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+  <Artboard name="sunset" width="800" height="400" x="1700" id="1:261" defaultStateMachineId="1:400">
+    <Shape name="Colinas próximas" id="1:334">
+      <PointsPath isClosed="true" id="1:335">
+        <StraightVertex x="-20" y="323.95" id="1:336" />
+        <StraightVertex x="-4" y="323.01" id="1:337" />
+        <StraightVertex x="12" y="321.79" id="1:338" />
+        <StraightVertex x="28" y="320.31" id="1:339" />
+        <StraightVertex x="44" y="318.59" id="1:340" />
+        <StraightVertex x="60" y="316.63" id="1:341" />
+        <StraightVertex x="76" y="314.47" id="1:342" />
+        <StraightVertex x="92" y="312.14" id="1:343" />
+        <StraightVertex x="108" y="309.66" id="1:344" />
+        <StraightVertex x="124" y="307.06" id="1:345" />
+        <StraightVertex x="140" y="304.38" id="1:346" />
+        <StraightVertex x="156" y="301.64" id="1:347" />
+        <StraightVertex x="172" y="298.89" id="1:348" />
+        <StraightVertex x="188" y="296.14" id="1:349" />
+        <StraightVertex x="204" y="293.44" id="1:350" />
+        <StraightVertex x="220" y="290.83" id="1:351" />
+        <StraightVertex x="236" y="288.32" id="1:352" />
+        <StraightVertex x="252" y="285.96" id="1:353" />
+        <StraightVertex x="268" y="283.77" id="1:354" />
+        <StraightVertex x="284" y="281.77" id="1:355" />
+        <StraightVertex x="300" y="280.0" id="1:356" />
+        <StraightVertex x="316" y="278.47" id="1:357" />
+        <StraightVertex x="332" y="277.2" id="1:358" />
+        <StraightVertex x="348" y="276.21" id="1:359" />
+        <StraightVertex x="364" y="275.51" id="1:360" />
+        <StraightVertex x="380" y="275.11" id="1:361" />
+        <StraightVertex x="396" y="275.0" id="1:362" />
+        <StraightVertex x="412" y="275.21" id="1:363" />
+        <StraightVertex x="428" y="275.71" id="1:364" />
+        <StraightVertex x="444" y="276.51" id="1:365" />
+        <StraightVertex x="460" y="277.6" id="1:366" />
+        <StraightVertex x="476" y="278.96" id="1:367" />
+        <StraightVertex x="492" y="280.57" id="1:368" />
+        <StraightVertex x="508" y="282.42" id="1:369" />
+        <StraightVertex x="524" y="284.49" id="1:370" />
+        <StraightVertex x="540" y="286.74" id="1:371" />
+        <StraightVertex x="556" y="289.16" id="1:372" />
+        <StraightVertex x="572" y="291.7" id="1:373" />
+        <StraightVertex x="588" y="294.35" id="1:374" />
+        <StraightVertex x="604" y="297.07" id="1:375" />
+        <StraightVertex x="620" y="299.82" id="1:376" />
+        <StraightVertex x="636" y="302.57" id="1:377" />
+        <StraightVertex x="652" y="305.29" id="1:378" />
+        <StraightVertex x="668" y="307.95" id="1:379" />
+        <StraightVertex x="684" y="310.51" id="1:380" />
+        <StraightVertex x="700" y="312.95" id="1:381" />
+        <StraightVertex x="716" y="315.22" id="1:382" />
+        <StraightVertex x="732" y="317.32" id="1:383" />
+        <StraightVertex x="748" y="319.2" id="1:384" />
+        <StraightVertex x="764" y="320.84" id="1:385" />
+        <StraightVertex x="780" y="322.24" id="1:386" />
+        <StraightVertex x="796" y="323.36" id="1:387" />
+        <StraightVertex x="812" y="324.2" id="1:388" />
+        <StraightVertex x="828" y="324.74" id="1:389" />
+        <StraightVertex x="832" y="430" id="1:390" />
+        <StraightVertex x="-20" y="430" id="1:391" />
+      </PointsPath>
+      <Fill id="1:392">
+        <SolidColor colorValue="FF946F96" id="1:393" />
+      </Fill>
+    </Shape>
+    <Shape name="Colinas distantes" id="1:274">
+      <PointsPath isClosed="true" id="1:275">
+        <StraightVertex x="-20" y="221.56" id="1:276" />
+        <StraightVertex x="-4" y="224.31" id="1:277" />
+        <StraightVertex x="12" y="227.07" id="1:278" />
+        <StraightVertex x="28" y="229.8" id="1:279" />
+        <StraightVertex x="44" y="232.47" id="1:280" />
+        <StraightVertex x="60" y="235.05" id="1:281" />
+        <StraightVertex x="76" y="237.51" id="1:282" />
+        <StraightVertex x="92" y="239.82" id="1:283" />
+        <StraightVertex x="108" y="241.95" id="1:284" />
+        <StraightVertex x="124" y="243.87" id="1:285" />
+        <StraightVertex x="140" y="245.56" id="1:286" />
+        <StraightVertex x="156" y="247.0" id="1:287" />
+        <StraightVertex x="172" y="248.17" id="1:288" />
+        <StraightVertex x="188" y="249.07" id="1:289" />
+        <StraightVertex x="204" y="249.66" id="1:290" />
+        <StraightVertex x="220" y="249.96" id="1:291" />
+        <StraightVertex x="236" y="249.96" id="1:292" />
+        <StraightVertex x="252" y="249.65" id="1:293" />
+        <StraightVertex x="268" y="249.04" id="1:294" />
+        <StraightVertex x="284" y="248.14" id="1:295" />
+        <StraightVertex x="300" y="246.96" id="1:296" />
+        <StraightVertex x="316" y="245.51" id="1:297" />
+        <StraightVertex x="332" y="243.81" id="1:298" />
+        <StraightVertex x="348" y="241.89" id="1:299" />
+        <StraightVertex x="364" y="239.75" id="1:300" />
+        <StraightVertex x="380" y="237.44" id="1:301" />
+        <StraightVertex x="396" y="234.98" id="1:302" />
+        <StraightVertex x="412" y="232.39" id="1:303" />
+        <StraightVertex x="428" y="229.72" id="1:304" />
+        <StraightVertex x="444" y="226.99" id="1:305" />
+        <StraightVertex x="460" y="224.23" id="1:306" />
+        <StraightVertex x="476" y="221.48" id="1:307" />
+        <StraightVertex x="492" y="218.78" id="1:308" />
+        <StraightVertex x="508" y="216.15" id="1:309" />
+        <StraightVertex x="524" y="213.63" id="1:310" />
+        <StraightVertex x="540" y="211.25" id="1:311" />
+        <StraightVertex x="556" y="209.03" id="1:312" />
+        <StraightVertex x="572" y="207.01" id="1:313" />
+        <StraightVertex x="588" y="205.21" id="1:314" />
+        <StraightVertex x="604" y="203.65" id="1:315" />
+        <StraightVertex x="620" y="202.34" id="1:316" />
+        <StraightVertex x="636" y="201.32" id="1:317" />
+        <StraightVertex x="652" y="200.58" id="1:318" />
+        <StraightVertex x="668" y="200.14" id="1:319" />
+        <StraightVertex x="684" y="200.0" id="1:320" />
+        <StraightVertex x="700" y="200.17" id="1:321" />
+        <StraightVertex x="716" y="200.63" id="1:322" />
+        <StraightVertex x="732" y="201.4" id="1:323" />
+        <StraightVertex x="748" y="202.45" id="1:324" />
+        <StraightVertex x="764" y="203.77" id="1:325" />
+        <StraightVertex x="780" y="205.36" id="1:326" />
+        <StraightVertex x="796" y="207.18" id="1:327" />
+        <StraightVertex x="812" y="209.22" id="1:328" />
+        <StraightVertex x="828" y="211.45" id="1:329" />
+        <StraightVertex x="832" y="430" id="1:330" />
+        <StraightVertex x="-20" y="430" id="1:331" />
+      </PointsPath>
+      <Fill id="1:332">
+        <SolidColor colorValue="FFCE94A3" id="1:333" />
+      </Fill>
+    </Shape>
+    <Shape name="Nuvem" x="180" y="86" id="1:270">
+      <Ellipse width="130" height="16" id="1:271" />
+      <Fill id="1:272">
+        <SolidColor colorValue="FFFFE2CD" id="1:273" />
+      </Fill>
+    </Shape>
+    <Shape name="Sol" x="625" y="173" id="1:266">
+      <Ellipse width="110" height="110" id="1:267" />
+      <Fill id="1:268">
+        <SolidColor colorValue="FFFFF0BD" id="1:269" />
+      </Fill>
+    </Shape>
+    <Shape name="Fundo" x="400" y="200" id="1:262">
+      <Rectangle width="820" height="420" id="1:263" />
+      <Fill id="1:264">
+        <SolidColor colorValue="FFFFD0AE" id="1:265" />
+      </Fill>
+    </Shape>
+    <LinearAnimation name="Ambiente" duration="360" loopValue="loop" id="1:394">
+      <KeyedObject objectId="1:270" id="1:395">
+        <KeyedProperty property="x" id="1:396">
+          <KeyFrameDouble value="180" frame="0" interpolationType="linear" id="1:397" />
+          <KeyFrameDouble value="208" frame="180" interpolationType="linear" id="1:398" />
+          <KeyFrameDouble value="180" frame="360" interpolationType="linear" id="1:399" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <StateMachine name="Ambiente" id="1:400">
+      <StateMachineLayer name="Cenário" id="1:401">
+        <AnyState id="1:402" />
+        <ExitState id="1:403" />
+        <EntryState id="1:404">
+          <StateTransition stateToId="1:405" id="1:406" />
+        </EntryState>
+        <AnimationState animationId="1:394" id="1:405" />
+      </StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+  <Artboard name="night" width="800" height="400" x="2550" id="1:407" defaultStateMachineId="1:734">
+    <Shape name="Colinas próximas" id="1:668">
+      <PointsPath isClosed="true" id="1:669">
+        <StraightVertex x="-20" y="323.95" id="1:670" />
+        <StraightVertex x="-4" y="323.01" id="1:671" />
+        <StraightVertex x="12" y="321.79" id="1:672" />
+        <StraightVertex x="28" y="320.31" id="1:673" />
+        <StraightVertex x="44" y="318.59" id="1:674" />
+        <StraightVertex x="60" y="316.63" id="1:675" />
+        <StraightVertex x="76" y="314.47" id="1:676" />
+        <StraightVertex x="92" y="312.14" id="1:677" />
+        <StraightVertex x="108" y="309.66" id="1:678" />
+        <StraightVertex x="124" y="307.06" id="1:679" />
+        <StraightVertex x="140" y="304.38" id="1:680" />
+        <StraightVertex x="156" y="301.64" id="1:681" />
+        <StraightVertex x="172" y="298.89" id="1:682" />
+        <StraightVertex x="188" y="296.14" id="1:683" />
+        <StraightVertex x="204" y="293.44" id="1:684" />
+        <StraightVertex x="220" y="290.83" id="1:685" />
+        <StraightVertex x="236" y="288.32" id="1:686" />
+        <StraightVertex x="252" y="285.96" id="1:687" />
+        <StraightVertex x="268" y="283.77" id="1:688" />
+        <StraightVertex x="284" y="281.77" id="1:689" />
+        <StraightVertex x="300" y="280.0" id="1:690" />
+        <StraightVertex x="316" y="278.47" id="1:691" />
+        <StraightVertex x="332" y="277.2" id="1:692" />
+        <StraightVertex x="348" y="276.21" id="1:693" />
+        <StraightVertex x="364" y="275.51" id="1:694" />
+        <StraightVertex x="380" y="275.11" id="1:695" />
+        <StraightVertex x="396" y="275.0" id="1:696" />
+        <StraightVertex x="412" y="275.21" id="1:697" />
+        <StraightVertex x="428" y="275.71" id="1:698" />
+        <StraightVertex x="444" y="276.51" id="1:699" />
+        <StraightVertex x="460" y="277.6" id="1:700" />
+        <StraightVertex x="476" y="278.96" id="1:701" />
+        <StraightVertex x="492" y="280.57" id="1:702" />
+        <StraightVertex x="508" y="282.42" id="1:703" />
+        <StraightVertex x="524" y="284.49" id="1:704" />
+        <StraightVertex x="540" y="286.74" id="1:705" />
+        <StraightVertex x="556" y="289.16" id="1:706" />
+        <StraightVertex x="572" y="291.7" id="1:707" />
+        <StraightVertex x="588" y="294.35" id="1:708" />
+        <StraightVertex x="604" y="297.07" id="1:709" />
+        <StraightVertex x="620" y="299.82" id="1:710" />
+        <StraightVertex x="636" y="302.57" id="1:711" />
+        <StraightVertex x="652" y="305.29" id="1:712" />
+        <StraightVertex x="668" y="307.95" id="1:713" />
+        <StraightVertex x="684" y="310.51" id="1:714" />
+        <StraightVertex x="700" y="312.95" id="1:715" />
+        <StraightVertex x="716" y="315.22" id="1:716" />
+        <StraightVertex x="732" y="317.32" id="1:717" />
+        <StraightVertex x="748" y="319.2" id="1:718" />
+        <StraightVertex x="764" y="320.84" id="1:719" />
+        <StraightVertex x="780" y="322.24" id="1:720" />
+        <StraightVertex x="796" y="323.36" id="1:721" />
+        <StraightVertex x="812" y="324.2" id="1:722" />
+        <StraightVertex x="828" y="324.74" id="1:723" />
+        <StraightVertex x="832" y="430" id="1:724" />
+        <StraightVertex x="-20" y="430" id="1:725" />
+      </PointsPath>
+      <Fill id="1:726">
+        <SolidColor colorValue="FF354763" id="1:727" />
+      </Fill>
+    </Shape>
+    <Shape name="Colinas distantes" id="1:608">
+      <PointsPath isClosed="true" id="1:609">
+        <StraightVertex x="-20" y="221.56" id="1:610" />
+        <StraightVertex x="-4" y="224.31" id="1:611" />
+        <StraightVertex x="12" y="227.07" id="1:612" />
+        <StraightVertex x="28" y="229.8" id="1:613" />
+        <StraightVertex x="44" y="232.47" id="1:614" />
+        <StraightVertex x="60" y="235.05" id="1:615" />
+        <StraightVertex x="76" y="237.51" id="1:616" />
+        <StraightVertex x="92" y="239.82" id="1:617" />
+        <StraightVertex x="108" y="241.95" id="1:618" />
+        <StraightVertex x="124" y="243.87" id="1:619" />
+        <StraightVertex x="140" y="245.56" id="1:620" />
+        <StraightVertex x="156" y="247.0" id="1:621" />
+        <StraightVertex x="172" y="248.17" id="1:622" />
+        <StraightVertex x="188" y="249.07" id="1:623" />
+        <StraightVertex x="204" y="249.66" id="1:624" />
+        <StraightVertex x="220" y="249.96" id="1:625" />
+        <StraightVertex x="236" y="249.96" id="1:626" />
+        <StraightVertex x="252" y="249.65" id="1:627" />
+        <StraightVertex x="268" y="249.04" id="1:628" />
+        <StraightVertex x="284" y="248.14" id="1:629" />
+        <StraightVertex x="300" y="246.96" id="1:630" />
+        <StraightVertex x="316" y="245.51" id="1:631" />
+        <StraightVertex x="332" y="243.81" id="1:632" />
+        <StraightVertex x="348" y="241.89" id="1:633" />
+        <StraightVertex x="364" y="239.75" id="1:634" />
+        <StraightVertex x="380" y="237.44" id="1:635" />
+        <StraightVertex x="396" y="234.98" id="1:636" />
+        <StraightVertex x="412" y="232.39" id="1:637" />
+        <StraightVertex x="428" y="229.72" id="1:638" />
+        <StraightVertex x="444" y="226.99" id="1:639" />
+        <StraightVertex x="460" y="224.23" id="1:640" />
+        <StraightVertex x="476" y="221.48" id="1:641" />
+        <StraightVertex x="492" y="218.78" id="1:642" />
+        <StraightVertex x="508" y="216.15" id="1:643" />
+        <StraightVertex x="524" y="213.63" id="1:644" />
+        <StraightVertex x="540" y="211.25" id="1:645" />
+        <StraightVertex x="556" y="209.03" id="1:646" />
+        <StraightVertex x="572" y="207.01" id="1:647" />
+        <StraightVertex x="588" y="205.21" id="1:648" />
+        <StraightVertex x="604" y="203.65" id="1:649" />
+        <StraightVertex x="620" y="202.34" id="1:650" />
+        <StraightVertex x="636" y="201.32" id="1:651" />
+        <StraightVertex x="652" y="200.58" id="1:652" />
+        <StraightVertex x="668" y="200.14" id="1:653" />
+        <StraightVertex x="684" y="200.0" id="1:654" />
+        <StraightVertex x="700" y="200.17" id="1:655" />
+        <StraightVertex x="716" y="200.63" id="1:656" />
+        <StraightVertex x="732" y="201.4" id="1:657" />
+        <StraightVertex x="748" y="202.45" id="1:658" />
+        <StraightVertex x="764" y="203.77" id="1:659" />
+        <StraightVertex x="780" y="205.36" id="1:660" />
+        <StraightVertex x="796" y="207.18" id="1:661" />
+        <StraightVertex x="812" y="209.22" id="1:662" />
+        <StraightVertex x="828" y="211.45" id="1:663" />
+        <StraightVertex x="832" y="430" id="1:664" />
+        <StraightVertex x="-20" y="430" id="1:665" />
+      </PointsPath>
+      <Fill id="1:666">
+        <SolidColor colorValue="FF53648A" id="1:667" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 24" id="1:600">
+      <PointsPath isClosed="true" id="1:601">
+        <StraightVertex x="131" y="107" id="1:602" />
+        <StraightVertex x="135" y="111" id="1:603" />
+        <StraightVertex x="131" y="115" id="1:604" />
+        <StraightVertex x="127" y="111" id="1:605" />
+      </PointsPath>
+      <Fill id="1:606">
+        <SolidColor colorValue="FFFFF0CB" id="1:607" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 23" id="1:592">
+      <PointsPath isClosed="true" id="1:593">
+        <StraightVertex x="754" y="65" id="1:594" />
+        <StraightVertex x="757" y="68" id="1:595" />
+        <StraightVertex x="754" y="71" id="1:596" />
+        <StraightVertex x="751" y="68" id="1:597" />
+      </PointsPath>
+      <Fill id="1:598">
+        <SolidColor colorValue="FFFFF0CB" id="1:599" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 22" id="1:584">
+      <PointsPath isClosed="true" id="1:585">
+        <StraightVertex x="617" y="23" id="1:586" />
+        <StraightVertex x="619" y="25" id="1:587" />
+        <StraightVertex x="617" y="27" id="1:588" />
+        <StraightVertex x="615" y="25" id="1:589" />
+      </PointsPath>
+      <Fill id="1:590">
+        <SolidColor colorValue="FFFFF0CB" id="1:591" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 21" id="1:576">
+      <PointsPath isClosed="true" id="1:577">
+        <StraightVertex x="480" y="128" id="1:578" />
+        <StraightVertex x="484" y="132" id="1:579" />
+        <StraightVertex x="480" y="136" id="1:580" />
+        <StraightVertex x="476" y="132" id="1:581" />
+      </PointsPath>
+      <Fill id="1:582">
+        <SolidColor colorValue="FFFFF0CB" id="1:583" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 20" id="1:568">
+      <PointsPath isClosed="true" id="1:569">
+        <StraightVertex x="343" y="86" id="1:570" />
+        <StraightVertex x="346" y="89" id="1:571" />
+        <StraightVertex x="343" y="92" id="1:572" />
+        <StraightVertex x="340" y="89" id="1:573" />
+      </PointsPath>
+      <Fill id="1:574">
+        <SolidColor colorValue="FFFFF0CB" id="1:575" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 19" id="1:560">
+      <PointsPath isClosed="true" id="1:561">
+        <StraightVertex x="206" y="44" id="1:562" />
+        <StraightVertex x="208" y="46" id="1:563" />
+        <StraightVertex x="206" y="48" id="1:564" />
+        <StraightVertex x="204" y="46" id="1:565" />
+      </PointsPath>
+      <Fill id="1:566">
+        <SolidColor colorValue="FFFFF0CB" id="1:567" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 18" id="1:552">
+      <PointsPath isClosed="true" id="1:553">
+        <StraightVertex x="69" y="149" id="1:554" />
+        <StraightVertex x="73" y="153" id="1:555" />
+        <StraightVertex x="69" y="157" id="1:556" />
+        <StraightVertex x="65" y="153" id="1:557" />
+      </PointsPath>
+      <Fill id="1:558">
+        <SolidColor colorValue="FFFFF0CB" id="1:559" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 17" id="1:544">
+      <PointsPath isClosed="true" id="1:545">
+        <StraightVertex x="692" y="107" id="1:546" />
+        <StraightVertex x="695" y="110" id="1:547" />
+        <StraightVertex x="692" y="113" id="1:548" />
+        <StraightVertex x="689" y="110" id="1:549" />
+      </PointsPath>
+      <Fill id="1:550">
+        <SolidColor colorValue="FFFFF0CB" id="1:551" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 16" id="1:536">
+      <PointsPath isClosed="true" id="1:537">
+        <StraightVertex x="555" y="65" id="1:538" />
+        <StraightVertex x="557" y="67" id="1:539" />
+        <StraightVertex x="555" y="69" id="1:540" />
+        <StraightVertex x="553" y="67" id="1:541" />
+      </PointsPath>
+      <Fill id="1:542">
+        <SolidColor colorValue="FFFFF0CB" id="1:543" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 15" id="1:528">
+      <PointsPath isClosed="true" id="1:529">
+        <StraightVertex x="418" y="20" id="1:530" />
+        <StraightVertex x="422" y="24" id="1:531" />
+        <StraightVertex x="418" y="28" id="1:532" />
+        <StraightVertex x="414" y="24" id="1:533" />
+      </PointsPath>
+      <Fill id="1:534">
+        <SolidColor colorValue="FFFFF0CB" id="1:535" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 14" id="1:520">
+      <PointsPath isClosed="true" id="1:521">
+        <StraightVertex x="281" y="128" id="1:522" />
+        <StraightVertex x="284" y="131" id="1:523" />
+        <StraightVertex x="281" y="134" id="1:524" />
+        <StraightVertex x="278" y="131" id="1:525" />
+      </PointsPath>
+      <Fill id="1:526">
+        <SolidColor colorValue="FFFFF0CB" id="1:527" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 13" id="1:512">
+      <PointsPath isClosed="true" id="1:513">
+        <StraightVertex x="144" y="86" id="1:514" />
+        <StraightVertex x="146" y="88" id="1:515" />
+        <StraightVertex x="144" y="90" id="1:516" />
+        <StraightVertex x="142" y="88" id="1:517" />
+      </PointsPath>
+      <Fill id="1:518">
+        <SolidColor colorValue="FFFFF0CB" id="1:519" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 12" id="1:504">
+      <PointsPath isClosed="true" id="1:505">
+        <StraightVertex x="767" y="41" id="1:506" />
+        <StraightVertex x="771" y="45" id="1:507" />
+        <StraightVertex x="767" y="49" id="1:508" />
+        <StraightVertex x="763" y="45" id="1:509" />
+      </PointsPath>
+      <Fill id="1:510">
+        <SolidColor colorValue="FFFFF0CB" id="1:511" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 11" id="1:496">
+      <PointsPath isClosed="true" id="1:497">
+        <StraightVertex x="630" y="149" id="1:498" />
+        <StraightVertex x="633" y="152" id="1:499" />
+        <StraightVertex x="630" y="155" id="1:500" />
+        <StraightVertex x="627" y="152" id="1:501" />
+      </PointsPath>
+      <Fill id="1:502">
+        <SolidColor colorValue="FFFFF0CB" id="1:503" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 10" id="1:488">
+      <PointsPath isClosed="true" id="1:489">
+        <StraightVertex x="493" y="107" id="1:490" />
+        <StraightVertex x="495" y="109" id="1:491" />
+        <StraightVertex x="493" y="111" id="1:492" />
+        <StraightVertex x="491" y="109" id="1:493" />
+      </PointsPath>
+      <Fill id="1:494">
+        <SolidColor colorValue="FFFFF0CB" id="1:495" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 9" id="1:480">
+      <PointsPath isClosed="true" id="1:481">
+        <StraightVertex x="356" y="62" id="1:482" />
+        <StraightVertex x="360" y="66" id="1:483" />
+        <StraightVertex x="356" y="70" id="1:484" />
+        <StraightVertex x="352" y="66" id="1:485" />
+      </PointsPath>
+      <Fill id="1:486">
+        <SolidColor colorValue="FFFFF0CB" id="1:487" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 8" id="1:472">
+      <PointsPath isClosed="true" id="1:473">
+        <StraightVertex x="219" y="20" id="1:474" />
+        <StraightVertex x="222" y="23" id="1:475" />
+        <StraightVertex x="219" y="26" id="1:476" />
+        <StraightVertex x="216" y="23" id="1:477" />
+      </PointsPath>
+      <Fill id="1:478">
+        <SolidColor colorValue="FFFFF0CB" id="1:479" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 7" id="1:464">
+      <PointsPath isClosed="true" id="1:465">
+        <StraightVertex x="82" y="128" id="1:466" />
+        <StraightVertex x="84" y="130" id="1:467" />
+        <StraightVertex x="82" y="132" id="1:468" />
+        <StraightVertex x="80" y="130" id="1:469" />
+      </PointsPath>
+      <Fill id="1:470">
+        <SolidColor colorValue="FFFFF0CB" id="1:471" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 6" id="1:456">
+      <PointsPath isClosed="true" id="1:457">
+        <StraightVertex x="705" y="83" id="1:458" />
+        <StraightVertex x="709" y="87" id="1:459" />
+        <StraightVertex x="705" y="91" id="1:460" />
+        <StraightVertex x="701" y="87" id="1:461" />
+      </PointsPath>
+      <Fill id="1:462">
+        <SolidColor colorValue="FFFFF0CB" id="1:463" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 5" id="1:448">
+      <PointsPath isClosed="true" id="1:449">
+        <StraightVertex x="568" y="41" id="1:450" />
+        <StraightVertex x="571" y="44" id="1:451" />
+        <StraightVertex x="568" y="47" id="1:452" />
+        <StraightVertex x="565" y="44" id="1:453" />
+      </PointsPath>
+      <Fill id="1:454">
+        <SolidColor colorValue="FFFFF0CB" id="1:455" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 4" id="1:440">
+      <PointsPath isClosed="true" id="1:441">
+        <StraightVertex x="431" y="149" id="1:442" />
+        <StraightVertex x="433" y="151" id="1:443" />
+        <StraightVertex x="431" y="153" id="1:444" />
+        <StraightVertex x="429" y="151" id="1:445" />
+      </PointsPath>
+      <Fill id="1:446">
+        <SolidColor colorValue="FFFFF0CB" id="1:447" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 3" id="1:432">
+      <PointsPath isClosed="true" id="1:433">
+        <StraightVertex x="294" y="104" id="1:434" />
+        <StraightVertex x="298" y="108" id="1:435" />
+        <StraightVertex x="294" y="112" id="1:436" />
+        <StraightVertex x="290" y="108" id="1:437" />
+      </PointsPath>
+      <Fill id="1:438">
+        <SolidColor colorValue="FFFFF0CB" id="1:439" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 2" id="1:424">
+      <PointsPath isClosed="true" id="1:425">
+        <StraightVertex x="157" y="62" id="1:426" />
+        <StraightVertex x="160" y="65" id="1:427" />
+        <StraightVertex x="157" y="68" id="1:428" />
+        <StraightVertex x="154" y="65" id="1:429" />
+      </PointsPath>
+      <Fill id="1:430">
+        <SolidColor colorValue="FFFFF0CB" id="1:431" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 1" id="1:416">
+      <PointsPath isClosed="true" id="1:417">
+        <StraightVertex x="20" y="20" id="1:418" />
+        <StraightVertex x="22" y="22" id="1:419" />
+        <StraightVertex x="20" y="24" id="1:420" />
+        <StraightVertex x="18" y="22" id="1:421" />
+      </PointsPath>
+      <Fill id="1:422">
+        <SolidColor colorValue="FFFFF0CB" id="1:423" />
+      </Fill>
+    </Shape>
+    <Shape name="Lua" x="595" y="91" id="1:412">
+      <Ellipse width="56" height="56" id="1:413" />
+      <Fill id="1:414">
+        <SolidColor colorValue="FFFFF1C5" id="1:415" />
+      </Fill>
+    </Shape>
+    <Shape name="Fundo" x="400" y="200" id="1:408">
+      <Rectangle width="820" height="420" id="1:409" />
+      <Fill id="1:410">
+        <SolidColor colorValue="FF293856" id="1:411" />
+      </Fill>
+    </Shape>
+    <LinearAnimation name="Ambiente" duration="360" loopValue="loop" id="1:728">
+      <KeyedObject objectId="1:412" id="1:729">
+        <KeyedProperty property="opacity" id="1:730">
+          <KeyFrameDouble value="1" frame="0" interpolationType="linear" id="1:731" />
+          <KeyFrameDouble value="0.84" frame="180" interpolationType="linear" id="1:732" />
+          <KeyFrameDouble value="1" frame="360" interpolationType="linear" id="1:733" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <StateMachine name="Ambiente" id="1:734">
+      <StateMachineLayer name="Cenário" id="1:735">
+        <AnyState id="1:736" />
+        <ExitState id="1:737" />
+        <EntryState id="1:738">
+          <StateTransition stateToId="1:739" id="1:740" />
+        </EntryState>
+        <AnimationState animationId="1:728" id="1:739" />
+      </StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+  <Artboard name="starryBrush" width="800" height="400" x="3400" id="1:1407" defaultStateMachineId="1:1734">
+    <Shape name="Colinas próximas" id="1:1668">
+      <PointsPath isClosed="true" id="1:1669">
+        <StraightVertex x="-20" y="323.95" id="1:1670" />
+        <StraightVertex x="-4" y="323.01" id="1:1671" />
+        <StraightVertex x="12" y="321.79" id="1:1672" />
+        <StraightVertex x="28" y="320.31" id="1:1673" />
+        <StraightVertex x="44" y="318.59" id="1:1674" />
+        <StraightVertex x="60" y="316.63" id="1:1675" />
+        <StraightVertex x="76" y="314.47" id="1:1676" />
+        <StraightVertex x="92" y="312.14" id="1:1677" />
+        <StraightVertex x="108" y="309.66" id="1:1678" />
+        <StraightVertex x="124" y="307.06" id="1:1679" />
+        <StraightVertex x="140" y="304.38" id="1:1680" />
+        <StraightVertex x="156" y="301.64" id="1:1681" />
+        <StraightVertex x="172" y="298.89" id="1:1682" />
+        <StraightVertex x="188" y="296.14" id="1:1683" />
+        <StraightVertex x="204" y="293.44" id="1:1684" />
+        <StraightVertex x="220" y="290.83" id="1:1685" />
+        <StraightVertex x="236" y="288.32" id="1:1686" />
+        <StraightVertex x="252" y="285.96" id="1:1687" />
+        <StraightVertex x="268" y="283.77" id="1:1688" />
+        <StraightVertex x="284" y="281.77" id="1:1689" />
+        <StraightVertex x="300" y="280.0" id="1:1690" />
+        <StraightVertex x="316" y="278.47" id="1:1691" />
+        <StraightVertex x="332" y="277.2" id="1:1692" />
+        <StraightVertex x="348" y="276.21" id="1:1693" />
+        <StraightVertex x="364" y="275.51" id="1:1694" />
+        <StraightVertex x="380" y="275.11" id="1:1695" />
+        <StraightVertex x="396" y="275.0" id="1:1696" />
+        <StraightVertex x="412" y="275.21" id="1:1697" />
+        <StraightVertex x="428" y="275.71" id="1:1698" />
+        <StraightVertex x="444" y="276.51" id="1:1699" />
+        <StraightVertex x="460" y="277.6" id="1:1700" />
+        <StraightVertex x="476" y="278.96" id="1:1701" />
+        <StraightVertex x="492" y="280.57" id="1:1702" />
+        <StraightVertex x="508" y="282.42" id="1:1703" />
+        <StraightVertex x="524" y="284.49" id="1:1704" />
+        <StraightVertex x="540" y="286.74" id="1:1705" />
+        <StraightVertex x="556" y="289.16" id="1:1706" />
+        <StraightVertex x="572" y="291.7" id="1:1707" />
+        <StraightVertex x="588" y="294.35" id="1:1708" />
+        <StraightVertex x="604" y="297.07" id="1:1709" />
+        <StraightVertex x="620" y="299.82" id="1:1710" />
+        <StraightVertex x="636" y="302.57" id="1:1711" />
+        <StraightVertex x="652" y="305.29" id="1:1712" />
+        <StraightVertex x="668" y="307.95" id="1:1713" />
+        <StraightVertex x="684" y="310.51" id="1:1714" />
+        <StraightVertex x="700" y="312.95" id="1:1715" />
+        <StraightVertex x="716" y="315.22" id="1:1716" />
+        <StraightVertex x="732" y="317.32" id="1:1717" />
+        <StraightVertex x="748" y="319.2" id="1:1718" />
+        <StraightVertex x="764" y="320.84" id="1:1719" />
+        <StraightVertex x="780" y="322.24" id="1:1720" />
+        <StraightVertex x="796" y="323.36" id="1:1721" />
+        <StraightVertex x="812" y="324.2" id="1:1722" />
+        <StraightVertex x="828" y="324.74" id="1:1723" />
+        <StraightVertex x="832" y="430" id="1:1724" />
+        <StraightVertex x="-20" y="430" id="1:1725" />
+      </PointsPath>
+      <Fill id="1:1726">
+        <SolidColor colorValue="FF354763" id="1:1727" />
+      </Fill>
+    </Shape>
+    <Shape name="Colinas distantes" id="1:1608">
+      <PointsPath isClosed="true" id="1:1609">
+        <StraightVertex x="-20" y="221.56" id="1:1610" />
+        <StraightVertex x="-4" y="224.31" id="1:1611" />
+        <StraightVertex x="12" y="227.07" id="1:1612" />
+        <StraightVertex x="28" y="229.8" id="1:1613" />
+        <StraightVertex x="44" y="232.47" id="1:1614" />
+        <StraightVertex x="60" y="235.05" id="1:1615" />
+        <StraightVertex x="76" y="237.51" id="1:1616" />
+        <StraightVertex x="92" y="239.82" id="1:1617" />
+        <StraightVertex x="108" y="241.95" id="1:1618" />
+        <StraightVertex x="124" y="243.87" id="1:1619" />
+        <StraightVertex x="140" y="245.56" id="1:1620" />
+        <StraightVertex x="156" y="247.0" id="1:1621" />
+        <StraightVertex x="172" y="248.17" id="1:1622" />
+        <StraightVertex x="188" y="249.07" id="1:1623" />
+        <StraightVertex x="204" y="249.66" id="1:1624" />
+        <StraightVertex x="220" y="249.96" id="1:1625" />
+        <StraightVertex x="236" y="249.96" id="1:1626" />
+        <StraightVertex x="252" y="249.65" id="1:1627" />
+        <StraightVertex x="268" y="249.04" id="1:1628" />
+        <StraightVertex x="284" y="248.14" id="1:1629" />
+        <StraightVertex x="300" y="246.96" id="1:1630" />
+        <StraightVertex x="316" y="245.51" id="1:1631" />
+        <StraightVertex x="332" y="243.81" id="1:1632" />
+        <StraightVertex x="348" y="241.89" id="1:1633" />
+        <StraightVertex x="364" y="239.75" id="1:1634" />
+        <StraightVertex x="380" y="237.44" id="1:1635" />
+        <StraightVertex x="396" y="234.98" id="1:1636" />
+        <StraightVertex x="412" y="232.39" id="1:1637" />
+        <StraightVertex x="428" y="229.72" id="1:1638" />
+        <StraightVertex x="444" y="226.99" id="1:1639" />
+        <StraightVertex x="460" y="224.23" id="1:1640" />
+        <StraightVertex x="476" y="221.48" id="1:1641" />
+        <StraightVertex x="492" y="218.78" id="1:1642" />
+        <StraightVertex x="508" y="216.15" id="1:1643" />
+        <StraightVertex x="524" y="213.63" id="1:1644" />
+        <StraightVertex x="540" y="211.25" id="1:1645" />
+        <StraightVertex x="556" y="209.03" id="1:1646" />
+        <StraightVertex x="572" y="207.01" id="1:1647" />
+        <StraightVertex x="588" y="205.21" id="1:1648" />
+        <StraightVertex x="604" y="203.65" id="1:1649" />
+        <StraightVertex x="620" y="202.34" id="1:1650" />
+        <StraightVertex x="636" y="201.32" id="1:1651" />
+        <StraightVertex x="652" y="200.58" id="1:1652" />
+        <StraightVertex x="668" y="200.14" id="1:1653" />
+        <StraightVertex x="684" y="200.0" id="1:1654" />
+        <StraightVertex x="700" y="200.17" id="1:1655" />
+        <StraightVertex x="716" y="200.63" id="1:1656" />
+        <StraightVertex x="732" y="201.4" id="1:1657" />
+        <StraightVertex x="748" y="202.45" id="1:1658" />
+        <StraightVertex x="764" y="203.77" id="1:1659" />
+        <StraightVertex x="780" y="205.36" id="1:1660" />
+        <StraightVertex x="796" y="207.18" id="1:1661" />
+        <StraightVertex x="812" y="209.22" id="1:1662" />
+        <StraightVertex x="828" y="211.45" id="1:1663" />
+        <StraightVertex x="832" y="430" id="1:1664" />
+        <StraightVertex x="-20" y="430" id="1:1665" />
+      </PointsPath>
+      <Fill id="1:1666">
+        <SolidColor colorValue="FF53648A" id="1:1667" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 24" id="1:1600">
+      <PointsPath isClosed="true" id="1:1601">
+        <StraightVertex x="131" y="107" id="1:1602" />
+        <StraightVertex x="135" y="111" id="1:1603" />
+        <StraightVertex x="131" y="115" id="1:1604" />
+        <StraightVertex x="127" y="111" id="1:1605" />
+      </PointsPath>
+      <Fill id="1:1606">
+        <SolidColor colorValue="FFFFF0CB" id="1:1607" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 23" id="1:1592">
+      <PointsPath isClosed="true" id="1:1593">
+        <StraightVertex x="754" y="65" id="1:1594" />
+        <StraightVertex x="757" y="68" id="1:1595" />
+        <StraightVertex x="754" y="71" id="1:1596" />
+        <StraightVertex x="751" y="68" id="1:1597" />
+      </PointsPath>
+      <Fill id="1:1598">
+        <SolidColor colorValue="FFFFF0CB" id="1:1599" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 22" id="1:1584">
+      <PointsPath isClosed="true" id="1:1585">
+        <StraightVertex x="617" y="23" id="1:1586" />
+        <StraightVertex x="619" y="25" id="1:1587" />
+        <StraightVertex x="617" y="27" id="1:1588" />
+        <StraightVertex x="615" y="25" id="1:1589" />
+      </PointsPath>
+      <Fill id="1:1590">
+        <SolidColor colorValue="FFFFF0CB" id="1:1591" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 21" id="1:1576">
+      <PointsPath isClosed="true" id="1:1577">
+        <StraightVertex x="480" y="128" id="1:1578" />
+        <StraightVertex x="484" y="132" id="1:1579" />
+        <StraightVertex x="480" y="136" id="1:1580" />
+        <StraightVertex x="476" y="132" id="1:1581" />
+      </PointsPath>
+      <Fill id="1:1582">
+        <SolidColor colorValue="FFFFF0CB" id="1:1583" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 20" id="1:1568">
+      <PointsPath isClosed="true" id="1:1569">
+        <StraightVertex x="343" y="86" id="1:1570" />
+        <StraightVertex x="346" y="89" id="1:1571" />
+        <StraightVertex x="343" y="92" id="1:1572" />
+        <StraightVertex x="340" y="89" id="1:1573" />
+      </PointsPath>
+      <Fill id="1:1574">
+        <SolidColor colorValue="FFFFF0CB" id="1:1575" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 19" id="1:1560">
+      <PointsPath isClosed="true" id="1:1561">
+        <StraightVertex x="206" y="44" id="1:1562" />
+        <StraightVertex x="208" y="46" id="1:1563" />
+        <StraightVertex x="206" y="48" id="1:1564" />
+        <StraightVertex x="204" y="46" id="1:1565" />
+      </PointsPath>
+      <Fill id="1:1566">
+        <SolidColor colorValue="FFFFF0CB" id="1:1567" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 18" id="1:1552">
+      <PointsPath isClosed="true" id="1:1553">
+        <StraightVertex x="69" y="149" id="1:1554" />
+        <StraightVertex x="73" y="153" id="1:1555" />
+        <StraightVertex x="69" y="157" id="1:1556" />
+        <StraightVertex x="65" y="153" id="1:1557" />
+      </PointsPath>
+      <Fill id="1:1558">
+        <SolidColor colorValue="FFFFF0CB" id="1:1559" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 17" id="1:1544">
+      <PointsPath isClosed="true" id="1:1545">
+        <StraightVertex x="692" y="107" id="1:1546" />
+        <StraightVertex x="695" y="110" id="1:1547" />
+        <StraightVertex x="692" y="113" id="1:1548" />
+        <StraightVertex x="689" y="110" id="1:1549" />
+      </PointsPath>
+      <Fill id="1:1550">
+        <SolidColor colorValue="FFFFF0CB" id="1:1551" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 16" id="1:1536">
+      <PointsPath isClosed="true" id="1:1537">
+        <StraightVertex x="555" y="65" id="1:1538" />
+        <StraightVertex x="557" y="67" id="1:1539" />
+        <StraightVertex x="555" y="69" id="1:1540" />
+        <StraightVertex x="553" y="67" id="1:1541" />
+      </PointsPath>
+      <Fill id="1:1542">
+        <SolidColor colorValue="FFFFF0CB" id="1:1543" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 15" id="1:1528">
+      <PointsPath isClosed="true" id="1:1529">
+        <StraightVertex x="418" y="20" id="1:1530" />
+        <StraightVertex x="422" y="24" id="1:1531" />
+        <StraightVertex x="418" y="28" id="1:1532" />
+        <StraightVertex x="414" y="24" id="1:1533" />
+      </PointsPath>
+      <Fill id="1:1534">
+        <SolidColor colorValue="FFFFF0CB" id="1:1535" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 14" id="1:1520">
+      <PointsPath isClosed="true" id="1:1521">
+        <StraightVertex x="281" y="128" id="1:1522" />
+        <StraightVertex x="284" y="131" id="1:1523" />
+        <StraightVertex x="281" y="134" id="1:1524" />
+        <StraightVertex x="278" y="131" id="1:1525" />
+      </PointsPath>
+      <Fill id="1:1526">
+        <SolidColor colorValue="FFFFF0CB" id="1:1527" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 13" id="1:1512">
+      <PointsPath isClosed="true" id="1:1513">
+        <StraightVertex x="144" y="86" id="1:1514" />
+        <StraightVertex x="146" y="88" id="1:1515" />
+        <StraightVertex x="144" y="90" id="1:1516" />
+        <StraightVertex x="142" y="88" id="1:1517" />
+      </PointsPath>
+      <Fill id="1:1518">
+        <SolidColor colorValue="FFFFF0CB" id="1:1519" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 12" id="1:1504">
+      <PointsPath isClosed="true" id="1:1505">
+        <StraightVertex x="767" y="41" id="1:1506" />
+        <StraightVertex x="771" y="45" id="1:1507" />
+        <StraightVertex x="767" y="49" id="1:1508" />
+        <StraightVertex x="763" y="45" id="1:1509" />
+      </PointsPath>
+      <Fill id="1:1510">
+        <SolidColor colorValue="FFFFF0CB" id="1:1511" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 11" id="1:1496">
+      <PointsPath isClosed="true" id="1:1497">
+        <StraightVertex x="630" y="149" id="1:1498" />
+        <StraightVertex x="633" y="152" id="1:1499" />
+        <StraightVertex x="630" y="155" id="1:1500" />
+        <StraightVertex x="627" y="152" id="1:1501" />
+      </PointsPath>
+      <Fill id="1:1502">
+        <SolidColor colorValue="FFFFF0CB" id="1:1503" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 10" id="1:1488">
+      <PointsPath isClosed="true" id="1:1489">
+        <StraightVertex x="493" y="107" id="1:1490" />
+        <StraightVertex x="495" y="109" id="1:1491" />
+        <StraightVertex x="493" y="111" id="1:1492" />
+        <StraightVertex x="491" y="109" id="1:1493" />
+      </PointsPath>
+      <Fill id="1:1494">
+        <SolidColor colorValue="FFFFF0CB" id="1:1495" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 9" id="1:1480">
+      <PointsPath isClosed="true" id="1:1481">
+        <StraightVertex x="356" y="62" id="1:1482" />
+        <StraightVertex x="360" y="66" id="1:1483" />
+        <StraightVertex x="356" y="70" id="1:1484" />
+        <StraightVertex x="352" y="66" id="1:1485" />
+      </PointsPath>
+      <Fill id="1:1486">
+        <SolidColor colorValue="FFFFF0CB" id="1:1487" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 8" id="1:1472">
+      <PointsPath isClosed="true" id="1:1473">
+        <StraightVertex x="219" y="20" id="1:1474" />
+        <StraightVertex x="222" y="23" id="1:1475" />
+        <StraightVertex x="219" y="26" id="1:1476" />
+        <StraightVertex x="216" y="23" id="1:1477" />
+      </PointsPath>
+      <Fill id="1:1478">
+        <SolidColor colorValue="FFFFF0CB" id="1:1479" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 7" id="1:1464">
+      <PointsPath isClosed="true" id="1:1465">
+        <StraightVertex x="82" y="128" id="1:1466" />
+        <StraightVertex x="84" y="130" id="1:1467" />
+        <StraightVertex x="82" y="132" id="1:1468" />
+        <StraightVertex x="80" y="130" id="1:1469" />
+      </PointsPath>
+      <Fill id="1:1470">
+        <SolidColor colorValue="FFFFF0CB" id="1:1471" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 6" id="1:1456">
+      <PointsPath isClosed="true" id="1:1457">
+        <StraightVertex x="705" y="83" id="1:1458" />
+        <StraightVertex x="709" y="87" id="1:1459" />
+        <StraightVertex x="705" y="91" id="1:1460" />
+        <StraightVertex x="701" y="87" id="1:1461" />
+      </PointsPath>
+      <Fill id="1:1462">
+        <SolidColor colorValue="FFFFF0CB" id="1:1463" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 5" id="1:1448">
+      <PointsPath isClosed="true" id="1:1449">
+        <StraightVertex x="568" y="41" id="1:1450" />
+        <StraightVertex x="571" y="44" id="1:1451" />
+        <StraightVertex x="568" y="47" id="1:1452" />
+        <StraightVertex x="565" y="44" id="1:1453" />
+      </PointsPath>
+      <Fill id="1:1454">
+        <SolidColor colorValue="FFFFF0CB" id="1:1455" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 4" id="1:1440">
+      <PointsPath isClosed="true" id="1:1441">
+        <StraightVertex x="431" y="149" id="1:1442" />
+        <StraightVertex x="433" y="151" id="1:1443" />
+        <StraightVertex x="431" y="153" id="1:1444" />
+        <StraightVertex x="429" y="151" id="1:1445" />
+      </PointsPath>
+      <Fill id="1:1446">
+        <SolidColor colorValue="FFFFF0CB" id="1:1447" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 3" id="1:1432">
+      <PointsPath isClosed="true" id="1:1433">
+        <StraightVertex x="294" y="104" id="1:1434" />
+        <StraightVertex x="298" y="108" id="1:1435" />
+        <StraightVertex x="294" y="112" id="1:1436" />
+        <StraightVertex x="290" y="108" id="1:1437" />
+      </PointsPath>
+      <Fill id="1:1438">
+        <SolidColor colorValue="FFFFF0CB" id="1:1439" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 2" id="1:1424">
+      <PointsPath isClosed="true" id="1:1425">
+        <StraightVertex x="157" y="62" id="1:1426" />
+        <StraightVertex x="160" y="65" id="1:1427" />
+        <StraightVertex x="157" y="68" id="1:1428" />
+        <StraightVertex x="154" y="65" id="1:1429" />
+      </PointsPath>
+      <Fill id="1:1430">
+        <SolidColor colorValue="FFFFF0CB" id="1:1431" />
+      </Fill>
+    </Shape>
+    <Shape name="Estrela 1" id="1:1416">
+      <PointsPath isClosed="true" id="1:1417">
+        <StraightVertex x="20" y="20" id="1:1418" />
+        <StraightVertex x="22" y="22" id="1:1419" />
+        <StraightVertex x="20" y="24" id="1:1420" />
+        <StraightVertex x="18" y="22" id="1:1421" />
+      </PointsPath>
+      <Fill id="1:1422">
+        <SolidColor colorValue="FFFFF0CB" id="1:1423" />
+      </Fill>
+    </Shape>
+    <Shape name="Lua" x="595" y="91" id="1:1412">
+      <Ellipse width="56" height="56" id="1:1413" />
+      <Fill id="1:1414">
+        <SolidColor colorValue="FFFFF1C5" id="1:1415" />
+      </Fill>
+    </Shape>
+    <Shape name="Pincelada 1" x="259.7" y="105.0" rotation="1.570" id="1:3000"><Ellipse width="13" height="2.8" id="1:3001"/><Fill id="1:3002"><SolidColor colorValue="FF80ADCE" id="1:3003"/></Fill></Shape>
+    <Shape name="Pincelada 2" x="260.6" y="107.6" rotation="1.786" id="1:3004"><Ellipse width="13" height="2.8" id="1:3005"/><Fill id="1:3006"><SolidColor colorValue="FF5286B0" id="1:3007"/></Fill></Shape>
+    <Shape name="Pincelada 3" x="260.3" y="110.5" rotation="2.001" id="1:3008"><Ellipse width="13" height="2.8" id="1:3009"/><Fill id="1:3010"><SolidColor colorValue="FFC3CAB1" id="1:3011"/></Fill></Shape>
+    <Shape name="Pincelada 4" x="258.8" y="113.4" rotation="2.217" id="1:3012"><Ellipse width="13" height="2.8" id="1:3013"/><Fill id="1:3014"><SolidColor colorValue="FF719FC5" id="1:3015"/></Fill></Shape>
+    <Shape name="Pincelada 5" x="255.9" y="116.1" rotation="2.432" id="1:3016"><Ellipse width="13" height="2.8" id="1:3017"/><Fill id="1:3018"><SolidColor colorValue="FF80ADCE" id="1:3019"/></Fill></Shape>
+    <Shape name="Pincelada 6" x="251.7" y="118.6" rotation="2.648" id="1:3020"><Ellipse width="13" height="2.8" id="1:3021"/><Fill id="1:3022"><SolidColor colorValue="FF5286B0" id="1:3023"/></Fill></Shape>
+    <Shape name="Pincelada 7" x="246.3" y="120.5" rotation="2.864" id="1:3024"><Ellipse width="13" height="2.8" id="1:3025"/><Fill id="1:3026"><SolidColor colorValue="FFC3CAB1" id="1:3027"/></Fill></Shape>
+    <Shape name="Pincelada 8" x="240.0" y="121.9" rotation="3.079" id="1:3028"><Ellipse width="13" height="2.8" id="1:3029"/><Fill id="1:3030"><SolidColor colorValue="FF719FC5" id="1:3031"/></Fill></Shape>
+    <Shape name="Pincelada 9" x="232.9" y="122.5" rotation="3.295" id="1:3032"><Ellipse width="13" height="2.8" id="1:3033"/><Fill id="1:3034"><SolidColor colorValue="FF80ADCE" id="1:3035"/></Fill></Shape>
+    <Shape name="Pincelada 10" x="225.5" y="122.2" rotation="3.510" id="1:3036"><Ellipse width="13" height="2.8" id="1:3037"/><Fill id="1:3038"><SolidColor colorValue="FF5286B0" id="1:3039"/></Fill></Shape>
+    <Shape name="Pincelada 11" x="218.1" y="121.0" rotation="3.726" id="1:3040"><Ellipse width="13" height="2.8" id="1:3041"/><Fill id="1:3042"><SolidColor colorValue="FFC3CAB1" id="1:3043"/></Fill></Shape>
+    <Shape name="Pincelada 12" x="211.1" y="118.9" rotation="3.942" id="1:3044"><Ellipse width="13" height="2.8" id="1:3045"/><Fill id="1:3046"><SolidColor colorValue="FF719FC5" id="1:3047"/></Fill></Shape>
+    <Shape name="Pincelada 13" x="205.0" y="115.9" rotation="4.157" id="1:3048"><Ellipse width="13" height="2.8" id="1:3049"/><Fill id="1:3050"><SolidColor colorValue="FF80ADCE" id="1:3051"/></Fill></Shape>
+    <Shape name="Pincelada 14" x="200.0" y="112.1" rotation="4.373" id="1:3052"><Ellipse width="13" height="2.8" id="1:3053"/><Fill id="1:3054"><SolidColor colorValue="FF5286B0" id="1:3055"/></Fill></Shape>
+    <Shape name="Pincelada 15" x="196.6" y="107.7" rotation="4.588" id="1:3056"><Ellipse width="13" height="2.8" id="1:3057"/><Fill id="1:3058"><SolidColor colorValue="FFC3CAB1" id="1:3059"/></Fill></Shape>
+    <Shape name="Pincelada 16" x="195.0" y="102.9" rotation="4.804" id="1:3060"><Ellipse width="13" height="2.8" id="1:3061"/><Fill id="1:3062"><SolidColor colorValue="FF719FC5" id="1:3063"/></Fill></Shape>
+    <Shape name="Pincelada 17" x="195.5" y="97.8" rotation="5.020" id="1:3064"><Ellipse width="13" height="2.8" id="1:3065"/><Fill id="1:3066"><SolidColor colorValue="FF80ADCE" id="1:3067"/></Fill></Shape>
+    <Shape name="Pincelada 18" x="198.2" y="92.7" rotation="5.235" id="1:3068"><Ellipse width="13" height="2.8" id="1:3069"/><Fill id="1:3070"><SolidColor colorValue="FF5286B0" id="1:3071"/></Fill></Shape>
+    <Shape name="Pincelada 19" x="203.0" y="88.0" rotation="5.451" id="1:3072"><Ellipse width="13" height="2.8" id="1:3073"/><Fill id="1:3074"><SolidColor colorValue="FFC3CAB1" id="1:3075"/></Fill></Shape>
+    <Shape name="Pincelada 20" x="209.8" y="83.7" rotation="5.666" id="1:3076"><Ellipse width="13" height="2.8" id="1:3077"/><Fill id="1:3078"><SolidColor colorValue="FF719FC5" id="1:3079"/></Fill></Shape>
+    <Shape name="Pincelada 21" x="218.4" y="80.3" rotation="5.882" id="1:3080"><Ellipse width="13" height="2.8" id="1:3081"/><Fill id="1:3082"><SolidColor colorValue="FF80ADCE" id="1:3083"/></Fill></Shape>
+    <Shape name="Pincelada 22" x="228.5" y="77.9" rotation="6.098" id="1:3084"><Ellipse width="13" height="2.8" id="1:3085"/><Fill id="1:3086"><SolidColor colorValue="FF5286B0" id="1:3087"/></Fill></Shape>
+    <Shape name="Pincelada 23" x="239.6" y="76.7" rotation="6.313" id="1:3088"><Ellipse width="13" height="2.8" id="1:3089"/><Fill id="1:3090"><SolidColor colorValue="FFC3CAB1" id="1:3091"/></Fill></Shape>
+    <Shape name="Pincelada 24" x="251.3" y="76.8" rotation="6.529" id="1:3092"><Ellipse width="13" height="2.8" id="1:3093"/><Fill id="1:3094"><SolidColor colorValue="FF719FC5" id="1:3095"/></Fill></Shape>
+    <Shape name="Pincelada 25" x="263.0" y="78.3" rotation="6.744" id="1:3096"><Ellipse width="13" height="2.8" id="1:3097"/><Fill id="1:3098"><SolidColor colorValue="FF80ADCE" id="1:3099"/></Fill></Shape>
+    <Shape name="Pincelada 26" x="274.0" y="81.1" rotation="6.960" id="1:3100"><Ellipse width="13" height="2.8" id="1:3101"/><Fill id="1:3102"><SolidColor colorValue="FF5286B0" id="1:3103"/></Fill></Shape>
+    <Shape name="Pincelada 27" x="283.8" y="85.3" rotation="7.176" id="1:3104"><Ellipse width="13" height="2.8" id="1:3105"/><Fill id="1:3106"><SolidColor colorValue="FFC3CAB1" id="1:3107"/></Fill></Shape>
+    <Shape name="Pincelada 28" x="291.9" y="90.7" rotation="7.391" id="1:3108"><Ellipse width="13" height="2.8" id="1:3109"/><Fill id="1:3110"><SolidColor colorValue="FF719FC5" id="1:3111"/></Fill></Shape>
+    <Shape name="Pincelada 29" x="297.8" y="97.0" rotation="7.607" id="1:3112"><Ellipse width="13" height="2.8" id="1:3113"/><Fill id="1:3114"><SolidColor colorValue="FF80ADCE" id="1:3115"/></Fill></Shape>
+    <Shape name="Pincelada 30" x="301.1" y="104.0" rotation="7.822" id="1:3116"><Ellipse width="13" height="2.8" id="1:3117"/><Fill id="1:3118"><SolidColor colorValue="FF5286B0" id="1:3119"/></Fill></Shape>
+    <Shape name="Pincelada 31" x="301.4" y="111.3" rotation="8.038" id="1:3120"><Ellipse width="13" height="2.8" id="1:3121"/><Fill id="1:3122"><SolidColor colorValue="FFC3CAB1" id="1:3123"/></Fill></Shape>
+    <Shape name="Pincelada 32" x="298.7" y="118.7" rotation="8.254" id="1:3124"><Ellipse width="13" height="2.8" id="1:3125"/><Fill id="1:3126"><SolidColor colorValue="FF719FC5" id="1:3127"/></Fill></Shape>
+    <Shape name="Pincelada 33" x="293.0" y="125.8" rotation="8.469" id="1:3128"><Ellipse width="13" height="2.8" id="1:3129"/><Fill id="1:3130"><SolidColor colorValue="FF80ADCE" id="1:3131"/></Fill></Shape>
+    <Shape name="Pincelada 34" x="284.4" y="132.1" rotation="8.685" id="1:3132"><Ellipse width="13" height="2.8" id="1:3133"/><Fill id="1:3134"><SolidColor colorValue="FF5286B0" id="1:3135"/></Fill></Shape>
+    <Shape name="Pincelada 35" x="273.1" y="137.4" rotation="8.900" id="1:3136"><Ellipse width="13" height="2.8" id="1:3137"/><Fill id="1:3138"><SolidColor colorValue="FFC3CAB1" id="1:3139"/></Fill></Shape>
+    <Shape name="Pincelada 36" x="259.7" y="141.4" rotation="9.116" id="1:3140"><Ellipse width="13" height="2.8" id="1:3141"/><Fill id="1:3142"><SolidColor colorValue="FF719FC5" id="1:3143"/></Fill></Shape>
+    <Shape name="Pincelada 37" x="244.7" y="143.8" rotation="9.332" id="1:3144"><Ellipse width="13" height="2.8" id="1:3145"/><Fill id="1:3146"><SolidColor colorValue="FF80ADCE" id="1:3147"/></Fill></Shape>
+    <Shape name="Pincelada 38" x="228.8" y="144.4" rotation="9.547" id="1:3148"><Ellipse width="13" height="2.8" id="1:3149"/><Fill id="1:3150"><SolidColor colorValue="FF5286B0" id="1:3151"/></Fill></Shape>
+    <Shape name="Pincelada 39" x="212.8" y="143.2" rotation="9.763" id="1:3152"><Ellipse width="13" height="2.8" id="1:3153"/><Fill id="1:3154"><SolidColor colorValue="FFC3CAB1" id="1:3155"/></Fill></Shape>
+    <Shape name="Pincelada 40" x="197.3" y="140.1" rotation="9.978" id="1:3156"><Ellipse width="13" height="2.8" id="1:3157"/><Fill id="1:3158"><SolidColor colorValue="FF719FC5" id="1:3159"/></Fill></Shape>
+    <Shape name="Pincelada 41" x="183.1" y="135.2" rotation="10.194" id="1:3160"><Ellipse width="13" height="2.8" id="1:3161"/><Fill id="1:3162"><SolidColor colorValue="FF80ADCE" id="1:3163"/></Fill></Shape>
+    <Shape name="Pincelada 42" x="171.1" y="128.6" rotation="10.410" id="1:3164"><Ellipse width="13" height="2.8" id="1:3165"/><Fill id="1:3166"><SolidColor colorValue="FF5286B0" id="1:3167"/></Fill></Shape>
+    <Shape name="Pincelada 43" x="161.9" y="120.7" rotation="10.625" id="1:3168"><Ellipse width="13" height="2.8" id="1:3169"/><Fill id="1:3170"><SolidColor colorValue="FFC3CAB1" id="1:3171"/></Fill></Shape>
+    <Shape name="Pincelada 44" x="155.9" y="111.8" rotation="10.841" id="1:3172"><Ellipse width="13" height="2.8" id="1:3173"/><Fill id="1:3174"><SolidColor colorValue="FF719FC5" id="1:3175"/></Fill></Shape>
+    <Shape name="Pincelada 45" x="153.6" y="102.2" rotation="11.056" id="1:3176"><Ellipse width="13" height="2.8" id="1:3177"/><Fill id="1:3178"><SolidColor colorValue="FF80ADCE" id="1:3179"/></Fill></Shape>
+    <Shape name="Pincelada 46" x="155.3" y="92.5" rotation="11.272" id="1:3180"><Ellipse width="13" height="2.8" id="1:3181"/><Fill id="1:3182"><SolidColor colorValue="FF5286B0" id="1:3183"/></Fill></Shape>
+    <Shape name="Pincelada 47" x="161.0" y="83.0" rotation="11.488" id="1:3184"><Ellipse width="13" height="2.8" id="1:3185"/><Fill id="1:3186"><SolidColor colorValue="FFC3CAB1" id="1:3187"/></Fill></Shape>
+    <Shape name="Pincelada 48" x="170.6" y="74.2" rotation="11.703" id="1:3188"><Ellipse width="13" height="2.8" id="1:3189"/><Fill id="1:3190"><SolidColor colorValue="FF719FC5" id="1:3191"/></Fill></Shape>
+    <Shape name="Pincelada 49" x="183.6" y="66.6" rotation="11.919" id="1:3192"><Ellipse width="13" height="2.8" id="1:3193"/><Fill id="1:3194"><SolidColor colorValue="FF80ADCE" id="1:3195"/></Fill></Shape>
+    <Shape name="Pincelada 50" x="199.7" y="60.6" rotation="12.134" id="1:3196"><Ellipse width="13" height="2.8" id="1:3197"/><Fill id="1:3198"><SolidColor colorValue="FF5286B0" id="1:3199"/></Fill></Shape>
+    <Shape name="Pincelada 51" x="218.1" y="56.5" rotation="12.350" id="1:3200"><Ellipse width="13" height="2.8" id="1:3201"/><Fill id="1:3202"><SolidColor colorValue="FFC3CAB1" id="1:3203"/></Fill></Shape>
+    <Shape name="Pincelada 52" x="238.0" y="54.6" rotation="12.566" id="1:3204"><Ellipse width="13" height="2.8" id="1:3205"/><Fill id="1:3206"><SolidColor colorValue="FF719FC5" id="1:3207"/></Fill></Shape>
+    <Shape name="Pincelada 53" x="434.0" y="97.0" rotation="1.570" id="1:3208"><Ellipse width="13" height="2.8" id="1:3209"/><Fill id="1:3210"><SolidColor colorValue="FF80ADCE" id="1:3211"/></Fill></Shape>
+    <Shape name="Pincelada 54" x="434.5" y="98.7" rotation="1.786" id="1:3212"><Ellipse width="13" height="2.8" id="1:3213"/><Fill id="1:3214"><SolidColor colorValue="FF5286B0" id="1:3215"/></Fill></Shape>
+    <Shape name="Pincelada 55" x="434.4" y="100.5" rotation="2.001" id="1:3216"><Ellipse width="13" height="2.8" id="1:3217"/><Fill id="1:3218"><SolidColor colorValue="FFC3CAB1" id="1:3219"/></Fill></Shape>
+    <Shape name="Pincelada 56" x="433.3" y="102.4" rotation="2.217" id="1:3220"><Ellipse width="13" height="2.8" id="1:3221"/><Fill id="1:3222"><SolidColor colorValue="FF719FC5" id="1:3223"/></Fill></Shape>
+    <Shape name="Pincelada 57" x="431.5" y="104.1" rotation="2.432" id="1:3224"><Ellipse width="13" height="2.8" id="1:3225"/><Fill id="1:3226"><SolidColor colorValue="FF80ADCE" id="1:3227"/></Fill></Shape>
+    <Shape name="Pincelada 58" x="428.8" y="105.7" rotation="2.648" id="1:3228"><Ellipse width="13" height="2.8" id="1:3229"/><Fill id="1:3230"><SolidColor colorValue="FF5286B0" id="1:3231"/></Fill></Shape>
+    <Shape name="Pincelada 59" x="425.3" y="107.0" rotation="2.864" id="1:3232"><Ellipse width="13" height="2.8" id="1:3233"/><Fill id="1:3234"><SolidColor colorValue="FFC3CAB1" id="1:3235"/></Fill></Shape>
+    <Shape name="Pincelada 60" x="421.3" y="107.9" rotation="3.079" id="1:3236"><Ellipse width="13" height="2.8" id="1:3237"/><Fill id="1:3238"><SolidColor colorValue="FF719FC5" id="1:3239"/></Fill></Shape>
+    <Shape name="Pincelada 61" x="416.7" y="108.2" rotation="3.295" id="1:3240"><Ellipse width="13" height="2.8" id="1:3241"/><Fill id="1:3242"><SolidColor colorValue="FF80ADCE" id="1:3243"/></Fill></Shape>
+    <Shape name="Pincelada 62" x="412.0" y="108.1" rotation="3.510" id="1:3244"><Ellipse width="13" height="2.8" id="1:3245"/><Fill id="1:3246"><SolidColor colorValue="FF5286B0" id="1:3247"/></Fill></Shape>
+    <Shape name="Pincelada 63" x="407.2" y="107.3" rotation="3.726" id="1:3248"><Ellipse width="13" height="2.8" id="1:3249"/><Fill id="1:3250"><SolidColor colorValue="FFC3CAB1" id="1:3251"/></Fill></Shape>
+    <Shape name="Pincelada 64" x="402.7" y="105.9" rotation="3.942" id="1:3252"><Ellipse width="13" height="2.8" id="1:3253"/><Fill id="1:3254"><SolidColor colorValue="FF719FC5" id="1:3255"/></Fill></Shape>
+    <Shape name="Pincelada 65" x="398.8" y="104.0" rotation="4.157" id="1:3256"><Ellipse width="13" height="2.8" id="1:3257"/><Fill id="1:3258"><SolidColor colorValue="FF80ADCE" id="1:3259"/></Fill></Shape>
+    <Shape name="Pincelada 66" x="395.6" y="101.6" rotation="4.373" id="1:3260"><Ellipse width="13" height="2.8" id="1:3261"/><Fill id="1:3262"><SolidColor colorValue="FF5286B0" id="1:3263"/></Fill></Shape>
+    <Shape name="Pincelada 67" x="393.4" y="98.8" rotation="4.588" id="1:3264"><Ellipse width="13" height="2.8" id="1:3265"/><Fill id="1:3266"><SolidColor colorValue="FFC3CAB1" id="1:3267"/></Fill></Shape>
+    <Shape name="Pincelada 68" x="392.4" y="95.6" rotation="4.804" id="1:3268"><Ellipse width="13" height="2.8" id="1:3269"/><Fill id="1:3270"><SolidColor colorValue="FF719FC5" id="1:3271"/></Fill></Shape>
+    <Shape name="Pincelada 69" x="392.7" y="92.4" rotation="5.020" id="1:3272"><Ellipse width="13" height="2.8" id="1:3273"/><Fill id="1:3274"><SolidColor colorValue="FF80ADCE" id="1:3275"/></Fill></Shape>
+    <Shape name="Pincelada 70" x="394.4" y="89.1" rotation="5.235" id="1:3276"><Ellipse width="13" height="2.8" id="1:3277"/><Fill id="1:3278"><SolidColor colorValue="FF5286B0" id="1:3279"/></Fill></Shape>
+    <Shape name="Pincelada 71" x="397.5" y="86.0" rotation="5.451" id="1:3280"><Ellipse width="13" height="2.8" id="1:3281"/><Fill id="1:3282"><SolidColor colorValue="FFC3CAB1" id="1:3283"/></Fill></Shape>
+    <Shape name="Pincelada 72" x="401.9" y="83.3" rotation="5.666" id="1:3284"><Ellipse width="13" height="2.8" id="1:3285"/><Fill id="1:3286"><SolidColor colorValue="FF719FC5" id="1:3287"/></Fill></Shape>
+    <Shape name="Pincelada 73" x="407.4" y="81.1" rotation="5.882" id="1:3288"><Ellipse width="13" height="2.8" id="1:3289"/><Fill id="1:3290"><SolidColor colorValue="FF80ADCE" id="1:3291"/></Fill></Shape>
+    <Shape name="Pincelada 74" x="413.9" y="79.6" rotation="6.098" id="1:3292"><Ellipse width="13" height="2.8" id="1:3293"/><Fill id="1:3294"><SolidColor colorValue="FF5286B0" id="1:3295"/></Fill></Shape>
+    <Shape name="Pincelada 75" x="421.1" y="78.8" rotation="6.313" id="1:3296"><Ellipse width="13" height="2.8" id="1:3297"/><Fill id="1:3298"><SolidColor colorValue="FFC3CAB1" id="1:3299"/></Fill></Shape>
+    <Shape name="Pincelada 76" x="428.6" y="78.9" rotation="6.529" id="1:3300"><Ellipse width="13" height="2.8" id="1:3301"/><Fill id="1:3302"><SolidColor colorValue="FF719FC5" id="1:3303"/></Fill></Shape>
+    <Shape name="Pincelada 77" x="436.0" y="79.8" rotation="6.744" id="1:3304"><Ellipse width="13" height="2.8" id="1:3305"/><Fill id="1:3306"><SolidColor colorValue="FF80ADCE" id="1:3307"/></Fill></Shape>
+    <Shape name="Pincelada 78" x="443.1" y="81.7" rotation="6.960" id="1:3308"><Ellipse width="13" height="2.8" id="1:3309"/><Fill id="1:3310"><SolidColor colorValue="FF5286B0" id="1:3311"/></Fill></Shape>
+    <Shape name="Pincelada 79" x="449.5" y="84.4" rotation="7.176" id="1:3312"><Ellipse width="13" height="2.8" id="1:3313"/><Fill id="1:3314"><SolidColor colorValue="FFC3CAB1" id="1:3315"/></Fill></Shape>
+    <Shape name="Pincelada 80" x="454.7" y="87.8" rotation="7.391" id="1:3316"><Ellipse width="13" height="2.8" id="1:3317"/><Fill id="1:3318"><SolidColor colorValue="FF719FC5" id="1:3319"/></Fill></Shape>
+    <Shape name="Pincelada 81" x="458.5" y="91.8" rotation="7.607" id="1:3320"><Ellipse width="13" height="2.8" id="1:3321"/><Fill id="1:3322"><SolidColor colorValue="FF80ADCE" id="1:3323"/></Fill></Shape>
+    <Shape name="Pincelada 82" x="460.6" y="96.3" rotation="7.822" id="1:3324"><Ellipse width="13" height="2.8" id="1:3325"/><Fill id="1:3326"><SolidColor colorValue="FF5286B0" id="1:3327"/></Fill></Shape>
+    <Shape name="Pincelada 83" x="460.8" y="101.1" rotation="8.038" id="1:3328"><Ellipse width="13" height="2.8" id="1:3329"/><Fill id="1:3330"><SolidColor colorValue="FFC3CAB1" id="1:3331"/></Fill></Shape>
+    <Shape name="Pincelada 84" x="459.1" y="105.8" rotation="8.254" id="1:3332"><Ellipse width="13" height="2.8" id="1:3333"/><Fill id="1:3334"><SolidColor colorValue="FF719FC5" id="1:3335"/></Fill></Shape>
+    <Shape name="Pincelada 85" x="455.4" y="110.3" rotation="8.469" id="1:3336"><Ellipse width="13" height="2.8" id="1:3337"/><Fill id="1:3338"><SolidColor colorValue="FF80ADCE" id="1:3339"/></Fill></Shape>
+    <Shape name="Pincelada 86" x="449.8" y="114.4" rotation="8.685" id="1:3340"><Ellipse width="13" height="2.8" id="1:3341"/><Fill id="1:3342"><SolidColor colorValue="FF5286B0" id="1:3343"/></Fill></Shape>
+    <Shape name="Pincelada 87" x="442.6" y="117.9" rotation="8.900" id="1:3344"><Ellipse width="13" height="2.8" id="1:3345"/><Fill id="1:3346"><SolidColor colorValue="FFC3CAB1" id="1:3347"/></Fill></Shape>
+    <Shape name="Pincelada 88" x="434.0" y="120.4" rotation="9.116" id="1:3348"><Ellipse width="13" height="2.8" id="1:3349"/><Fill id="1:3350"><SolidColor colorValue="FF719FC5" id="1:3351"/></Fill></Shape>
+    <Shape name="Pincelada 89" x="424.3" y="122.0" rotation="9.332" id="1:3352"><Ellipse width="13" height="2.8" id="1:3353"/><Fill id="1:3354"><SolidColor colorValue="FF80ADCE" id="1:3355"/></Fill></Shape>
+    <Shape name="Pincelada 90" x="414.1" y="122.4" rotation="9.547" id="1:3356"><Ellipse width="13" height="2.8" id="1:3357"/><Fill id="1:3358"><SolidColor colorValue="FF5286B0" id="1:3359"/></Fill></Shape>
+    <Shape name="Pincelada 91" x="403.8" y="121.6" rotation="9.763" id="1:3360"><Ellipse width="13" height="2.8" id="1:3361"/><Fill id="1:3362"><SolidColor colorValue="FFC3CAB1" id="1:3363"/></Fill></Shape>
+    <Shape name="Pincelada 92" x="393.8" y="119.6" rotation="9.978" id="1:3364"><Ellipse width="13" height="2.8" id="1:3365"/><Fill id="1:3366"><SolidColor colorValue="FF719FC5" id="1:3367"/></Fill></Shape>
+    <Shape name="Pincelada 93" x="384.7" y="116.4" rotation="10.194" id="1:3368"><Ellipse width="13" height="2.8" id="1:3369"/><Fill id="1:3370"><SolidColor colorValue="FF80ADCE" id="1:3371"/></Fill></Shape>
+    <Shape name="Pincelada 94" x="377.0" y="112.2" rotation="10.410" id="1:3372"><Ellipse width="13" height="2.8" id="1:3373"/><Fill id="1:3374"><SolidColor colorValue="FF5286B0" id="1:3375"/></Fill></Shape>
+    <Shape name="Pincelada 95" x="371.0" y="107.1" rotation="10.625" id="1:3376"><Ellipse width="13" height="2.8" id="1:3377"/><Fill id="1:3378"><SolidColor colorValue="FFC3CAB1" id="1:3379"/></Fill></Shape>
+    <Shape name="Pincelada 96" x="367.2" y="101.4" rotation="10.841" id="1:3380"><Ellipse width="13" height="2.8" id="1:3381"/><Fill id="1:3382"><SolidColor colorValue="FF719FC5" id="1:3383"/></Fill></Shape>
+    <Shape name="Pincelada 97" x="365.8" y="95.2" rotation="11.056" id="1:3384"><Ellipse width="13" height="2.8" id="1:3385"/><Fill id="1:3386"><SolidColor colorValue="FF80ADCE" id="1:3387"/></Fill></Shape>
+    <Shape name="Pincelada 98" x="366.9" y="88.9" rotation="11.272" id="1:3388"><Ellipse width="13" height="2.8" id="1:3389"/><Fill id="1:3390"><SolidColor colorValue="FF5286B0" id="1:3391"/></Fill></Shape>
+    <Shape name="Pincelada 99" x="370.5" y="82.8" rotation="11.488" id="1:3392"><Ellipse width="13" height="2.8" id="1:3393"/><Fill id="1:3394"><SolidColor colorValue="FFC3CAB1" id="1:3395"/></Fill></Shape>
+    <Shape name="Pincelada 100" x="376.7" y="77.2" rotation="11.703" id="1:3396"><Ellipse width="13" height="2.8" id="1:3397"/><Fill id="1:3398"><SolidColor colorValue="FF719FC5" id="1:3399"/></Fill></Shape>
+    <Shape name="Pincelada 101" x="385.0" y="72.3" rotation="11.919" id="1:3400"><Ellipse width="13" height="2.8" id="1:3401"/><Fill id="1:3402"><SolidColor colorValue="FF80ADCE" id="1:3403"/></Fill></Shape>
+    <Shape name="Pincelada 102" x="395.4" y="68.5" rotation="12.134" id="1:3404"><Ellipse width="13" height="2.8" id="1:3405"/><Fill id="1:3406"><SolidColor colorValue="FF5286B0" id="1:3407"/></Fill></Shape>
+    <Shape name="Pincelada 103" x="407.2" y="65.8" rotation="12.350" id="1:3408"><Ellipse width="13" height="2.8" id="1:3409"/><Fill id="1:3410"><SolidColor colorValue="FFC3CAB1" id="1:3411"/></Fill></Shape>
+    <Shape name="Pincelada 104" x="420.0" y="64.6" rotation="12.566" id="1:3412"><Ellipse width="13" height="2.8" id="1:3413"/><Fill id="1:3414"><SolidColor colorValue="FF719FC5" id="1:3415"/></Fill></Shape>
+    <Shape name="Pincelada 105" x="613.6" y="91.0" rotation="1.570" id="1:3416"><Ellipse width="13" height="2.8" id="1:3417"/><Fill id="1:3418"><SolidColor colorValue="FF80ADCE" id="1:3419"/></Fill></Shape>
+    <Shape name="Pincelada 106" x="614.4" y="93.3" rotation="1.786" id="1:3420"><Ellipse width="13" height="2.8" id="1:3421"/><Fill id="1:3422"><SolidColor colorValue="FF5286B0" id="1:3423"/></Fill></Shape>
+    <Shape name="Pincelada 107" x="614.1" y="95.7" rotation="2.001" id="1:3424"><Ellipse width="13" height="2.8" id="1:3425"/><Fill id="1:3426"><SolidColor colorValue="FFC3CAB1" id="1:3427"/></Fill></Shape>
+    <Shape name="Pincelada 108" x="612.8" y="98.2" rotation="2.217" id="1:3428"><Ellipse width="13" height="2.8" id="1:3429"/><Fill id="1:3430"><SolidColor colorValue="FF719FC5" id="1:3431"/></Fill></Shape>
+    <Shape name="Pincelada 109" x="610.3" y="100.5" rotation="2.432" id="1:3432"><Ellipse width="13" height="2.8" id="1:3433"/><Fill id="1:3434"><SolidColor colorValue="FF80ADCE" id="1:3435"/></Fill></Shape>
+    <Shape name="Pincelada 110" x="606.7" y="102.6" rotation="2.648" id="1:3436"><Ellipse width="13" height="2.8" id="1:3437"/><Fill id="1:3438"><SolidColor colorValue="FF5286B0" id="1:3439"/></Fill></Shape>
+    <Shape name="Pincelada 111" x="602.1" y="104.3" rotation="2.864" id="1:3440"><Ellipse width="13" height="2.8" id="1:3441"/><Fill id="1:3442"><SolidColor colorValue="FFC3CAB1" id="1:3443"/></Fill></Shape>
+    <Shape name="Pincelada 112" x="596.7" y="105.5" rotation="3.079" id="1:3444"><Ellipse width="13" height="2.8" id="1:3445"/><Fill id="1:3446"><SolidColor colorValue="FF719FC5" id="1:3447"/></Fill></Shape>
+    <Shape name="Pincelada 113" x="590.6" y="106.0" rotation="3.295" id="1:3448"><Ellipse width="13" height="2.8" id="1:3449"/><Fill id="1:3450"><SolidColor colorValue="FF80ADCE" id="1:3451"/></Fill></Shape>
+    <Shape name="Pincelada 114" x="584.3" y="105.7" rotation="3.510" id="1:3452"><Ellipse width="13" height="2.8" id="1:3453"/><Fill id="1:3454"><SolidColor colorValue="FF5286B0" id="1:3455"/></Fill></Shape>
+    <Shape name="Pincelada 115" x="578.0" y="104.7" rotation="3.726" id="1:3456"><Ellipse width="13" height="2.8" id="1:3457"/><Fill id="1:3458"><SolidColor colorValue="FFC3CAB1" id="1:3459"/></Fill></Shape>
+    <Shape name="Pincelada 116" x="572.0" y="102.9" rotation="3.942" id="1:3460"><Ellipse width="13" height="2.8" id="1:3461"/><Fill id="1:3462"><SolidColor colorValue="FF719FC5" id="1:3463"/></Fill></Shape>
+    <Shape name="Pincelada 117" x="566.7" y="100.4" rotation="4.157" id="1:3464"><Ellipse width="13" height="2.8" id="1:3465"/><Fill id="1:3466"><SolidColor colorValue="FF80ADCE" id="1:3467"/></Fill></Shape>
+    <Shape name="Pincelada 118" x="562.4" y="97.1" rotation="4.373" id="1:3468"><Ellipse width="13" height="2.8" id="1:3469"/><Fill id="1:3470"><SolidColor colorValue="FF5286B0" id="1:3471"/></Fill></Shape>
+    <Shape name="Pincelada 119" x="559.5" y="93.3" rotation="4.588" id="1:3472"><Ellipse width="13" height="2.8" id="1:3473"/><Fill id="1:3474"><SolidColor colorValue="FFC3CAB1" id="1:3475"/></Fill></Shape>
+    <Shape name="Pincelada 120" x="558.2" y="89.2" rotation="4.804" id="1:3476"><Ellipse width="13" height="2.8" id="1:3477"/><Fill id="1:3478"><SolidColor colorValue="FF719FC5" id="1:3479"/></Fill></Shape>
+    <Shape name="Pincelada 121" x="558.6" y="84.8" rotation="5.020" id="1:3480"><Ellipse width="13" height="2.8" id="1:3481"/><Fill id="1:3482"><SolidColor colorValue="FF80ADCE" id="1:3483"/></Fill></Shape>
+    <Shape name="Pincelada 122" x="560.9" y="80.5" rotation="5.235" id="1:3484"><Ellipse width="13" height="2.8" id="1:3485"/><Fill id="1:3486"><SolidColor colorValue="FF5286B0" id="1:3487"/></Fill></Shape>
+    <Shape name="Pincelada 123" x="565.0" y="76.4" rotation="5.451" id="1:3488"><Ellipse width="13" height="2.8" id="1:3489"/><Fill id="1:3490"><SolidColor colorValue="FFC3CAB1" id="1:3491"/></Fill></Shape>
+    <Shape name="Pincelada 124" x="570.8" y="72.8" rotation="5.666" id="1:3492"><Ellipse width="13" height="2.8" id="1:3493"/><Fill id="1:3494"><SolidColor colorValue="FF719FC5" id="1:3495"/></Fill></Shape>
+    <Shape name="Pincelada 125" x="578.2" y="69.8" rotation="5.882" id="1:3496"><Ellipse width="13" height="2.8" id="1:3497"/><Fill id="1:3498"><SolidColor colorValue="FF80ADCE" id="1:3499"/></Fill></Shape>
+    <Shape name="Pincelada 126" x="586.9" y="67.8" rotation="6.098" id="1:3500"><Ellipse width="13" height="2.8" id="1:3501"/><Fill id="1:3502"><SolidColor colorValue="FF5286B0" id="1:3503"/></Fill></Shape>
+    <Shape name="Pincelada 127" x="596.4" y="66.7" rotation="6.313" id="1:3504"><Ellipse width="13" height="2.8" id="1:3505"/><Fill id="1:3506"><SolidColor colorValue="FFC3CAB1" id="1:3507"/></Fill></Shape>
+    <Shape name="Pincelada 128" x="606.4" y="66.8" rotation="6.529" id="1:3508"><Ellipse width="13" height="2.8" id="1:3509"/><Fill id="1:3510"><SolidColor colorValue="FF719FC5" id="1:3511"/></Fill></Shape>
+    <Shape name="Pincelada 129" x="616.4" y="68.1" rotation="6.744" id="1:3512"><Ellipse width="13" height="2.8" id="1:3513"/><Fill id="1:3514"><SolidColor colorValue="FF80ADCE" id="1:3515"/></Fill></Shape>
+    <Shape name="Pincelada 130" x="625.8" y="70.6" rotation="6.960" id="1:3516"><Ellipse width="13" height="2.8" id="1:3517"/><Fill id="1:3518"><SolidColor colorValue="FF5286B0" id="1:3519"/></Fill></Shape>
+    <Shape name="Pincelada 131" x="634.3" y="74.1" rotation="7.176" id="1:3520"><Ellipse width="13" height="2.8" id="1:3521"/><Fill id="1:3522"><SolidColor colorValue="FFC3CAB1" id="1:3523"/></Fill></Shape>
+    <Shape name="Pincelada 132" x="641.2" y="78.7" rotation="7.391" id="1:3524"><Ellipse width="13" height="2.8" id="1:3525"/><Fill id="1:3526"><SolidColor colorValue="FF719FC5" id="1:3527"/></Fill></Shape>
+    <Shape name="Pincelada 133" x="646.3" y="84.1" rotation="7.607" id="1:3528"><Ellipse width="13" height="2.8" id="1:3529"/><Fill id="1:3530"><SolidColor colorValue="FF80ADCE" id="1:3531"/></Fill></Shape>
+    <Shape name="Pincelada 134" x="649.1" y="90.1" rotation="7.822" id="1:3532"><Ellipse width="13" height="2.8" id="1:3533"/><Fill id="1:3534"><SolidColor colorValue="FF5286B0" id="1:3535"/></Fill></Shape>
+    <Shape name="Pincelada 135" x="649.4" y="96.4" rotation="8.038" id="1:3536"><Ellipse width="13" height="2.8" id="1:3537"/><Fill id="1:3538"><SolidColor colorValue="FFC3CAB1" id="1:3539"/></Fill></Shape>
+    <Shape name="Pincelada 136" x="647.1" y="102.8" rotation="8.254" id="1:3540"><Ellipse width="13" height="2.8" id="1:3541"/><Fill id="1:3542"><SolidColor colorValue="FF719FC5" id="1:3543"/></Fill></Shape>
+    <Shape name="Pincelada 137" x="642.1" y="108.8" rotation="8.469" id="1:3544"><Ellipse width="13" height="2.8" id="1:3545"/><Fill id="1:3546"><SolidColor colorValue="FF80ADCE" id="1:3547"/></Fill></Shape>
+    <Shape name="Pincelada 138" x="634.7" y="114.2" rotation="8.685" id="1:3548"><Ellipse width="13" height="2.8" id="1:3549"/><Fill id="1:3550"><SolidColor colorValue="FF5286B0" id="1:3551"/></Fill></Shape>
+    <Shape name="Pincelada 139" x="625.1" y="118.8" rotation="8.900" id="1:3552"><Ellipse width="13" height="2.8" id="1:3553"/><Fill id="1:3554"><SolidColor colorValue="FFC3CAB1" id="1:3555"/></Fill></Shape>
+    <Shape name="Pincelada 140" x="613.6" y="122.2" rotation="9.116" id="1:3556"><Ellipse width="13" height="2.8" id="1:3557"/><Fill id="1:3558"><SolidColor colorValue="FF719FC5" id="1:3559"/></Fill></Shape>
+    <Shape name="Pincelada 141" x="600.8" y="124.3" rotation="9.332" id="1:3560"><Ellipse width="13" height="2.8" id="1:3561"/><Fill id="1:3562"><SolidColor colorValue="FF80ADCE" id="1:3563"/></Fill></Shape>
+    <Shape name="Pincelada 142" x="587.2" y="124.8" rotation="9.547" id="1:3564"><Ellipse width="13" height="2.8" id="1:3565"/><Fill id="1:3566"><SolidColor colorValue="FF5286B0" id="1:3567"/></Fill></Shape>
+    <Shape name="Pincelada 143" x="573.4" y="123.7" rotation="9.763" id="1:3568"><Ellipse width="13" height="2.8" id="1:3569"/><Fill id="1:3570"><SolidColor colorValue="FFC3CAB1" id="1:3571"/></Fill></Shape>
+    <Shape name="Pincelada 144" x="560.1" y="121.1" rotation="9.978" id="1:3572"><Ellipse width="13" height="2.8" id="1:3573"/><Fill id="1:3574"><SolidColor colorValue="FF719FC5" id="1:3575"/></Fill></Shape>
+    <Shape name="Pincelada 145" x="548.0" y="116.9" rotation="10.194" id="1:3576"><Ellipse width="13" height="2.8" id="1:3577"/><Fill id="1:3578"><SolidColor colorValue="FF80ADCE" id="1:3579"/></Fill></Shape>
+    <Shape name="Pincelada 146" x="537.7" y="111.3" rotation="10.410" id="1:3580"><Ellipse width="13" height="2.8" id="1:3581"/><Fill id="1:3582"><SolidColor colorValue="FF5286B0" id="1:3583"/></Fill></Shape>
+    <Shape name="Pincelada 147" x="529.7" y="104.5" rotation="10.625" id="1:3584"><Ellipse width="13" height="2.8" id="1:3585"/><Fill id="1:3586"><SolidColor colorValue="FFC3CAB1" id="1:3587"/></Fill></Shape>
+    <Shape name="Pincelada 148" x="524.6" y="96.8" rotation="10.841" id="1:3588"><Ellipse width="13" height="2.8" id="1:3589"/><Fill id="1:3590"><SolidColor colorValue="FF719FC5" id="1:3591"/></Fill></Shape>
+    <Shape name="Pincelada 149" x="522.7" y="88.6" rotation="11.056" id="1:3592"><Ellipse width="13" height="2.8" id="1:3593"/><Fill id="1:3594"><SolidColor colorValue="FF80ADCE" id="1:3595"/></Fill></Shape>
+    <Shape name="Pincelada 150" x="524.1" y="80.2" rotation="11.272" id="1:3596"><Ellipse width="13" height="2.8" id="1:3597"/><Fill id="1:3598"><SolidColor colorValue="FF5286B0" id="1:3599"/></Fill></Shape>
+    <Shape name="Pincelada 151" x="529.0" y="72.1" rotation="11.488" id="1:3600"><Ellipse width="13" height="2.8" id="1:3601"/><Fill id="1:3602"><SolidColor colorValue="FFC3CAB1" id="1:3603"/></Fill></Shape>
+    <Shape name="Pincelada 152" x="537.2" y="64.6" rotation="11.703" id="1:3604"><Ellipse width="13" height="2.8" id="1:3605"/><Fill id="1:3606"><SolidColor colorValue="FF719FC5" id="1:3607"/></Fill></Shape>
+    <Shape name="Pincelada 153" x="548.4" y="58.1" rotation="11.919" id="1:3608"><Ellipse width="13" height="2.8" id="1:3609"/><Fill id="1:3610"><SolidColor colorValue="FF80ADCE" id="1:3611"/></Fill></Shape>
+    <Shape name="Pincelada 154" x="562.2" y="52.9" rotation="12.134" id="1:3612"><Ellipse width="13" height="2.8" id="1:3613"/><Fill id="1:3614"><SolidColor colorValue="FF5286B0" id="1:3615"/></Fill></Shape>
+    <Shape name="Pincelada 155" x="577.9" y="49.4" rotation="12.350" id="1:3616"><Ellipse width="13" height="2.8" id="1:3617"/><Fill id="1:3618"><SolidColor colorValue="FFC3CAB1" id="1:3619"/></Fill></Shape>
+    <Shape name="Pincelada 156" x="595.0" y="47.8" rotation="12.566" id="1:3620"><Ellipse width="13" height="2.8" id="1:3621"/><Fill id="1:3622"><SolidColor colorValue="FF719FC5" id="1:3623"/></Fill></Shape>
+    <Shape name="Fundo" x="400" y="200" id="1:1408">
+      <Rectangle width="820" height="420" id="1:1409" />
+      <Fill id="1:1410">
+        <SolidColor colorValue="FF213969" id="1:1411" />
+      </Fill>
+    </Shape>
+    <LinearAnimation name="Ambiente" duration="360" loopValue="loop" id="1:1728">
+      <KeyedObject objectId="1:1412" id="1:1729">
+        <KeyedProperty property="opacity" id="1:1730">
+          <KeyFrameDouble value="1" frame="0" interpolationType="linear" id="1:1731" />
+          <KeyFrameDouble value="0.84" frame="180" interpolationType="linear" id="1:1732" />
+          <KeyFrameDouble value="1" frame="360" interpolationType="linear" id="1:1733" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <StateMachine name="Ambiente" id="1:1734">
+      <StateMachineLayer name="Cenário" id="1:1735">
+        <AnyState id="1:1736" />
+        <ExitState id="1:1737" />
+        <EntryState id="1:1738">
+          <StateTransition stateToId="1:1739" id="1:1740" />
+        </EntryState>
+        <AnimationState animationId="1:1728" id="1:1739" />
+      </StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+  <Artboard name="mist" width="800" height="400" x="4250" id="1:2067" defaultStateMachineId="1:2254">
+    <Shape name="Flor 12" x="697" y="363" id="1:2244">
+      <Ellipse width="6" height="5" id="1:2245" />
+      <Fill id="1:2246">
+        <SolidColor colorValue="FF98ADBB" id="1:2247" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 11" x="636" y="350" id="1:2240">
+      <Ellipse width="6" height="5" id="1:2241" />
+      <Fill id="1:2242">
+        <SolidColor colorValue="FF98ADBB" id="1:2243" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 10" x="575" y="379" id="1:2236">
+      <Ellipse width="6" height="5" id="1:2237" />
+      <Fill id="1:2238">
+        <SolidColor colorValue="FF98ADBB" id="1:2239" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 9" x="514" y="366" id="1:2232">
+      <Ellipse width="6" height="5" id="1:2233" />
+      <Fill id="1:2234">
+        <SolidColor colorValue="FF98ADBB" id="1:2235" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 8" x="453" y="353" id="1:2228">
+      <Ellipse width="6" height="5" id="1:2229" />
+      <Fill id="1:2230">
+        <SolidColor colorValue="FF98ADBB" id="1:2231" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 7" x="392" y="382" id="1:2224">
+      <Ellipse width="6" height="5" id="1:2225" />
+      <Fill id="1:2226">
+        <SolidColor colorValue="FF98ADBB" id="1:2227" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 6" x="331" y="369" id="1:2220">
+      <Ellipse width="6" height="5" id="1:2221" />
+      <Fill id="1:2222">
+        <SolidColor colorValue="FF98ADBB" id="1:2223" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 5" x="270" y="356" id="1:2216">
+      <Ellipse width="6" height="5" id="1:2217" />
+      <Fill id="1:2218">
+        <SolidColor colorValue="FF98ADBB" id="1:2219" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 4" x="209" y="385" id="1:2212">
+      <Ellipse width="6" height="5" id="1:2213" />
+      <Fill id="1:2214">
+        <SolidColor colorValue="FF98ADBB" id="1:2215" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 3" x="148" y="372" id="1:2208">
+      <Ellipse width="6" height="5" id="1:2209" />
+      <Fill id="1:2210">
+        <SolidColor colorValue="FF98ADBB" id="1:2211" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 2" x="87" y="359" id="1:2204">
+      <Ellipse width="6" height="5" id="1:2205" />
+      <Fill id="1:2206">
+        <SolidColor colorValue="FF98ADBB" id="1:2207" />
+      </Fill>
+    </Shape>
+    <Shape name="Flor 1" x="26" y="346" id="1:2200">
+      <Ellipse width="6" height="5" id="1:2201" />
+      <Fill id="1:2202">
+        <SolidColor colorValue="FF98ADBB" id="1:2203" />
+      </Fill>
+    </Shape>
+    <Shape name="Colinas próximas" id="1:2140">
+      <PointsPath isClosed="true" id="1:2141">
+        <StraightVertex x="-20" y="323.95" id="1:2142" />
+        <StraightVertex x="-4" y="323.01" id="1:2143" />
+        <StraightVertex x="12" y="321.79" id="1:2144" />
+        <StraightVertex x="28" y="320.31" id="1:2145" />
+        <StraightVertex x="44" y="318.59" id="1:2146" />
+        <StraightVertex x="60" y="316.63" id="1:2147" />
+        <StraightVertex x="76" y="314.47" id="1:2148" />
+        <StraightVertex x="92" y="312.14" id="1:2149" />
+        <StraightVertex x="108" y="309.66" id="1:2150" />
+        <StraightVertex x="124" y="307.06" id="1:2151" />
+        <StraightVertex x="140" y="304.38" id="1:2152" />
+        <StraightVertex x="156" y="301.64" id="1:2153" />
+        <StraightVertex x="172" y="298.89" id="1:2154" />
+        <StraightVertex x="188" y="296.14" id="1:2155" />
+        <StraightVertex x="204" y="293.44" id="1:2156" />
+        <StraightVertex x="220" y="290.83" id="1:2157" />
+        <StraightVertex x="236" y="288.32" id="1:2158" />
+        <StraightVertex x="252" y="285.96" id="1:2159" />
+        <StraightVertex x="268" y="283.77" id="1:2160" />
+        <StraightVertex x="284" y="281.77" id="1:2161" />
+        <StraightVertex x="300" y="280.0" id="1:2162" />
+        <StraightVertex x="316" y="278.47" id="1:2163" />
+        <StraightVertex x="332" y="277.2" id="1:2164" />
+        <StraightVertex x="348" y="276.21" id="1:2165" />
+        <StraightVertex x="364" y="275.51" id="1:2166" />
+        <StraightVertex x="380" y="275.11" id="1:2167" />
+        <StraightVertex x="396" y="275.0" id="1:2168" />
+        <StraightVertex x="412" y="275.21" id="1:2169" />
+        <StraightVertex x="428" y="275.71" id="1:2170" />
+        <StraightVertex x="444" y="276.51" id="1:2171" />
+        <StraightVertex x="460" y="277.6" id="1:2172" />
+        <StraightVertex x="476" y="278.96" id="1:2173" />
+        <StraightVertex x="492" y="280.57" id="1:2174" />
+        <StraightVertex x="508" y="282.42" id="1:2175" />
+        <StraightVertex x="524" y="284.49" id="1:2176" />
+        <StraightVertex x="540" y="286.74" id="1:2177" />
+        <StraightVertex x="556" y="289.16" id="1:2178" />
+        <StraightVertex x="572" y="291.7" id="1:2179" />
+        <StraightVertex x="588" y="294.35" id="1:2180" />
+        <StraightVertex x="604" y="297.07" id="1:2181" />
+        <StraightVertex x="620" y="299.82" id="1:2182" />
+        <StraightVertex x="636" y="302.57" id="1:2183" />
+        <StraightVertex x="652" y="305.29" id="1:2184" />
+        <StraightVertex x="668" y="307.95" id="1:2185" />
+        <StraightVertex x="684" y="310.51" id="1:2186" />
+        <StraightVertex x="700" y="312.95" id="1:2187" />
+        <StraightVertex x="716" y="315.22" id="1:2188" />
+        <StraightVertex x="732" y="317.32" id="1:2189" />
+        <StraightVertex x="748" y="319.2" id="1:2190" />
+        <StraightVertex x="764" y="320.84" id="1:2191" />
+        <StraightVertex x="780" y="322.24" id="1:2192" />
+        <StraightVertex x="796" y="323.36" id="1:2193" />
+        <StraightVertex x="812" y="324.2" id="1:2194" />
+        <StraightVertex x="828" y="324.74" id="1:2195" />
+        <StraightVertex x="832" y="430" id="1:2196" />
+        <StraightVertex x="-20" y="430" id="1:2197" />
+      </PointsPath>
+      <Fill id="1:2198">
+        <SolidColor colorValue="FFB6CBD0" id="1:2199" />
+      </Fill>
+    </Shape>
+    <Shape name="Colinas distantes" id="1:2080">
+      <PointsPath isClosed="true" id="1:2081">
+        <StraightVertex x="-20" y="221.56" id="1:2082" />
+        <StraightVertex x="-4" y="224.31" id="1:2083" />
+        <StraightVertex x="12" y="227.07" id="1:2084" />
+        <StraightVertex x="28" y="229.8" id="1:2085" />
+        <StraightVertex x="44" y="232.47" id="1:2086" />
+        <StraightVertex x="60" y="235.05" id="1:2087" />
+        <StraightVertex x="76" y="237.51" id="1:2088" />
+        <StraightVertex x="92" y="239.82" id="1:2089" />
+        <StraightVertex x="108" y="241.95" id="1:2090" />
+        <StraightVertex x="124" y="243.87" id="1:2091" />
+        <StraightVertex x="140" y="245.56" id="1:2092" />
+        <StraightVertex x="156" y="247.0" id="1:2093" />
+        <StraightVertex x="172" y="248.17" id="1:2094" />
+        <StraightVertex x="188" y="249.07" id="1:2095" />
+        <StraightVertex x="204" y="249.66" id="1:2096" />
+        <StraightVertex x="220" y="249.96" id="1:2097" />
+        <StraightVertex x="236" y="249.96" id="1:2098" />
+        <StraightVertex x="252" y="249.65" id="1:2099" />
+        <StraightVertex x="268" y="249.04" id="1:2100" />
+        <StraightVertex x="284" y="248.14" id="1:2101" />
+        <StraightVertex x="300" y="246.96" id="1:2102" />
+        <StraightVertex x="316" y="245.51" id="1:2103" />
+        <StraightVertex x="332" y="243.81" id="1:2104" />
+        <StraightVertex x="348" y="241.89" id="1:2105" />
+        <StraightVertex x="364" y="239.75" id="1:2106" />
+        <StraightVertex x="380" y="237.44" id="1:2107" />
+        <StraightVertex x="396" y="234.98" id="1:2108" />
+        <StraightVertex x="412" y="232.39" id="1:2109" />
+        <StraightVertex x="428" y="229.72" id="1:2110" />
+        <StraightVertex x="444" y="226.99" id="1:2111" />
+        <StraightVertex x="460" y="224.23" id="1:2112" />
+        <StraightVertex x="476" y="221.48" id="1:2113" />
+        <StraightVertex x="492" y="218.78" id="1:2114" />
+        <StraightVertex x="508" y="216.15" id="1:2115" />
+        <StraightVertex x="524" y="213.63" id="1:2116" />
+        <StraightVertex x="540" y="211.25" id="1:2117" />
+        <StraightVertex x="556" y="209.03" id="1:2118" />
+        <StraightVertex x="572" y="207.01" id="1:2119" />
+        <StraightVertex x="588" y="205.21" id="1:2120" />
+        <StraightVertex x="604" y="203.65" id="1:2121" />
+        <StraightVertex x="620" y="202.34" id="1:2122" />
+        <StraightVertex x="636" y="201.32" id="1:2123" />
+        <StraightVertex x="652" y="200.58" id="1:2124" />
+        <StraightVertex x="668" y="200.14" id="1:2125" />
+        <StraightVertex x="684" y="200.0" id="1:2126" />
+        <StraightVertex x="700" y="200.17" id="1:2127" />
+        <StraightVertex x="716" y="200.63" id="1:2128" />
+        <StraightVertex x="732" y="201.4" id="1:2129" />
+        <StraightVertex x="748" y="202.45" id="1:2130" />
+        <StraightVertex x="764" y="203.77" id="1:2131" />
+        <StraightVertex x="780" y="205.36" id="1:2132" />
+        <StraightVertex x="796" y="207.18" id="1:2133" />
+        <StraightVertex x="812" y="209.22" id="1:2134" />
+        <StraightVertex x="828" y="211.45" id="1:2135" />
+        <StraightVertex x="832" y="430" id="1:2136" />
+        <StraightVertex x="-20" y="430" id="1:2137" />
+      </PointsPath>
+      <Fill id="1:2138">
+        <SolidColor colorValue="FFF2F4EF" id="1:2139" />
+      </Fill>
+    </Shape>
+    <Shape name="Nuvem" x="180" y="86" id="1:2076">
+      <Ellipse width="130" height="16" id="1:2077" />
+      <Fill id="1:2078">
+        <SolidColor colorValue="FFFFE7BF" id="1:2079" />
+      </Fill>
+    </Shape>
+    <Shape name="Sol" x="625" y="91" id="1:2072">
+      <Ellipse width="72" height="72" id="1:2073" />
+      <Fill id="1:2074">
+        <SolidColor colorValue="FFE1EBEF" id="1:2075" />
+      </Fill>
+    </Shape>
+    <Shape name="Fundo" x="400" y="200" id="1:2068">
+      <Rectangle width="820" height="420" id="1:2069" />
+      <Fill id="1:2070">
+        <SolidColor colorValue="FFC4EAF2" id="1:2071" />
+      </Fill>
+    </Shape>
+    <LinearAnimation name="Ambiente" duration="360" loopValue="loop" id="1:2248">
+      <KeyedObject objectId="1:2076" id="1:2249">
+        <KeyedProperty property="x" id="1:2250">
+          <KeyFrameDouble value="180" frame="0" interpolationType="linear" id="1:2251" />
+          <KeyFrameDouble value="208" frame="180" interpolationType="linear" id="1:2252" />
+          <KeyFrameDouble value="180" frame="360" interpolationType="linear" id="1:2253" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <StateMachine name="Ambiente" id="1:2254">
+      <StateMachineLayer name="Cenário" id="1:2255">
+        <AnyState id="1:2256" />
+        <ExitState id="1:2257" />
+        <EntryState id="1:2258">
+          <StateTransition stateToId="1:2259" id="1:2260" />
+        </EntryState>
+        <AnimationState animationId="1:2248" id="1:2259" />
+      </StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+</Rive>

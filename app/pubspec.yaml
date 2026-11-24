@@ -71,6 +71,8 @@ flutter:
 
   assets:
     - assets/pets/LuminProduction.riv
+    - assets/pets/CatProduction.riv
+    - assets/scenes/LuminScenarios.riv
     - assets/sounds/day-complete.wav
 
   # To add assets to your application, add an assets section, like this:

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -15,6 +16,22 @@ import 'package:lumin_app/features/onboarding/domain/onboarding_draft.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  testWidgets('Cada espécie inclui a prancheta usada pelo AvatarView', (_) async {
+    for (final asset in {'LuminProduction': 'GoldenRoot', 'CatProduction': 'CatArtboard'}.entries) {
+      final bytes = await rootBundle.load('assets/pets/${asset.key}.riv');
+      expect(String.fromCharCodes(bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes)), contains(asset.value));
+    }
+  });
+
+  test('Datas e frequências independentes sobrevivem à reabertura', () {
+    final draft = OnboardingDraft.initial().copyWith(
+      lastDoses: {'deworm':'2026-11-20', 'medication':'2026-11-21'},
+      doseIntervals: {'deworm':30, 'medication':2},
+    );
+    final saved = OnboardingDraft.fromJson(draft.toJson());
+    expect(saved.dueFor(ForgettableCareType.deworm,DateTime(2026,11,22)), DateTime(2026,12,20));
+    expect(saved.dueFor(ForgettableCareType.medication,DateTime(2026,11,22)), DateTime(2026,11,23));
+  });
   testWidgets('Calendário prevê cuidados coincidentes no mês seguinte', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
@@ -229,6 +246,10 @@ void main() {
     expect(find.byType(TimePickerDialog), findsOneWidget);
     Navigator.of(tester.element(find.byType(TimePickerDialog))).pop();
     await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Personalizar passeios'));
+    await tester.tap(find.text('Personalizar passeios'));
+    await tester.pumpAndSettle();
+    expect(find.text('Adicionar passeio'), findsOneWidget);
     await tester.tap(find.text('Continuar'));
     await tester.pumpAndSettle();
 
@@ -282,7 +303,7 @@ void main() {
     expect(find.text('19:00'), findsOneWidget);
     for (final destination in [
       ('Missões', 'Ranking de ofensivas'),
-      ('Loja', 'Loja de cenários'),
+      ('Loja', 'Cenários'),
       ('Rotina', 'Horários dos passeios'),
       ('Prontuário', 'Histórico de saúde'),
       ('Ração', 'Estoque de ração'),
@@ -293,10 +314,31 @@ void main() {
       await tester.pumpAndSettle();
       if (destination.$1 == 'Rotina') {
         expect(find.byTooltip('Mês anterior'), findsOneWidget);
+      }
+      if (destination.$1 == 'Rotina' || destination.$1 == 'Missões') {
         await tester.scrollUntilVisible(find.text(destination.$2), 200,
             scrollable: find.byType(Scrollable).first);
       }
       expect(find.text(destination.$2), findsWidgets);
+      if (destination.$1 == 'Loja') {
+        await tester.tap(find.byTooltip('Próximo cenário'));
+        await tester.pumpAndSettle();
+        expect(find.text('Jardim ao sol'), findsOneWidget);
+        await tester.tap(find.text('Usar'));
+        await tester.pumpAndSettle();
+        expect(find.text('Em uso'), findsOneWidget);
+      }
+      if (destination.$1 == 'Estilo') {
+        await tester.scrollUntilVisible(find.text('Labrador Creme'), 180, scrollable: find.byType(Scrollable).first);
+        await tester.tap(find.text('Labrador Creme'));
+        await tester.pumpAndSettle();
+        await tester.scrollUntilVisible(find.text('Salvar alterações'), 180, scrollable: find.byType(Scrollable).first);
+        await tester.tap(find.text('Salvar alterações'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Estilo'));
+        await tester.pumpAndSettle();
+        expect(tester.widget<AvatarView>(find.byType(AvatarView).last).dna.baseColor, '#EAD2A4');
+      }
       await tester.pageBack();
       await tester.pumpAndSettle();
     }

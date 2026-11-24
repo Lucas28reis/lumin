@@ -1,0 +1,6 @@
+name: LuminScenarios
+output:
+  dir: ../app/assets/scenes
+push:
+  projectId: 2060050
+  fileId: 2748545

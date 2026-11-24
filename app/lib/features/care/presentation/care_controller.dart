@@ -143,6 +143,7 @@ class CareController extends Notifier<CareHomeState> {
   final _previousDates = <String, String>{};
   Map<String, PeriodicCare?> get periodic => Map.unmodifiable(_periodic);
   final Map<String, dynamic> _history = {};
+  final _bonusDates = <String, String>{};
   final Set<String> _completeDays = {};
   DateTime petNow() {
     final now = ref.read(clockProvider).now();
@@ -176,13 +177,10 @@ class CareController extends Notifier<CareHomeState> {
     final now = petNow();
     for (final entry in draft.forgettableCare.entries) {
       if (!PeriodicCare.labels.containsKey(entry.key.code)) continue;
-      final date = entry.value == LastDoneRecency.thisMonth
-          ? DateTime(now.year, now.month, now.day + entry.key.intervalDays)
-          : now;
       _periodic[entry.key.code] = PeriodicCare(
-        _date(date),
+        _date(draft.dueFor(entry.key, now)),
         '',
-        entry.key.intervalDays,
+        draft.intervalFor(entry.key),
       );
     }
     _localFleaDue = null;
@@ -202,6 +200,7 @@ class CareController extends Notifier<CareHomeState> {
     _key = 'lumin.care.v1.${onboarding.petId ?? 'draft'}';
     _remoteReady = false;
     _day = _date(petNow());
+    _bonusDates.clear();
     _completeDays.clear();
     _history.clear();
     final raw = ref.read(sharedPreferencesProvider).getString(_key);
@@ -213,6 +212,7 @@ class CareController extends Notifier<CareHomeState> {
               ? null
               : PeriodicCare.fromJson(e.value);
         }
+        _bonusDates.addAll(Map<String, String>.from(j['bonus_dates'] ?? {}));
         _previousDates.addAll(
           Map<String, String>.from(j['previous_dates'] ?? {}),
         );
@@ -261,6 +261,63 @@ class CareController extends Notifier<CareHomeState> {
     return initial;
   }
 
+  static const dailyXp = 20;
+
+  DateTime? nextBonusDate(String mission, int interval) {
+    final last = DateTime.tryParse(_bonusDates[mission] ?? '');
+    return last == null
+        ? null
+        : DateTime(last.year, last.month, last.day + interval);
+  }
+
+  Future<void> completeBonus(String mission, int interval) async {
+    if (_busy) return;
+    final today = _date(petNow());
+    final due = nextBonusDate(mission, interval);
+    if (due != null && _date(due).compareTo(today) > 0) return;
+    _busy = true;
+    final previous = _bonusDates[mission];
+    try {
+      _bonusDates[mission] = today;
+      await _persist(state);
+      if (ref.mounted) state = state.copyWith();
+    } catch (_) {
+      if (previous == null) {
+        _bonusDates.remove(mission);
+      } else {
+        _bonusDates[mission] = previous;
+      }
+      rethrow;
+    } finally {
+      _busy = false;
+    }
+  }
+
+  int get missionXp {
+    final past = _history.entries
+        .where((entry) => entry.key != _day && entry.value['all_done'] == true)
+        .length;
+    final today = state.slots.isNotEmpty && state.slots.every((s) => s.isDone);
+    return (past + (today ? 1 : 0)) * dailyXp;
+  }
+
+  String? registrationTime(CareSlotItem slot) {
+    final at = slot.doneAt;
+    if (!slot.isDone || at == null) return null;
+    final now = petNow();
+    final local = now is tz.TZDateTime
+        ? tz.TZDateTime.from(at, now.location)
+        : at.toLocal();
+    final clock =
+        '${local.hour.toString().padLeft(2, '0')}:${local.minute.toString().padLeft(2, '0')}';
+    if (slot.scheduledHour == null) return 'Registrado às $clock';
+    final difference = local.hour * 60 + local.minute - slot.sortMinutes;
+    final timing = difference == 0
+        ? 'no horário'
+        : '${difference.abs()} min ${difference > 0 ? "depois" : "antes"}';
+    return 'Registrado às $clock · $timing';
+  }
+
   int _localStreak() {
     var day = DateTime.parse(_day);
     if (!_completeDays.contains(_date(day))) {
@@ -278,6 +335,7 @@ class CareController extends Notifier<CareHomeState> {
     final food = slots.where((s) => s.kind == CareSlotKind.dailyFeed);
     final walks = slots.where((s) => s.kind == CareSlotKind.dailyWalk);
     return {
+      'all_done': slots.isNotEmpty && slots.every((s) => s.isDone),
       'periodic': {
         for (final s in slots.where((s) => s.kind == CareSlotKind.interval))
           if (PeriodicCare.labels.containsKey(
@@ -369,6 +427,7 @@ class CareController extends Notifier<CareHomeState> {
           _key,
           jsonEncode({
             'day': _day,
+            'bonus_dates': _bonusDates,
             'days': _completeDays.toList(),
             'history': {..._history, _day: _summary(next.slots)},
             'periodic': _periodic.map((k, v) => MapEntry(k, v?.toJson())),

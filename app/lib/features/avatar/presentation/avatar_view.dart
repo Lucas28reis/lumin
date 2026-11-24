@@ -6,7 +6,7 @@ import '../../../core/theme/app_theme.dart';
 import '../domain/avatar_dna.dart';
 import '../domain/avatar_mood.dart';
 
-/// Avatar Vetorial Rive (`assets/pets/LuminProduction.riv`) com DataBind do ViewModel.
+/// Avatar Rive da espécie selecionada com personalização via ViewModel.
 ///
 /// Sincroniza em tempo real as propriedades de `AvatarDna` (`baseColor`,
 /// `patternColor`, `secondaryColor`, `accessoryColor`, `pattern`, `ears`,
@@ -38,7 +38,7 @@ class AvatarView extends StatefulWidget {
 }
 
 class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
-  static rive.File? _cachedRiveFile;
+  static final _files = <PetSpecies, rive.File>{};
 
   late final AnimationController _actionController;
   late final AnimationController _breathController;
@@ -48,7 +48,6 @@ class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
   bool _isBeingPetted = false;
   int _barkCount = 0;
 
-  rive.File? _riveFile;
   rive.RiveWidgetController? _riveController;
   rive.ViewModelInstance? _riveViewModel;
 
@@ -64,13 +63,7 @@ class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 2000),
     )..addListener(_stepPointerSmoothing);
 
-    final cached = _cachedRiveFile;
-    if (cached != null) {
-      _riveFile = cached;
-      _bindRiveArtboardForSpecies(cached, notify: false);
-    } else {
-      _tryLoadCompiledRiv();
-    }
+    _loadSpecies();
   }
 
   @override
@@ -82,8 +75,8 @@ class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(covariant AvatarView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.dna.species != widget.dna.species && _riveFile != null) {
-      _bindRiveArtboardForSpecies(_riveFile!);
+    if (oldWidget.dna.species != widget.dna.species) {
+      _loadSpecies();
     } else if (oldWidget.dna != widget.dna || oldWidget.mood != widget.mood) {
       _syncRiveViewModel();
     }
@@ -126,24 +119,34 @@ class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
     });
   }
 
-  Future<void> _tryLoadCompiledRiv() async {
+  Future<void> _loadSpecies() async {
+    final species = widget.dna.species;
+    final cached = _files[species];
+    if (cached != null) {
+      _bindRiveArtboardForSpecies(cached, notify: false);
+      return;
+    }
+    _riveViewModel?.dispose();
+    _riveViewModel = null;
+    _riveController?.dispose();
+    _riveController = null;
+    final asset = species == PetSpecies.cat
+        ? 'assets/pets/CatProduction.riv'
+        : 'assets/pets/LuminProduction.riv';
     try {
-      final data = await rootBundle.load('assets/pets/LuminProduction.riv');
+      final data = await rootBundle.load(asset);
       final file = await rive.File.decode(
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
         riveFactory: rive.Factory.rive,
       );
       if (file == null) return;
-      if (!mounted) {
-        file.dispose();
-        return;
+      final shared = _files.putIfAbsent(species, () => file);
+      if (!identical(shared, file)) file.dispose();
+      if (mounted && widget.dna.species == species) {
+        _bindRiveArtboardForSpecies(shared);
       }
-      final cached = _cachedRiveFile;
-      if (cached != null) file.dispose();
-      _riveFile = _cachedRiveFile = cached ?? file;
-      _bindRiveArtboardForSpecies(_riveFile!);
     } catch (error) {
-      debugPrint('Falha ao carregar o avatar LuminProduction: $error');
+      debugPrint('Falha ao carregar $asset: $error');
     }
   }
 
@@ -162,8 +165,9 @@ class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
     rive.ViewModelInstance? vmi;
     try {
       vmi = controller.dataBind(rive.DataBind.auto());
-    } catch (_) {
-      // O arquivo .riv pode usar as cores salvas direto no Artboard sem DataBind
+      controller.artboard.bindViewModelInstance(vmi);
+    } catch (error) {
+      debugPrint('Falha ao vincular as cores de ${controller.artboard.name}: $error');
     }
 
     if (!mounted) return;
@@ -218,6 +222,11 @@ class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
         ? 0.0
         : 1.0;
 
+    if (dna.species == PetSpecies.dog) {
+      _applyPaletteFrame('Pelagem', AvatarDna.basePalette.indexWhere((item) => item.hex == dna.baseColor));
+      _applyPaletteFrame('Detalhes', AvatarDna.patternPalette.indexWhere((item) => item.hex == dna.patternColor));
+    }
+
     // Focinho (Curto / Clássico / Bigodudo)
     final (snoutSX, snoutSY, dogWhiskers, catWhiskers) = switch (dna.snout) {
       SnoutStyle.short => (0.86, 0.92, 0.0, 0.35),
@@ -266,6 +275,17 @@ class _AvatarViewState extends State<AvatarView> with TickerProviderStateMixin {
     vmi.number('eyeScaleX')?.value = eyeSX;
     vmi.number('eyeScaleY')?.value = eyeSY;
     vmi.number('pupilOpacity')?.value = pupilOp;
+  }
+
+  // Each one-second frame sets the fills of one palette on the animated rig.
+  void _applyPaletteFrame(String track, int index) {
+    if (index < 0) return;
+    final animation = _riveController?.artboard.animationNamed(track);
+    if (animation == null) return;
+    animation.time = index + 0.5;
+    animation.apply();
+    animation.dispose();
+    _riveController!.scheduleRepaint();
   }
 
   void _triggerBarkOrMeow() {

@@ -1029,6 +1029,10 @@
                             <Fill fillRule="clockwise" id="28:21123">
                                 <SolidColor colorValue="FFF2BC62" id="28:21124"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:6"/></SolidColor>
                             </Fill>
+                            <Stroke thickness="3" join="round" id="37:19988">
+                                <SolidColor colorValue="FF0D0D0D" id="37:19989"/>
+                                <TrimPath start="0.37" offset="-0.20999999" modeValue="sequential" id="37:19990"/>
+                            </Stroke>
                         </Shape>
                     </Node>
                 </Node>
@@ -1069,6 +1073,9 @@
                         <Fill fillRule="clockwise" id="28:20837">
                             <SolidColor colorValue="FFF2BC62" id="28:20838"><DataBindContext sourcePathIds="1:14-8:1" propertyKey="37" id="101:8"/></SolidColor>
                         </Fill>
+                        <Stroke thickness="3" join="round" id="37:19991">
+                            <SolidColor colorValue="FF0D0D0D" id="37:19992"/>
+                        </Stroke>
                     </Shape>
                 </Node>
             </RootBone>
@@ -1287,6 +1294,222 @@
         <Fill fillRule="clockwise" id="28:20821">
             <SolidColor colorValue="00282828" id="28:20822"/>
         </Fill>
+        <LinearAnimation name="Pelagem" fps="1" duration="10" id="120:1">
+            <KeyedObject objectId="28:21134" id="120:2">
+                <KeyedProperty property="colorValue" id="120:3">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:4" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:5" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:6" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:7" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:8" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:9" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:10" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:11" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:12" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:13" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21160" id="120:14">
+                <KeyedProperty property="colorValue" id="120:15">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:16" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:17" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:18" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:19" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:20" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:21" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:22" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:23" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:24" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:25" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21065" id="120:26">
+                <KeyedProperty property="colorValue" id="120:27">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:28" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:29" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:30" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:31" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:32" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:33" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:34" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:35" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:36" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:37" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21099" id="120:38">
+                <KeyedProperty property="colorValue" id="120:39">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:40" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:41" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:42" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:43" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:44" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:45" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:46" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:47" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:48" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:49" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21124" id="120:50">
+                <KeyedProperty property="colorValue" id="120:51">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:52" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:53" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:54" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:55" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:56" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:57" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:58" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:59" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:60" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:61" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:20838" id="120:62">
+                <KeyedProperty property="colorValue" id="120:63">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:64" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:65" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:66" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:67" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:68" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:69" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:70" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:71" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:72" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:73" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:20935" id="120:74">
+                <KeyedProperty property="colorValue" id="120:75">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:76" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:77" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:78" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:79" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:80" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:81" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:82" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:83" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:84" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:85" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:20906" id="120:86">
+                <KeyedProperty property="colorValue" id="120:87">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:88" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:89" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:90" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:91" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:92" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:93" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:94" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:95" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:96" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:97" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:20862" id="120:98">
+                <KeyedProperty property="colorValue" id="120:99">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:100" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:101" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:102" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:103" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:104" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:105" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:106" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:107" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:108" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:109" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:20988" id="120:110">
+                <KeyedProperty property="colorValue" id="120:111">
+                    <KeyFrameColor value="FFF2BC62" frame="0" interpolationType="hold" id="120:112" />
+                    <KeyFrameColor value="FFEAD2A4" frame="1" interpolationType="hold" id="120:113" />
+                    <KeyFrameColor value="FFF4A258" frame="2" interpolationType="hold" id="120:114" />
+                    <KeyFrameColor value="FFFBB49A" frame="3" interpolationType="hold" id="120:115" />
+                    <KeyFrameColor value="FFD48C46" frame="4" interpolationType="hold" id="120:116" />
+                    <KeyFrameColor value="FF5C4033" frame="5" interpolationType="hold" id="120:117" />
+                    <KeyFrameColor value="FF2C2C2E" frame="6" interpolationType="hold" id="120:118" />
+                    <KeyFrameColor value="FFF4EDE4" frame="7" interpolationType="hold" id="120:119" />
+                    <KeyFrameColor value="FF9E9E9E" frame="8" interpolationType="hold" id="120:120" />
+                    <KeyFrameColor value="FFE07A5F" frame="9" interpolationType="hold" id="120:121" />
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+        <LinearAnimation name="Detalhes" fps="1" duration="8" id="120:122">
+            <KeyedObject objectId="32:20132" id="120:123">
+                <KeyedProperty property="colorValue" id="120:124">
+                    <KeyFrameColor value="FFD59D4D" frame="0" interpolationType="hold" id="120:125" />
+                    <KeyFrameColor value="FFBC8036" frame="1" interpolationType="hold" id="120:126" />
+                    <KeyFrameColor value="FFC56B27" frame="2" interpolationType="hold" id="120:127" />
+                    <KeyFrameColor value="FFCE7A6E" frame="3" interpolationType="hold" id="120:128" />
+                    <KeyFrameColor value="FFFFFFFF" frame="4" interpolationType="hold" id="120:129" />
+                    <KeyFrameColor value="FF3D2B1F" frame="5" interpolationType="hold" id="120:130" />
+                    <KeyFrameColor value="FFF2CC8F" frame="6" interpolationType="hold" id="120:131" />
+                    <KeyFrameColor value="FF7A7A7A" frame="7" interpolationType="hold" id="120:132" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21055" id="120:133">
+                <KeyedProperty property="colorValue" id="120:134">
+                    <KeyFrameColor value="FFD59D4D" frame="0" interpolationType="hold" id="120:135" />
+                    <KeyFrameColor value="FFBC8036" frame="1" interpolationType="hold" id="120:136" />
+                    <KeyFrameColor value="FFC56B27" frame="2" interpolationType="hold" id="120:137" />
+                    <KeyFrameColor value="FFCE7A6E" frame="3" interpolationType="hold" id="120:138" />
+                    <KeyFrameColor value="FFFFFFFF" frame="4" interpolationType="hold" id="120:139" />
+                    <KeyFrameColor value="FF3D2B1F" frame="5" interpolationType="hold" id="120:140" />
+                    <KeyFrameColor value="FFF2CC8F" frame="6" interpolationType="hold" id="120:141" />
+                    <KeyFrameColor value="FF7A7A7A" frame="7" interpolationType="hold" id="120:142" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21250" id="120:143">
+                <KeyedProperty property="colorValue" id="120:144">
+                    <KeyFrameColor value="FFD59D4D" frame="0" interpolationType="hold" id="120:145" />
+                    <KeyFrameColor value="FFBC8036" frame="1" interpolationType="hold" id="120:146" />
+                    <KeyFrameColor value="FFC56B27" frame="2" interpolationType="hold" id="120:147" />
+                    <KeyFrameColor value="FFCE7A6E" frame="3" interpolationType="hold" id="120:148" />
+                    <KeyFrameColor value="FFFFFFFF" frame="4" interpolationType="hold" id="120:149" />
+                    <KeyFrameColor value="FF3D2B1F" frame="5" interpolationType="hold" id="120:150" />
+                    <KeyFrameColor value="FFF2CC8F" frame="6" interpolationType="hold" id="120:151" />
+                    <KeyFrameColor value="FF7A7A7A" frame="7" interpolationType="hold" id="120:152" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21229" id="120:153">
+                <KeyedProperty property="colorValue" id="120:154">
+                    <KeyFrameColor value="FFD59D4D" frame="0" interpolationType="hold" id="120:155" />
+                    <KeyFrameColor value="FFBC8036" frame="1" interpolationType="hold" id="120:156" />
+                    <KeyFrameColor value="FFC56B27" frame="2" interpolationType="hold" id="120:157" />
+                    <KeyFrameColor value="FFCE7A6E" frame="3" interpolationType="hold" id="120:158" />
+                    <KeyFrameColor value="FFFFFFFF" frame="4" interpolationType="hold" id="120:159" />
+                    <KeyFrameColor value="FF3D2B1F" frame="5" interpolationType="hold" id="120:160" />
+                    <KeyFrameColor value="FFF2CC8F" frame="6" interpolationType="hold" id="120:161" />
+                    <KeyFrameColor value="FF7A7A7A" frame="7" interpolationType="hold" id="120:162" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21244" id="120:163">
+                <KeyedProperty property="colorValue" id="120:164">
+                    <KeyFrameColor value="FFD59D4D" frame="0" interpolationType="hold" id="120:165" />
+                    <KeyFrameColor value="FFBC8036" frame="1" interpolationType="hold" id="120:166" />
+                    <KeyFrameColor value="FFC56B27" frame="2" interpolationType="hold" id="120:167" />
+                    <KeyFrameColor value="FFCE7A6E" frame="3" interpolationType="hold" id="120:168" />
+                    <KeyFrameColor value="FFFFFFFF" frame="4" interpolationType="hold" id="120:169" />
+                    <KeyFrameColor value="FF3D2B1F" frame="5" interpolationType="hold" id="120:170" />
+                    <KeyFrameColor value="FFF2CC8F" frame="6" interpolationType="hold" id="120:171" />
+                    <KeyFrameColor value="FF7A7A7A" frame="7" interpolationType="hold" id="120:172" />
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="28:21246" id="120:173">
+                <KeyedProperty property="colorValue" id="120:174">
+                    <KeyFrameColor value="FFD59D4D" frame="0" interpolationType="hold" id="120:175" />
+                    <KeyFrameColor value="FFBC8036" frame="1" interpolationType="hold" id="120:176" />
+                    <KeyFrameColor value="FFC56B27" frame="2" interpolationType="hold" id="120:177" />
+                    <KeyFrameColor value="FFCE7A6E" frame="3" interpolationType="hold" id="120:178" />
+                    <KeyFrameColor value="FFFFFFFF" frame="4" interpolationType="hold" id="120:179" />
+                    <KeyFrameColor value="FF3D2B1F" frame="5" interpolationType="hold" id="120:180" />
+                    <KeyFrameColor value="FFF2CC8F" frame="6" interpolationType="hold" id="120:181" />
+                    <KeyFrameColor value="FF7A7A7A" frame="7" interpolationType="hold" id="120:182" />
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
         <LinearAnimation name="Jump" id="32:20550">
             <KeyedObject objectId="32:20808" id="32:20809">
                 <KeyedProperty property="x" id="32:20810">

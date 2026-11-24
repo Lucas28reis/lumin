@@ -304,8 +304,8 @@ class _HomePageState extends ConsumerState<HomePage>
                         const SizedBox(height: 10),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(26),
-                          child: CustomPaint(
-                            painter: ScenePainter(scene),
+                          child: SceneBackdrop(
+                            scene,
                             child: Column(
                               children: [
                                 const SizedBox(height: 12),
@@ -435,7 +435,9 @@ class _HomePageState extends ConsumerState<HomePage>
                           FilledButton.icon(
                             onPressed: () => _shareStreakMilestone(state),
                             icon: const Icon(Icons.celebration),
-                            label: const Text('Dia completo! Compartilhar'),
+                            label: const Text(
+                              'Dia completo! +20 XP · Compartilhar',
+                            ),
                           ),
                         const SizedBox(height: 12),
                         Text(
@@ -558,16 +560,17 @@ class _HomePageState extends ConsumerState<HomePage>
         }
       }
       ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('${slot.emoji} ${slot.timeLabel} registrado!'),
-          duration: const Duration(seconds: 5),
-          action: SnackBarAction(
-            label: 'Desfazer',
-            onPressed: () => controller.undoLastCare(logId),
+      if (ref.read(careControllerProvider).slots.any((s) => !s.isDone))
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${slot.emoji} ${slot.timeLabel} registrado!'),
+            duration: const Duration(seconds: 5),
+            action: SnackBarAction(
+              label: 'Desfazer',
+              onPressed: () => controller.undoLastCare(logId),
+            ),
           ),
-        ),
-      );
+        );
     }
 
     if (result.shouldPromptAccountLink && context.mounted) {
@@ -714,9 +717,10 @@ class _MissionsPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Missões de hoje',
+                  'Missões de hoje · ${ref.read(careControllerProvider.notifier).missionXp} XP',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
+                const Text('Complete a rotina do dia para ganhar 20 XP.'),
                 for (final slot in care.slots)
                   ListTile(
                     leading: Icon(
@@ -726,7 +730,92 @@ class _MissionsPage extends ConsumerWidget {
                       color: lagoon,
                     ),
                     title: Text(slot.title),
+                    subtitle: slot.isDone
+                        ? Text(
+                            ref
+                                    .read(careControllerProvider.notifier)
+                                    .registrationTime(slot) ??
+                                'Registrado',
+                          )
+                        : null,
                     trailing: Text(slot.timeLabel),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          GlassPanel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Missões opcionais',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                for (final mission in [
+                  if (care.slots.any((s) => s.kind == CareSlotKind.dailyWalk))
+                    (
+                      'long_walk',
+                      'Dar um passeio mais longo',
+                      1,
+                      Icons.directions_walk,
+                    ),
+                  ('sachet', 'Oferecer um sachê', 20, Icons.restaurant),
+                ])
+                  Builder(
+                    builder: (context) {
+                      final controller = ref.read(
+                        careControllerProvider.notifier,
+                      );
+                      final due = controller.nextBonusDate(
+                        mission.$1,
+                        mission.$3,
+                      );
+                      final now = controller.petNow();
+                      final available =
+                          due == null ||
+                          !due.isAfter(DateTime(now.year, now.month, now.day));
+                      return ListTile(
+                        leading: Icon(mission.$4),
+                        title: Text(mission.$2),
+                        subtitle: Text(
+                          available
+                              ? (mission.$3 == 1 ? 'Hoje' : 'A cada 20 dias')
+                              : 'Disponível em ${due.day}/${due.month}/${due.year}',
+                        ),
+                        trailing: IconButton(
+                          tooltip: available
+                              ? 'Concluir missão'
+                              : 'Missão registrada',
+                          icon: Icon(
+                            available
+                                ? Icons.radio_button_unchecked
+                                : Icons.check_circle,
+                          ),
+                          onPressed: available
+                              ? () async {
+                                  try {
+                                    await controller.completeBonus(
+                                      mission.$1,
+                                      mission.$3,
+                                    );
+                                  } catch (_) {
+                                    if (context.mounted)
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Não foi possível salvar a missão.',
+                                          ),
+                                        ),
+                                      );
+                                  }
+                                }
+                              : null,
+                        ),
+                      );
+                    },
                   ),
               ],
             ),

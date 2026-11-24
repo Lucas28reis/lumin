@@ -35,7 +35,8 @@ enum FeedPreset {
 enum WalkPreset {
   none('none', 'Não passeia', []),
   once('once', '1x (18h)', ['18:00']),
-  twice('twice', '2x (07h30 e 18h30)', ['07:30', '18:30']);
+  twice('twice', '2x (07h30 e 18h30)', ['07:30', '18:30']),
+  custom('custom', 'Personalizar passeios', []);
 
   const WalkPreset(this.code, this.label, this.defaultTimes);
   final String code;
@@ -102,6 +103,8 @@ class OnboardingDraft {
     required this.forgettableCare,
     this.fleaLastDate,
     this.fleaIntervalDays = 30,
+    this.lastDoses = const {},
+    this.doseIntervals = const {},
     required this.tutorDisplayName,
     required this.timezone,
   });
@@ -126,6 +129,26 @@ class OnboardingDraft {
   final Map<ForgettableCareType, LastDoneRecency> forgettableCare;
   final DateTime? fleaLastDate;
   final int fleaIntervalDays;
+  final Map<String, String> lastDoses;
+  final Map<String, int> doseIntervals;
+  DateTime? lastDose(ForgettableCareType type) =>
+      type == ForgettableCareType.fleaTick
+      ? fleaLastDate
+      : DateTime.tryParse(lastDoses[type.code] ?? '');
+  int intervalFor(ForgettableCareType type) =>
+      type == ForgettableCareType.fleaTick
+      ? fleaIntervalDays
+      : doseIntervals[type.code] ?? type.intervalDays;
+  DateTime dueFor(ForgettableCareType type, DateTime today) {
+    if (type == ForgettableCareType.fleaTick) return fleaDue(today);
+    final last = lastDose(type);
+    if (last != null)
+      return DateTime(last.year, last.month, last.day + intervalFor(type));
+    final days = forgettableCare[type] == LastDoneRecency.thisMonth
+        ? intervalFor(type)
+        : 0;
+    return DateTime(today.year, today.month, today.day + days);
+  }
 
   DateTime fleaDue(DateTime today) {
     final last = fleaLastDate;
@@ -173,6 +196,8 @@ class OnboardingDraft {
     DateTime? fleaLastDate,
     bool clearFleaDate = false,
     int? fleaIntervalDays,
+    Map<String, String>? lastDoses,
+    Map<String, int>? doseIntervals,
     String? tutorDisplayName,
     String? timezone,
   }) {
@@ -189,6 +214,8 @@ class OnboardingDraft {
       forgettableCare: forgettableCare ?? this.forgettableCare,
       fleaLastDate: clearFleaDate ? null : fleaLastDate ?? this.fleaLastDate,
       fleaIntervalDays: fleaIntervalDays ?? this.fleaIntervalDays,
+      lastDoses: lastDoses ?? this.lastDoses,
+      doseIntervals: doseIntervals ?? this.doseIntervals,
       tutorDisplayName: tutorDisplayName ?? this.tutorDisplayName,
       timezone: timezone ?? this.timezone,
     );
@@ -214,12 +241,7 @@ class OnboardingDraft {
 
     for (final entry in forgettableCare.entries) {
       final type = entry.key;
-      final recency = entry.value;
-      final nextDue = type == ForgettableCareType.fleaTick
-          ? fleaDue(now)
-          : recency == LastDoneRecency.thisMonth
-          ? now.add(Duration(days: type.intervalDays))
-          : now;
+      final nextDue = dueFor(type, now);
       final nextDueIso =
           '${nextDue.year.toString().padLeft(4, '0')}-${nextDue.month.toString().padLeft(2, '0')}-${nextDue.day.toString().padLeft(2, '0')}';
 
@@ -227,9 +249,7 @@ class OnboardingDraft {
         'type': type.code,
         'label': type.label,
         'kind': 'interval',
-        'interval_days': type == ForgettableCareType.fleaTick
-            ? fleaIntervalDays
-            : type.intervalDays,
+        'interval_days': intervalFor(type),
         'next_due_date': nextDueIso,
       });
     }
@@ -258,6 +278,8 @@ class OnboardingDraft {
     'custom_feed_times': customFeedTimes,
     'flea_last_date': fleaLastDate?.toIso8601String(),
     'flea_interval_days': fleaIntervalDays,
+    'last_doses': lastDoses,
+    'dose_intervals': doseIntervals,
     'walk_preset': walkPreset.code,
     'custom_walk_times': customWalkTimes,
     'forgettable_care': {
@@ -286,6 +308,8 @@ class OnboardingDraft {
               .toList() ??
           const ['08:00', '19:00'],
       fleaLastDate: DateTime.tryParse(json['flea_last_date'] as String? ?? ''),
+      lastDoses: Map<String, String>.from(json['last_doses'] ?? {}),
+      doseIntervals: Map<String, int>.from(json['dose_intervals'] ?? {}),
       fleaIntervalDays: json['flea_interval_days'] as int? ?? 30,
       customWalkTimes: (json['custom_walk_times'] as List?)?.cast<String>(),
       walkPreset: WalkPreset.fromCode(json['walk_preset'] as String?),

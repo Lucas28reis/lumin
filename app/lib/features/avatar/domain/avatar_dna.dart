@@ -108,7 +108,7 @@ class AvatarDna {
 
   static const List<({String hex, String label})> basePalette = [
     (hex: '#F2BC62', label: 'Golden'),
-    (hex: '#F2BC62', label: 'Labrador Creme'),
+    (hex: '#EAD2A4', label: 'Labrador Creme'),
     (hex: '#F4A258', label: 'Laranja Tigrado'),
     (hex: '#FBB49A', label: 'Pêssego'),
     (hex: '#D48C46', label: 'Caramelo'),
@@ -121,7 +121,7 @@ class AvatarDna {
 
   static const List<({String hex, String label})> patternPalette = [
     (hex: '#D59D4D', label: 'Mel'),
-    (hex: '#D59D4D', label: 'Dourado Mel'),
+    (hex: '#BC8036', label: 'Dourado Mel'),
     (hex: '#C56B27', label: 'Rajado Âmbar'),
     (hex: '#CE7A6E', label: 'Terracota'),
     (hex: '#FFFFFF', label: 'Branco'),

@@ -142,6 +142,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       state: state,
                       onFeedPresetSelected: controller.selectFeedPreset,
                       onFeedTimesChanged: controller.setFeedTimes,
+                      onWalkTimesChanged: controller.setWalkTimes,
                       onWalkPresetSelected: controller.selectWalkPreset,
                       onNext: controller.submitStep3Routine,
                     ),
@@ -150,9 +151,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                     child: _Step4ForgettableCareView(
                       state: state,
                       onToggleCare: controller.toggleForgettableCare,
-                      onRecencyChanged: controller.setForgettableCareRecency,
-                      onFleaDate: controller.setFleaDate,
-                      onFleaInterval: controller.setFleaInterval,
+                      onCareDate: controller.setCareDate,
+                      onCareInterval: controller.setCareInterval,
                       onNext: () =>
                           controller.submitStep4ForgettableCare(skipped: false),
                       onSkip: () =>
@@ -555,6 +555,7 @@ class _Step3DailyRoutineView extends StatelessWidget {
     required this.state,
     required this.onFeedPresetSelected,
     required this.onFeedTimesChanged,
+    required this.onWalkTimesChanged,
     required this.onWalkPresetSelected,
     required this.onNext,
   });
@@ -562,6 +563,7 @@ class _Step3DailyRoutineView extends StatelessWidget {
   final OnboardingState state;
   final ValueChanged<List<String>> onFeedTimesChanged;
   final ValueChanged<FeedPreset> onFeedPresetSelected;
+  final ValueChanged<List<String>> onWalkTimesChanged;
   final ValueChanged<WalkPreset> onWalkPresetSelected;
   final VoidCallback onNext;
 
@@ -702,6 +704,12 @@ class _Step3DailyRoutineView extends StatelessWidget {
                             );
                           }).toList(),
                         ),
+                        if (draft.walkPreset == WalkPreset.custom)
+                          RoutineTimeEditor(
+                            walk: true,
+                            times: draft.activeWalkTimes,
+                            onChanged: onWalkTimesChanged,
+                          ),
                       ],
                     ),
                   ),
@@ -731,33 +739,23 @@ class _Step3DailyRoutineView extends StatelessWidget {
                           spacing: 8,
                           runSpacing: 8,
                           children: timeline.map((item) {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
+                            final walk = item.label == 'Passeio';
+                            final times = walk
+                                ? draft.activeWalkTimes
+                                : draft.activeFeedTimes;
+                            return ActionChip(
+                              avatar: const Icon(Icons.edit_outlined, size: 15),
+                              label: Text(
+                                '${item.emoji} ${item.time} • ${item.label}',
                               ),
-                              decoration: BoxDecoration(
-                                color: AppColors.primary,
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    item.emoji,
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    '${item.time} • ${item.label}',
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w800,
-                                      color: AppColors.textPrimary,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              tooltip: 'Alterar horário e ordem',
+                              onPressed: () => RoutineTimeEditor(
+                                walk: walk,
+                                times: times,
+                                onChanged: walk
+                                    ? onWalkTimesChanged
+                                    : onFeedTimesChanged,
+                              ).pick(context, times.indexOf(item.time)),
                             );
                           }).toList(),
                         ),
@@ -786,18 +784,16 @@ class _Step4ForgettableCareView extends StatefulWidget {
   const _Step4ForgettableCareView({
     required this.state,
     required this.onToggleCare,
-    required this.onRecencyChanged,
-    required this.onFleaDate,
-    required this.onFleaInterval,
+    required this.onCareDate,
+    required this.onCareInterval,
     required this.onNext,
     required this.onSkip,
   });
 
   final OnboardingState state;
   final ValueChanged<ForgettableCareType> onToggleCare;
-  final ValueChanged<DateTime?> onFleaDate;
-  final ValueChanged<int> onFleaInterval;
-  final void Function(ForgettableCareType, LastDoneRecency) onRecencyChanged;
+  final void Function(ForgettableCareType, DateTime?) onCareDate;
+  final void Function(ForgettableCareType, int) onCareInterval;
   final VoidCallback onNext;
   final VoidCallback onSkip;
 
@@ -834,9 +830,11 @@ class _Step4CareState extends State<_Step4ForgettableCareView> {
               child: ListView(
                 children: ForgettableCareType.values.map((type) {
                   final selected = careMap.containsKey(type);
-                  final currentRecency = careMap[type];
+                  final draft = widget.state.draft;
+                  final last = draft.lastDose(type);
 
                   return Container(
+                    key: ValueKey(type),
                     margin: const EdgeInsets.only(bottom: 12),
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
@@ -878,93 +876,68 @@ class _Step4CareState extends State<_Step4ForgettableCareView> {
                         ),
                         if (selected) ...[
                           const Divider(height: 16),
-                          if (type == ForgettableCareType.fleaTick) ...[
-                            OutlinedButton.icon(
-                              icon: const Icon(Icons.calendar_month),
-                              label: Text(
-                                widget.state.draft.fleaLastDate == null
-                                    ? 'Selecionar última aplicação'
-                                    : 'Última aplicação · ${_shortDate(widget.state.draft.fleaLastDate!)}',
-                              ),
-                              onPressed: () async {
-                                final today = DateTime.now();
-                                final date = await showDatePicker(
-                                  context: context,
-                                  firstDate: DateTime(1900),
-                                  lastDate: today,
-                                  initialDate:
-                                      widget.state.draft.fleaLastDate ?? today,
-                                );
-                                if (date != null && context.mounted) {
-                                  widget.onFleaDate(date);
-                                }
-                              },
+                          const SizedBox(height: 4),
+                          OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppColors.textPrimary,
                             ),
-                            if (widget.state.draft.fleaLastDate != null)
-                              TextButton(
-                                onPressed: () => widget.onFleaDate(null),
-                                child: const Text('Não lembro da data'),
-                              ),
-                            TextFormField(
-                              initialValue: widget.state.draft.fleaIntervalDays
-                                  .toString(),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                labelText: 'Repetir a cada (dias)',
-                              ),
-                              validator: (value) {
-                                final days = int.tryParse(value ?? '');
-                                return days == null || days < 1 || days > 365
-                                    ? 'Informe de 1 a 365 dias'
-                                    : null;
-                              },
-                              onChanged: (value) {
-                                final days = int.tryParse(value);
-                                if (days != null) widget.onFleaInterval(days);
-                              },
+                            icon: const Icon(Icons.calendar_month),
+                            label: Text(
+                              last == null
+                                  ? (type == ForgettableCareType.fleaTick
+                                        ? 'Selecionar última aplicação'
+                                        : 'Selecionar última dose')
+                                  : 'Último registro · ${_shortDate(last)}',
                             ),
-                            if (widget.state.draft.fleaLastDate != null)
-                              Text(
-                                'Próxima aplicação · ${_shortDate(widget.state.draft.fleaDue(DateTime.now()))}',
-                              )
-                            else
-                              const Text(
-                                'Sem data anterior, o primeiro lembrete fica para hoje.',
-                              ),
-                          ] else ...[
-                            const Text(
-                              'Quando foi a última vez?',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.textSecondary,
-                              ),
+                            onPressed: () async {
+                              final today = DateTime.now();
+                              final date = await showDatePicker(
+                                context: context,
+                                firstDate: DateTime(1900),
+                                lastDate: today,
+                                initialDate: last ?? today,
+                              );
+                              if (date != null && context.mounted)
+                                widget.onCareDate(type, date);
+                            },
+                          ),
+                          if (last != null)
+                            TextButton(
+                              onPressed: () => widget.onCareDate(type, null),
+                              child: const Text('Não lembro da data'),
                             ),
-                            const SizedBox(height: 8),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: LastDoneRecency.values.map((rec) {
-                                final isRecSelected = currentRecency == rec;
-                                return ChoiceChip(
-                                  label: Text(rec.label),
-                                  selected: isRecSelected,
-                                  selectedColor: AppColors.primary,
-                                  backgroundColor: AppColors.surfaceAlt,
-                                  checkmarkColor: AppColors.textPrimary,
-                                  labelStyle: const TextStyle(
-                                    fontSize: 13,
-                                    color: AppColors.textPrimary,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                  onSelected: (_) =>
-                                      widget.onRecencyChanged(type, rec),
-                                );
-                              }).toList(),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            initialValue: draft.intervalFor(type).toString(),
+                            keyboardType: TextInputType.number,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            decoration: const InputDecoration(
+                              labelText: 'Repetir a cada',
+                              suffixText: 'dias',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                             ),
-                          ],
+                            validator: (value) {
+                              final days = int.tryParse(value ?? '');
+                              return days == null || days < 1 || days > 365
+                                  ? 'Informe de 1 a 365 dias'
+                                  : null;
+                            },
+                            onChanged: (value) {
+                              final days = int.tryParse(value);
+                              if (days != null)
+                                widget.onCareInterval(type, days);
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            last == null &&
+                                    draft.forgettableCare[type] !=
+                                        LastDoneRecency.thisMonth
+                                ? 'Sem data anterior, o primeiro lembrete fica para hoje.'
+                                : 'Próxima aplicação · ${_shortDate(draft.dueFor(type, DateTime.now()))}',
+                          ),
                         ],
                       ],
                     ),
